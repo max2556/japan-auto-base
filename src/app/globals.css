@@ -2,32 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'Sansation';
+  src: url('/assets/fonts/sansation/SansationRegular.eot');
+  src: url('/assets/fonts/sansation/SansationRegular.eot?#iefix')
+      format('embedded-opentype'),
+    url('/assets/fonts/sansation/SansationRegular.woff2') format('woff2'),
+    url('/assets/fonts/sansation/SansationRegular.woff') format('woff'),
+    url('/assets/fonts/sansation/SansationRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@font-face {
+  font-family: 'Sansation';
+  src: url('/assets/fonts/sansation/SansationBold.eot');
+  src: url('/assets/fonts/sansation/SansationBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('/assets/fonts/sansation/SansationBold.woff2') format('woff2'),
+    url('/assets/fonts/sansation/SansationBold.woff') format('woff'),
+    url('/assets/fonts/sansation/SansationBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  h2 {
+    @apply font-bold font-sansation text-brand-dark text-xl leading-[1.375rem];
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  h3 {
+    @apply font-bold font-sansation text-brand-dark text-base;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  h4 {
+    @apply font-bold font-sansation text-brand-dark text-sm;
   }
 }
