@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import SubmitApplicationButton from '../../shared/SubmitApplicationButton';
 
 export default function Hero() {
   return (
@@ -24,8 +25,9 @@ export default function Hero() {
         </ul>
         {/* Line */}
         <div className="flex items-center">
-          <div className="h-[0.1875rem] bg-brand-red rounded-r-full"></div>
-          <div className="h-[0.1875rem] bg-brand-red rounded-l-full"></div>
+          <div className="w-full h-[0.1875rem] bg-brand-red rounded-r-full"></div>
+          <SubmitApplicationButton />
+          <div className="w-full h-[0.1875rem] bg-brand-red rounded-l-full"></div>
         </div>
       </div>
     </section>

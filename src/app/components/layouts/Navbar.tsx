@@ -63,7 +63,7 @@ export default function Navbar() {
           ))}
         </ul>
         {/* Mobile Menu Button */}
-        <button className="w-8 h-8 grid place-content-center md:hidden bg-brand-dark rounded-lg">
+        <button className="w-8 h-8 grid place-content-center md:hidden bg-brand-dark rounded-7">
           <svg
             width="24"
             height="24"

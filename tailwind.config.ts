@@ -29,6 +29,10 @@ const config: Config = {
           },
         },
       },
+      borderRadius: {
+        7: '0.4375rem',
+        10: '0.625rem',
+      },
     },
   },
   plugins: [],
