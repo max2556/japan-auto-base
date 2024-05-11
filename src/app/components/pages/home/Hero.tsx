@@ -10,7 +10,7 @@ export default function Hero() {
         alt="Cars Image"
         width={737}
         height={312}
-        className="mx-auto"
+        className="mx-auto w-[40rem] h-[17rem] shrink-0"
       />
       {/* Texts */}
       <div className="space-y-1.5">
