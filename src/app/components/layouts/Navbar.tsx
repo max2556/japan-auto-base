@@ -11,7 +11,7 @@ const links = [
   },
   {
     name: 'Online аукцион',
-    href: '#online-auction',
+    href: '/online-auction',
   },
   {
     name: 'Каталог',
@@ -19,7 +19,7 @@ const links = [
   },
   {
     name: 'История продаж',
-    href: '#sales-history',
+    href: '/sales-history',
   },
   {
     name: 'Калькулятор',

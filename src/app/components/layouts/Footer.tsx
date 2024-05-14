@@ -21,7 +21,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#online-auction"
+                    href="/online-auction"
                     className="hover:underline underline-offset-2 transition-all duration-200"
                   >
                     Online аукцион
@@ -29,7 +29,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#sales-history"
+                    href="/sales-history"
                     className="hover:underline underline-offset-2 transition-all duration-200"
                   >
                     История продаж
