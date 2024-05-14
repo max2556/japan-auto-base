@@ -7,6 +7,7 @@ import FilterBodyType from './FilterBodyType';
 import FilterMilageYearManifacture from './FilterMilageYearManifacture';
 import FilterEngineCapacity from './FilterEngineCapacity';
 import FilterGrade from './FilterGrade';
+import Button from './Button';
 
 export default function FiltersCotainer() {
   return (
@@ -34,6 +35,9 @@ export default function FiltersCotainer() {
           placeholder="Дата &#10;торогов"
           className="w-full h-12 bg-brand-gray-100 outline-none placeholder:text-brand-dark placeholder:whitespace-pre-line text-sm rounded-5 pb-2 px-4"
         />
+      </div>
+      <div className="col-span-3 grid place-content-center sm:hidden pt-4">
+        <Button blue>Применить</Button>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export default function FilterModel() {
     <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 px-4">
       <h4>Модель</h4>
       <div className="space-y-2">
-        {options.map((option) => (
+        {/* {options.map((option) => (
           <label
             key={option.label}
             htmlFor={option.label}
@@ -46,7 +46,8 @@ export default function FilterModel() {
               {option.label.startsWith('Любой2') ? 'Любой' : option.label}
             </p>
           </label>
-        ))}
+        ))} */}
+        <p className="text-sm leading-4">Сначала выберите марку</p>
       </div>
     </div>
   );
