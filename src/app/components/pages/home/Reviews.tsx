@@ -6,7 +6,7 @@ export default function Reviews() {
   return (
     <section id="online-auction">
       {/* Auction Filters */}
-      <div className="max-w-6xl mx-auto lg:px-7">
+      <div className="max-w-6xl mx-auto lg:px-12">
         <div className="space-y-4 bg-brand-gray lg:rounded-20 px-4 py-8 lg:px-8">
           {/* Texts */}
           <div className="max-w-96 lg:pr-6 space-y-1">
