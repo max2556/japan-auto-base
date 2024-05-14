@@ -15,7 +15,7 @@ const links = [
   },
   {
     name: 'Каталог',
-    href: '#catalog',
+    href: '/catalog',
   },
   {
     name: 'История продаж',
