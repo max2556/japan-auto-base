@@ -1,6 +1,6 @@
 export default function FilterMilageYearManifacture() {
   return (
-    <div className="h-220 space-y-2">
+    <div className="sm:h-220 col-span-2 sm:col-span-1 flex items-center sm:flex-col gap-2">
       {/* Milage */}
       <div className="w-full grid place-content-center gap-2 bg-white rounded-10 p-4">
         <input

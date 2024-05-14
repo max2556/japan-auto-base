@@ -26,7 +26,7 @@ const options = [
 
 export default function FilterEngineCapacity() {
   return (
-    <div className="h-220 space-y-2">
+    <div className="h-140 sm:h-220 space-y-2">
       <div className="no-scroll h-[9.0625rem] space-y-3 bg-white overflow-auto rounded-10 py-3 px-4">
         <h4>Обьем двигателя</h4>
         <div className="space-y-2">
@@ -47,7 +47,7 @@ export default function FilterEngineCapacity() {
           ))}
         </div>
       </div>
-      <div className="w-full grid place-content-center gap-2 bg-white rounded-10 p-4">
+      <div className="w-full hidden sm:grid place-content-center gap-2 bg-white rounded-10 p-4">
         <input
           type="text"
           placeholder="Дата торогов"

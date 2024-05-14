@@ -32,7 +32,7 @@ const options = [
 
 export default function FilterBrand() {
   return (
-    <div className="no-scroll h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 px-4">
+    <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 px-4">
       <h4>Марка</h4>
       <div className="space-y-2">
         {options.map((option) => (
