@@ -1,5 +1,6 @@
 import React from 'react';
 import CarInfo from '../../shared/CarInfo';
+import Button from '../../shared/Button';
 
 export default function Catalog() {
   return (
@@ -18,6 +19,14 @@ export default function Catalog() {
             {Array.from({ length: 6 }).map((_, idx) => (
               <CarInfo key={idx} />
             ))}
+          </div>
+          <div className="flex items-center justify-center">
+            <Button
+              white
+              className="hover:bg-brand-gray-100 hover:text-brand-dark"
+            >
+              Показать больше
+            </Button>
           </div>
         </div>
       </div>
