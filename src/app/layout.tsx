@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from './components/layouts/Navbar';
 import Logo from './components/shared/Logo';
+import FilterContextProvider from './contexts/useFilter';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,11 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <Logo />
-        <main className="bg-brand-gray">{children}</main>
-      </body>
+      <FilterContextProvider>
+        <body className={inter.className}>
+          <Navbar />
+          <Logo />
+          <main className="pb-96">{children}</main>
+        </body>
+      </FilterContextProvider>
     </html>
   );
 }

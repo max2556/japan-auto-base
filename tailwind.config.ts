@@ -30,8 +30,15 @@ const config: Config = {
         },
       },
       borderRadius: {
+        1.5: '0.0938rem',
+        3: '0.1875rem',
+        5: '0.3125rem',
         7: '0.4375rem',
         10: '0.625rem',
+        20: '1.25rem',
+      },
+      spacing: {
+        220: '13.75rem',
       },
     },
   },

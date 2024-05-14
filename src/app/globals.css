@@ -29,6 +29,10 @@
 }
 
 @layer base {
+  body {
+    @apply text-brand-dark;
+  }
+
   h2 {
     @apply font-bold font-sansation text-brand-dark text-xl leading-[1.375rem];
   }
@@ -40,4 +44,18 @@
   h4 {
     @apply font-bold font-sansation text-brand-dark text-sm;
   }
+
+  section {
+    @apply pt-16 lg:pt-20;
+  }
+}
+
+/* Checkbox Styles */
+input[type='checkbox']:checked + div > span {
+  @apply block;
+}
+
+/* Scroll Styles */
+.no-scroll::-webkit-scrollbar {
+  @apply w-2;
 }
