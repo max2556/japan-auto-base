@@ -51,8 +51,9 @@ export default function Delivery() {
               <li className="">Продали более 1000 авто</li>
               <li className="">Самые выгодные сделки</li>
             </ul>
-            <div className="hidden lg:block shrink-0 bg-white rounded-10 pt-4 pb-6">
+            <div className="relative hidden lg:block shrink-0 bg-white rounded-10 pt-4 pb-6">
               <Button red>Оставить заявку</Button>
+              <div className="h-[0.1875rem] w-20 hidden lg:block absolute -right-2 top-[41%] bg-brand-red rounded-l-full"></div>
             </div>
           </div>
         </div>

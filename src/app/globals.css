@@ -45,7 +45,8 @@
     @apply font-bold font-sansation text-brand-dark text-sm;
   }
 
-  section {
+  section,
+  footer {
     @apply pt-16 lg:pt-20;
   }
 }

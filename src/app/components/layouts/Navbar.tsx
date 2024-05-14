@@ -11,15 +11,15 @@ const links = [
   },
   {
     name: 'Online аукцион',
-    href: '/online-auction',
+    href: '#online-auction',
   },
   {
     name: 'Каталог',
-    href: '/catalog',
+    href: '#catalog',
   },
   {
     name: 'История продаж',
-    href: '/sales-history',
+    href: '#sales-history',
   },
   {
     name: 'Калькулятор',
