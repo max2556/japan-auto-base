@@ -103,8 +103,8 @@ export default function Navbar() {
       {/* Reviews & Contacts */}
       <div
         className={`${
-          scrolling ? '-translate-y-[300%]' : ''
-        } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-200 py-3 sm:py-2 `}
+          scrolling ? '-translate-y-[300%] delay-500' : ''
+        } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-500 py-3 sm:py-2 `}
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
           {/* Reviews */}
