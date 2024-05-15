@@ -4,10 +4,10 @@ import Button from '../../shared/Button';
 
 export default function Reviews() {
   return (
-    <section id="online-auction">
+    <section id="reviews" className="bg-white">
       {/* Auction Filters */}
       <div className="max-w-6xl mx-auto lg:px-12">
-        <div className="space-y-4 bg-brand-gray lg:rounded-20 px-4 py-8 lg:px-8">
+        <div className="space-y-4 bg-brand-gray lg:rounded-20 px-4 py-8 sm:px-10 md:px-14 lg:px-8">
           {/* Texts */}
           <div className="max-w-96 lg:pr-6 space-y-1">
             <h2>Отзывы</h2>

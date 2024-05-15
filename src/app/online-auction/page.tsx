@@ -1,5 +1,5 @@
 import CarInfo from '../components/shared/CarInfo';
-import OnlieAuction from '../components/pages/home/OnlieAuction';
+import OnlieAuction from '../components/shared/OnlieAuction';
 
 export default function Page() {
   return (

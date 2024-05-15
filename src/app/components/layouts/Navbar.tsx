@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const links = [
   {
@@ -40,13 +41,32 @@ const links = [
 ];
 
 export default function Navbar() {
+  const [scrolling, setScrolling] = useState<boolean>(false);
   const pathname = usePathname();
 
+  useEffect(function () {
+    function handleScroll() {
+      if (window.scrollY > 100) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="font-sansation bg-white">
+    <header
+      className={`sticky top-0 z-50 font-sansation bg-white ${
+        scrolling ? 'h-16 md:h-10 lg:h-12 shadow' : ''
+      }`}
+    >
       {/* Links */}
-      <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
-        <ul className="w-full h-20 md:h-10 lg:h-12 flex items-center justify-between md:text-xs lg:text-sm text-brand-purple/50 ">
+      <div className="max-w-4xl mx-auto relative flex items-center justify-between px-4 lg:px-6">
+        <ul className="w-full h-16 md:h-10 lg:h-12 flex items-center justify-between md:text-xs lg:text-sm text-brand-purple/50 ">
           {links.map((link) => (
             <li key={link.name}>
               <Link
@@ -81,10 +101,14 @@ export default function Navbar() {
         </button>
       </div>
       {/* Reviews & Contacts */}
-      <div className="bg-brand-dark/90 text-white sm:text-xs lg:text-sm py-3 sm:py-2">
+      <div
+        className={`${
+          scrolling ? '-translate-y-[300%]' : ''
+        } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-200 py-3 sm:py-2 `}
+      >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
           {/* Reviews */}
-          <Link href="/">Отзывы</Link>
+          <Link href="#reviews">Отзывы</Link>
           {/* Contacts */}
           <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-7 font-bold">
             <div className="flex items-center gap-2">

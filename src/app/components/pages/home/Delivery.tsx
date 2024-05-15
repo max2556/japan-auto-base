@@ -4,7 +4,10 @@ import Logo from '../../shared/Logo';
 
 export default function Delivery() {
   return (
-    <section id="delivery" className="lg:flex items-end justify-between">
+    <section
+      id="delivery"
+      className="lg:flex items-end justify-between bg-white"
+    >
       <div className="h-12 w-full group flex justify-center lg:hidden items-center gap-2 bg-white text-sm font-bold rounded-full px-4">
         <svg
           width="16"
@@ -18,7 +21,7 @@ export default function Delivery() {
         <span>JapanAutoBase</span>
       </div>
       <div className="hidden lg:block flex-1 h-[0.1875rem] bg-brand-red rounded-r-full"></div>
-      <div className="max-w-5xl flex flex-col lg:flex-row items-center lg:gap-24 -mb-10">
+      <div className="max-w-5xl flex flex-col lg:flex-row items-center lg:gap-24 -mb-10 sm:px-10 md:px-14 lg:px-0">
         <Image
           src="/assets/images/img-supfooter.svg"
           alt="Cars"

@@ -4,9 +4,9 @@ import Button from '../../shared/Button';
 
 export default function Catalog() {
   return (
-    <section id="catalog">
+    <section id="catalog" className="bg-white">
       <div className="bg-brand-dark py-8">
-        <div className="max-w-4xl mx-auto space-y-4 px-4 lg:px-6">
+        <div className="max-w-4xl mx-auto space-y-4 px-4 sm:px-10 md:px-14 lg:px-6">
           <div className="max-w-[25rem] text-white lg:pr-6 space-y-1">
             <h2 className="text-white">Каталог автомобилей</h2>
             <p className="text-sm leading-4">
@@ -23,7 +23,7 @@ export default function Catalog() {
           <div className="flex items-center justify-center">
             <Button
               white
-              className="hover:bg-brand-gray-100 hover:text-brand-dark"
+              className="hover:bg-brand-gray-100 hover:!text-brand-dark"
             >
               Показать больше
             </Button>

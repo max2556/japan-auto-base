@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Logo() {
   return (
-    <div className="h-12 w-fit mx-auto group flex items-center gap-2 bg-white text-sm font-bold rounded-full mt-12 px-4">
+    <div className="h-12 w-fit relative z-10 mx-auto group flex items-center gap-2 bg-white text-sm font-bold rounded-full mt-12 px-4">
       <svg
         width="16"
         height="16"

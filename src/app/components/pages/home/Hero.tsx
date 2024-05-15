@@ -3,7 +3,7 @@ import SubmitApplicationButton from '../../shared/SubmitApplicationButton';
 
 export default function Hero() {
   return (
-    <section id="hero" className="space-y-4 md:space-y-8 bg-white">
+    <section id="hero" className="space-y-4 md:space-y-8 bg-white pt-40 -mt-24">
       {/* Cars Image */}
       <Image
         src="/assets/images/img-hero.svg"
