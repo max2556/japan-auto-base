@@ -8,7 +8,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className={`${pathname === '/' ? 'bg-white' : ''} py-8 lg:py-20`}>
+    <footer className={`${pathname === '/' ? 'bg-white' : ''} pt-8 lg:pt-20`}>
       <div className="bg-brand-dark text-white py-16 lg:py-20">
         <div className="max-w-4xl mx-auto flex flex-col lg:flex-row flex-wrap justify-between gap-12 px-4 lg:px-[1.875rem]">
           {/* Sections */}
