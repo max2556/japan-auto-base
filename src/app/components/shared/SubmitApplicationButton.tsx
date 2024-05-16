@@ -11,7 +11,7 @@ export default function SubmitApplicationButton() {
     <div
       className={`${
         pathname === '/' ? 'hidden' : ''
-      } fixed right-0 lg:right-20 top-3/4 shrink-0 bg-white shadow rounded-10 p-4`}
+      } fixed right-0 lg:right-20 top-[80%] shrink-0 bg-white shadow rounded-10 p-4`}
     >
       <Button red>Оставить заявку</Button>
     </div>

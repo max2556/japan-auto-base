@@ -11,7 +11,7 @@ const options = [
 
 export default function City() {
   return (
-    <div className="no-scroll col-span-2 md:col-span-3 lg:col-span-1 h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-3 pr-1">
+    <div className="no-scroll col-span-2 lg:col-span-1 h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-3 pr-1">
       <h4>Город</h4>
       <div className="space-y-2">
         {options.map((option) => (
