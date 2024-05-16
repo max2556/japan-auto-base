@@ -33,7 +33,7 @@ export default function FilterBodyType() {
           <label
             key={option.label}
             htmlFor={option.label}
-            className="flex gap-2.5 text-sm cursor-pointer"
+            className="flex gap-1 text-sm cursor-pointer"
           >
             <input type="checkbox" id={option.label} className="hidden" />
             <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
