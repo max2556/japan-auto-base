@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 const options = [
@@ -35,6 +37,7 @@ export default function FilterEngineCapacity() {
               key={option.label}
               htmlFor={option.label}
               className="flex gap-2.5 text-sm cursor-pointer"
+              onClick={() => console.log(option.label)}
             >
               <input type="checkbox" id={option.label} className="hidden" />
               <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">

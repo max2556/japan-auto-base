@@ -34,7 +34,7 @@
   }
 
   body {
-    @apply text-brand-dark bg-brand-gray-100;
+    @apply text-brand-dark bg-brand-gray;
   }
 
   h2 {
@@ -56,7 +56,7 @@
 }
 
 /* Checkbox Styles */
-input[type='checkbox']:checked + div span {
+input[type='checkbox']:checked + div > span {
   @apply block;
 }
 

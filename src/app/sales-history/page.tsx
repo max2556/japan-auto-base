@@ -1,4 +1,5 @@
 import CarInfo from '../components/shared/CarInfo';
+import Pagination from '../components/shared/Pagination';
 
 export default function Page() {
   return (
@@ -15,6 +16,7 @@ export default function Page() {
             <CarInfo key={idx} />
           ))}
         </div>
+        <Pagination />
       </section>
     </div>
   );

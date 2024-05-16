@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import SubmitApplicationButton from '../shared/SubmitApplicationButton';
 
 const links = [
   {
@@ -64,6 +65,8 @@ export default function Navbar() {
         scrolling ? 'h-16 md:h-10 lg:h-12 shadow' : ''
       }`}
     >
+      {/* Submit Application Button */}
+      <SubmitApplicationButton />
       {/* Links */}
       <div className="max-w-4xl mx-auto relative flex items-center justify-between px-4 lg:px-6">
         <ul className="w-full h-16 md:h-10 lg:h-12 flex items-center justify-between md:text-xs lg:text-sm text-brand-purple/50 ">
@@ -103,7 +106,7 @@ export default function Navbar() {
       {/* Reviews & Contacts */}
       <div
         className={`${
-          scrolling ? '-translate-y-[300%] delay-500' : ''
+          scrolling ? '-translate-y-[300%] delay-200' : ''
         } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-500 py-3 sm:py-2 `}
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
