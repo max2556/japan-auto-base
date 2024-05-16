@@ -89,7 +89,7 @@ export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
             />
           </svg>
         </button>
-        <ul className="space-y-7 pb-4 pt-2">
+        <ul className="space-y-7 py-4">
           {links.map((link) => (
             <li key={link.name}>
               <Link
