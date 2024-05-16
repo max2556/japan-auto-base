@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="space-y-8">
             <h2 className="text-white">Разделы</h2>
             <div className="flex items-center whitespace-nowrap gap-5">
-              <ul className="w-full lg:text-sm space-y-7">
+              <ul className="w-full lg:text-sm space-y-5">
                 <li>
                   <Link
                     href="/"
@@ -49,7 +49,7 @@ export default function Footer() {
                   </Link>
                 </li>
               </ul>
-              <ul className="w-full lg:text-sm space-y-7">
+              <ul className="w-full lg:text-sm space-y-5">
                 <li>
                   <Link
                     href="/calculator"
@@ -86,9 +86,9 @@ export default function Footer() {
             </div>
           </div>
           {/* Information */}
-          <div className="space-y-8 mt-4">
+          <div className="space-y-8 mt-4 lg:mt-0">
             <h2 className="text-white">Информация</h2>
-            <ul className="w-full lg:text-sm space-y-7">
+            <ul className="w-full lg:text-sm space-y-5">
               <li className="flex items-center gap-2">
                 {/* Whatsapp */}
                 <a href="tel:" className="group">
