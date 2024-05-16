@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import SubmitApplicationButton from '../shared/SubmitApplicationButton';
+import MobileMenu from './MobileMenu';
+import { AnimatePresence } from 'framer-motion';
 
 const links = [
   {
@@ -43,7 +45,13 @@ const links = [
 
 export default function Navbar() {
   const [scrolling, setScrolling] = useState<boolean>(false);
+  const [isMobMenuOpen, setIsMobMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
+
+  function toggleMobMenu() {
+    setIsMobMenuOpen((open) => !open);
+    document.body.classList.toggle('overflow-hidden');
+  }
 
   useEffect(function () {
     function handleScroll() {
@@ -65,6 +73,12 @@ export default function Navbar() {
         scrolling ? 'h-16 md:h-10 lg:h-12 shadow' : ''
       }`}
     >
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobMenuOpen && (
+          <MobileMenu isOpen={isMobMenuOpen} onToggle={toggleMobMenu} />
+        )}
+      </AnimatePresence>
       {/* Submit Application Button */}
       <SubmitApplicationButton />
       {/* Links */}
@@ -86,7 +100,10 @@ export default function Navbar() {
           ))}
         </ul>
         {/* Mobile Menu Button */}
-        <button className="w-8 h-8 grid place-content-center md:hidden bg-brand-dark rounded-7">
+        <button
+          onClick={toggleMobMenu}
+          className="w-8 h-8 grid place-content-center md:hidden bg-brand-dark rounded-7"
+        >
           <svg
             width="24"
             height="24"
