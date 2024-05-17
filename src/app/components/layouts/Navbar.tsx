@@ -69,8 +69,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 font-sansation bg-white ${
-        scrolling ? 'h-16 md:h-10 lg:h-12 shadow' : ''
+      className={`sticky top-0 z-50 font-sansation  ${
+        scrolling ? 'h-16 md:h-10 lg:h-12 shadow bg-white' : 'bg-brand-gray'
       }`}
     >
       {/* Mobile Menu */}
@@ -123,7 +123,7 @@ export default function Navbar() {
       {/* Reviews & Contacts */}
       <div
         className={`${
-          scrolling ? '-translate-y-[300%] delay-200' : ''
+          scrolling ? '-translate-y-[300%]' : ''
         } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-500 py-3 sm:py-2 `}
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
