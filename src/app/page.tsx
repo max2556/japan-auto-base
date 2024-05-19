@@ -4,6 +4,7 @@ import Hero from './components/pages/home/Hero';
 import OnlieAuction from './components/shared/OnlieAuction';
 import Reviews from './components/pages/home/Reviews';
 import SalesHistory from './components/pages/home/SalesHistory';
+import VKWidget from './components/pages/home/VKWidget';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Catalog />
       <SalesHistory />
       <Reviews />
+      <VKWidget />
       <Delivery />
     </div>
   );
