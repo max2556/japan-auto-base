@@ -89,7 +89,7 @@ export default function Page() {
               </p>
             </div>
             {/* Table */}
-            <table className="table-auto w-full text-sm">
+            <table className="table-fixed w-full text-sm">
               <tbody>
                 {tableData.map((item) => (
                   <tr key={item.city} className="odd:bg-brand-gray-100">

@@ -68,3 +68,7 @@ input[type='checkbox']:checked + div > span {
 .no-scroll::-webkit-scrollbar {
   @apply w-2;
 }
+
+.swiper-button-disabled {
+  background-color: gray !important;
+}
