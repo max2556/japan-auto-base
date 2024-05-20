@@ -1,8 +1,12 @@
+import Link from 'next/link';
 import Image from 'next/image';
 
 export default function CarInfo() {
   return (
-    <div className="min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3">
+    <Link
+      href="/online-auction/1"
+      className="min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3"
+    >
       {/* Car Image & Name */}
       <div className="mt-auto">
         <Image
@@ -183,6 +187,6 @@ export default function CarInfo() {
           </ul>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
