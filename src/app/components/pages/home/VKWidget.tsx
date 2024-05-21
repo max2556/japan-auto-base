@@ -41,7 +41,7 @@ const VKWidget: React.FC = () => {
   }, []);
 
   return (
-    <section id="vk-reviews" className="bg-white">
+    <section id="reviews" className="bg-white">
       <div className="max-w-base mx-auto px-5">
         <div id="vk_comments"></div>
       </div>

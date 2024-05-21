@@ -126,7 +126,7 @@ export default function Navbar() {
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
           {/* Reviews */}
-          {pathname === '/' ? <Link href="/">Отзывы</Link> : null}
+          {pathname === '/' ? <Link href="#reviews">Отзывы</Link> : null}
           {/* Contacts */}
           <div
             className={`flex flex-col sm:flex-row items-center ${
