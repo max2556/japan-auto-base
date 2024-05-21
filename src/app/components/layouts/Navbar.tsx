@@ -112,8 +112,8 @@ export default function Navbar() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M4 8C3.44772 8 3 7.55228 3 7V7C3 6.44772 3.44772 6 4 6H20C20.5523 6 21 6.44772 21 7V7C21 7.55228 20.5523 8 20 8H4ZM3 12C3 12.5523 3.44772 13 4 13H20C20.5523 13 21 12.5523 21 12V12C21 11.4477 20.5523 11 20 11H4C3.44772 11 3 11.4477 3 12V12ZM3 17C3 17.5523 3.44772 18 4 18H20C20.5523 18 21 17.5523 21 17V17C21 16.4477 20.5523 16 20 16H4C3.44772 16 3 16.4477 3 17V17Z"
               fill="white"
             />
@@ -122,9 +122,7 @@ export default function Navbar() {
       </div>
       {/* Reviews & Contacts */}
       <div
-        className={`${
-          scrolling ? '-translate-y-[300%]' : ''
-        } bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-500 py-3 sm:py-2 `}
+        className={`bg-brand-dark/90 text-white sm:text-xs lg:text-sm transition-all duration-500 py-3 sm:py-2 `}
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
           {/* Reviews */}

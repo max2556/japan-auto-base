@@ -1,6 +1,6 @@
 import React from 'react';
 import CarInfo from '../../shared/CarInfo';
-import Button from '../../shared/Button';
+import Link from 'next/link';
 
 export default function Catalog() {
   return (
@@ -21,12 +21,12 @@ export default function Catalog() {
             ))}
           </div>
           <div className="flex items-center justify-center">
-            <Button
-              white
-              className="hover:bg-brand-gray-100 hover:!text-brand-dark"
+            <Link
+              href="/catalog"
+              className="h-12 lg:h-8 grid place-content-center font-bold text-sm bg-white text-brand-dark font-sansation rounded-7 lg:rounded-5 transition-all duration-200 hover:text-brand-dark hover:bg-white/90  px-4 lg:px-3"
             >
               Показать больше
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

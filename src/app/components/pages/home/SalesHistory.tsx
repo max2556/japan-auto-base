@@ -1,6 +1,6 @@
 import React from 'react';
 import CarInfo from '../../shared/CarInfo';
-import Button from '../../shared/Button';
+import Link from 'next/link';
 
 export default function SalesHistory() {
   return (
@@ -20,7 +20,12 @@ export default function SalesHistory() {
             ))}
           </div>
           <div className="flex items-center justify-center">
-            <Button blue>Показать больше</Button>
+            <Link
+              href="/sales-history"
+              className="h-12 lg:h-8 grid place-content-center font-bold text-sm bg-brand-dark text-white font-sansation rounded-7 lg:rounded-5 transition-all duration-200 hover:bg-brand-red px-4 lg:px-3"
+            >
+              Показать больше
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import SubmitApplicationButton from '../../shared/SubmitApplicationButton';
+import Button from '../../shared/Button';
 
 export default function Hero() {
   return (
@@ -26,7 +27,9 @@ export default function Hero() {
         {/* Line */}
         <div className="flex items-center">
           <div className="w-full h-[0.1875rem] bg-brand-red rounded-r-full"></div>
-          <SubmitApplicationButton />
+          <div className="shrink-0 bg-white rounded-10 p-4">
+            <Button red>Оставить заявку</Button>
+          </div>
           <div className="w-full h-[0.1875rem] bg-brand-red rounded-l-full"></div>
         </div>
       </div>

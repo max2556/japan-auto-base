@@ -21,26 +21,16 @@ const VKWidget: React.FC = () => {
     const script = loadVKScript();
 
     script.onload = () => {
-      console.log('VK script loaded.');
       if (window.VK) {
-        console.log('VK object found.');
-
-        // Initialize VK with your App ID
         window.VK.init({
-          apiId: 51926923, // Replace with your VK App ID
+          apiId: 51926923,
         });
 
         window.VK.Widgets.Comments('vk_comments', {
           limit: 10,
           attach: '*',
         });
-      } else {
-        console.error('VK object not found.');
       }
-    };
-
-    script.onerror = () => {
-      console.error('Failed to load VK script.');
     };
 
     return () => {

@@ -34,18 +34,18 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/sales-history"
+                    href="/catalog"
                     className="hover:underline underline-offset-2 transition-all duration-200"
                   >
-                    История продаж
+                    Каталог
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/calculator"
+                    href="/sales-history"
                     className="hover:underline underline-offset-2 transition-all duration-200"
                   >
-                    Калькулятор
+                    История продаж
                   </Link>
                 </li>
               </ul>

@@ -28,7 +28,7 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Резултаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {Array.from({ length: 6 }).map((_, idx) => (
+          {Array.from({ length: 8 }).map((_, idx) => (
             <CarInfo key={idx} />
           ))}
         </div>

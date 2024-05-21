@@ -42,7 +42,7 @@ export default function FilterGrade() {
                 <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>
               </div>
               <p className="leading-4">
-                {option.label.startsWith('Любая2') ? 'Любая' : option.label}
+                {option.label.startsWith('Любая3') ? 'Любая' : option.label}
               </p>
             </label>
           ))}
