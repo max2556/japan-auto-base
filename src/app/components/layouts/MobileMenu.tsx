@@ -67,7 +67,8 @@ export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
       transition={{ duration: 0.3 }}
-      className="fixed top-0 w-full z-50 lg:hidden bg-white/80 backdrop-blur p-4"
+      className="fixed top-0 w-full z-50 lg:hidden bg-white/80 p-4"
+      style={{ backdropFilter: 'blur(0.5rem)' }}
       ref={menuRef}
     >
       <div className="w-full h-full relative">
@@ -97,7 +98,7 @@ export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
                 href={link.href}
                 className={`${
                   pathname === link.href
-                    ? 'text-brand-purple'
+                    ? 'text-brand-dark'
                     : 'text-brand-purple/50'
                 } hover:text-brand-purple transition-all duration-200`}
               >
