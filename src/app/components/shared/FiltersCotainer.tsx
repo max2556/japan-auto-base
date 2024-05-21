@@ -33,7 +33,7 @@ export default function FiltersCotainer() {
         <input
           type="text"
           placeholder="Дата &#10;торогов"
-          className="w-full h-12 bg-brand-gray-100 text-sm outline-none placeholder:text-brand-dark placeholder:whitespace-pre-line placeholder:text-xs rounded-5 pb-2 pl-4 pr-2"
+          className="w-full h-12 grid place-content-center bg-brand-gray-100 text-sm outline-none placeholder:text-brand-dark placeholder:whitespace-pre-line placeholder:text-xs rounded-5 pb-4 pl-4 pr-2"
         />
       </div>
       <div className="col-span-3 grid place-content-center sm:hidden pt-4">

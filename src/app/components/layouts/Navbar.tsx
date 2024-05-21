@@ -126,9 +126,13 @@ export default function Navbar() {
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between px-4 lg:px-6">
           {/* Reviews */}
-          <Link href="#reviews">Отзывы</Link>
+          {pathname === '/' ? <Link href="/">Отзывы</Link> : null}
           {/* Contacts */}
-          <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-7 font-bold">
+          <div
+            className={`flex flex-col sm:flex-row items-center ${
+              pathname !== '/' ? 'w-full justify-end' : ''
+            } gap-2.5 sm:gap-7 font-bold`}
+          >
             <div className="flex items-center gap-2">
               {/* Whatsapp */}
               <a href="tel:" className="group">
