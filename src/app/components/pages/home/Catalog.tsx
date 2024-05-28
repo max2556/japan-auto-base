@@ -10,8 +10,8 @@ export default function Catalog() {
           <div className="max-w-[25rem] text-white lg:pr-6 space-y-1">
             <h2 className="text-white">Каталог автомобилей</h2>
             <p className="text-sm leading-4">
-              Здесь вы можете найт автомобили готовые к покупке! Указанная цена
-              не явлеться окончательной!
+              Здесь вы можете найти автомобили готовые к покупке! Указанная цена
+              не является окончательной!
             </p>
           </div>
           {/* Cars */}

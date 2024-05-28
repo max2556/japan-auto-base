@@ -2,10 +2,10 @@ import React from 'react';
 
 const options = [
   {
-    label: 'Требуеться',
+    label: 'Требуется',
   },
   {
-    label: 'Не требуеться',
+    label: 'Не требуется',
   },
 ];
 

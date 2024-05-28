@@ -26,7 +26,7 @@ export default function Page() {
       <div className="h-[0.1875rem] bg-brand-red"></div>
       {/* Search Results */}
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-        <h2>Резултаты поиска</h2>
+        <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
           {Array.from({ length: 8 }).map((_, idx) => (
             <CarInfo key={idx} />

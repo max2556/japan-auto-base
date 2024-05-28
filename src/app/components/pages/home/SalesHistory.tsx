@@ -10,7 +10,7 @@ export default function SalesHistory() {
           <div className="max-w-[25rem]  lg:pr-6 space-y-1">
             <h2>История продаж</h2>
             <p className="text-sm leading-4">
-              Здесь находяться уже продданые авто!
+              Здесь находятся уже проданные авто!
             </p>
           </div>
           {/* Cars */}

@@ -7,8 +7,8 @@ export default function Page() {
         <div className="lg:pr-6 space-y-1">
           <h2>Калькулятор</h2>
           <p className="text-sm leading-4">
-            Здесь вы можете расчетать стоимости распила или конструкторов с
-            аукциона. Чтобы посчитать стоимость распила/конструктора:
+            Здесь вы можете рассчитать стоимости распила или конструкторов с
+            аукциона. Для расчета необходимо:
           </p>
         </div>
         <ul className="list-decimal text-sm leading-5 mt-5 pl-5">
@@ -22,7 +22,7 @@ export default function Page() {
       <div className="h-[0.1875rem] bg-brand-red mt-8"></div>
       <section>
         <div className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-          <h2>Резултаты расчета</h2>
+          <h2>Результаты расчета</h2>
           {/* Data */}
           <ul className="space-y-4 bg-white rounded-10 p-3">
             <li className="space-y-1">
@@ -53,7 +53,7 @@ export default function Page() {
                 </h2>
               </div>
               <p className="text-sm leading-4">
-                Цена является приблизтелной, включает в себя нижеперечисленные
+                Цена является приблизительной, включает в себя нижеперечисленные
                 компоненты.
               </p>
             </li>
@@ -62,7 +62,7 @@ export default function Page() {
                 Стоимость авто на аукционе: 507898 ¥
               </h2>
               <p className="text-sm leading-4">
-                Изначальнаяя стоимсоть покупки на аукционе.
+                Изначальная стоимость покупки на аукционе.
               </p>
             </li>
             <li className="space-y-1">
@@ -82,7 +82,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Разбор авто и Фрахат: 50789 ₽
+                Разбор авто и Фрахт: 50789 ₽
               </h2>
               <p className="text-sm leading-4">
                 Плата за перевозку груза морским путем.
@@ -94,9 +94,10 @@ export default function Page() {
               </h2>
               <p className="text-sm leading-4">
                 Складывается из цен на растамаживание авто, выгрузку авто,
-                хранение в складе временного хранения, услуги брокера, получение
-                свидетельства о безопасности конструкции транспортного средства,
-                фото опись и приемки авто, транспортировку на стоянку компании.
+                хранение на складе временного хранения, услуги брокера,
+                получение свидетельства о безопасности конструкции транспортного
+                средства, фото опись и приемки авто, транспортировку на стоянку
+                компании.
               </p>
             </li>
             <li className="space-y-1">
@@ -104,7 +105,7 @@ export default function Page() {
                 Комиссия: 49990 ₽
               </h2>
               <p className="text-sm leading-4">
-                Комиссия нашей компании за выполеную работу.
+                Комиссия нашей компании за выполненную работу.
               </p>
             </li>
             <li className="space-y-1">
@@ -120,7 +121,7 @@ export default function Page() {
                 Сборка: 49990 ₽
               </h2>
               <p className="text-sm leading-4">
-                Расходы необохидмые для сборки автомобиля.
+                Расходы необходимые для сборки автомобиля.
               </p>
             </li>
             <li className="space-y-1">
@@ -128,7 +129,7 @@ export default function Page() {
                 Доставка: 49990 ₽
               </h2>
               <p className="text-sm leading-4">
-                Расходы необохидмые для доставки автомобиля в ваш город.
+                Расходы необходимые для доставки автомобиля в ваш город.
               </p>
             </li>
           </ul>
