@@ -1,7 +1,34 @@
+'use client'
+
 import Image from 'next/image';
 import Button from '../components/shared/Button';
+import { useEffect, useState } from 'react';
+import { api } from '../utils/axios';
 
 export default function Page() {
+  const [email, setEmail] = useState<string | undefined>()
+  const [phone, setPhone] = useState<string | undefined>()
+
+  const fetchContact = async (type: 'email' | 'phone') => {
+    const { data } = await api.get('/contacts', {
+      params: {type}
+    })
+    return data.contacts[0]?.value as string | undefined
+  }
+
+  useEffect(() => {
+    const fetchEmail = async () => {
+      const email = await fetchContact('email')
+      setEmail(email)
+    }
+    const fetchPhone = async () => {
+      const phone = await fetchContact('phone')
+      setPhone(phone)
+    }
+    fetchEmail()
+    fetchPhone()
+  }, [])
+
   return (
     <div className="bg-brand-gray">
       <section className="max-w-5xl mx-auto space-y-4 -mt-10 px-4 lg:px-11">
@@ -48,7 +75,7 @@ export default function Page() {
                   />
                 </svg>
                 <span className="text-sm whitespace-nowrap">
-                  +7 812 999 45 45
+                  {phone}
                 </span>
               </a>
             </div>
@@ -59,7 +86,7 @@ export default function Page() {
               href="mailto:japanautobase@mail.com"
               className="text-sm font-bold"
             >
-              Japanautobase@mail.com
+              {email}
             </a>
           </div>
           {/* Email */}

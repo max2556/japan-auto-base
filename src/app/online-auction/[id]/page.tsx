@@ -12,6 +12,9 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import SubmitApplicationButton from '@/app/components/shared/SubmitApplicationButton';
 import Button from '@/app/components/shared/Button';
+import { useEffect, useState } from 'react';
+import { api } from '@/app/utils/axios';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 const tableDataAuction = [
   { name: 'Название аукциона:', data: 'JU Gifu' },
@@ -57,7 +60,22 @@ const tableCharasteristics = [
   },
 ];
 
-export default function page() {
+export default function Page() {
+  const [rate, setRate] = useState(1)
+
+  useEffect(() => {
+    const fetchCurrency = async () => {
+      const { data } = await api.get('/currency-converter', {
+        params: {
+          from: 'yen',
+          to: 'rub'
+        }
+      })
+      setRate(data.rate)
+    }
+    fetchCurrency()
+  }, [])
+
   return (
     <>
       <section>
@@ -266,7 +284,7 @@ export default function page() {
                   Курс валют, являются усреленным значением из коммерческих
                   банков, курсы валют необходимы для вычесления суммарной цены.
                 </p>
-                <p className="font-bold">1 ¥ = 0,61 ₽</p>
+                <p className="font-bold">1 ¥ = { rate } ₽</p>
               </div>
             </div>
           </div>
