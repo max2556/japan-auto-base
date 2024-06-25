@@ -8,11 +8,33 @@ import FilterMilageYearManifacture from './FilterMilageYearManifacture';
 import FilterEngineCapacity from './FilterEngineCapacity';
 import FilterGrade from './FilterGrade';
 import Button from './Button';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
-export default function FiltersCotainer() {
+export interface OnlineAuctionFilters {
+  brand?: string;
+  model?: string;
+  color?: string;
+  bodyType?: string;
+  milage?: string;
+  year?: string;
+  manifacture?: string;
+  engineCapacity?: string;
+  grade?: string;
+}
+
+export interface FiltersCotainerProps {
+  filters: OnlineAuctionFilters;
+  onChange: (filters: OnlineAuctionFilters) => void;
+}
+
+export default function FiltersCotainer({ filters, onChange }: FiltersCotainerProps) {
+  const setFilter = (field: keyof OnlineAuctionFilters, value: string) => {
+    onChange(({ ...filters, [field]: value }));
+  }
+
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
-      <FilterBrand />
+      <FilterBrand value={filters.brand} onChange={(e) => setFilter('brand', e)}/>
       <FilterModel />
       <FilterBodyType />
       <FilterColor />

@@ -1,8 +1,28 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import CarInfo from '../components/shared/CarInfo';
-import FiltersCotainer from '../components/shared/FiltersCotainer';
+import FiltersCotainer, { OnlineAuctionFilters } from '../components/shared/FiltersCotainer';
 import Pagination from '../components/shared/Pagination';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+import { api } from '../utils/axios';
 
 export default function Page() {
+  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+
+  const fetchAutction = async (filters: OnlineAuctionFilters) => {
+    const {data} = await api.get('/auctions', {
+      params: {
+        ...filters
+      }
+    })
+    return data;
+  }
+
+  useEffect(() => {
+    fetchAutction(filters)
+  }, [filters])
+  
   return (
     <div className=" -my-24 py-20">
       {/* Auction Filters */}
@@ -19,7 +39,9 @@ export default function Page() {
               </p>
             </div>
             {/* Filters Container */}
-            <FiltersCotainer />
+            <FiltersCotainer filters={filters} onChange={setFilters}/>
+
+            {JSON.stringify(filters)}
           </div>
         </div>
       </section>
