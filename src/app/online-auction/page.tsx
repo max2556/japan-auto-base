@@ -39,7 +39,7 @@ export default function Page() {
               </p>
             </div>
             {/* Filters Container */}
-            <FiltersCotainer filters={filters} onChange={setFilters}/>
+            <FiltersCotainer filters={filters} onChange={(e) => setFilters(e)}/>
 
             {JSON.stringify(filters)}
           </div>
