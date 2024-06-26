@@ -1,5 +1,7 @@
 'use client';
 
+import axios from 'axios';
+
 import Image from 'next/image';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,8 +15,30 @@ import { Navigation } from 'swiper/modules';
 import SubmitApplicationButton from '@/app/components/shared/SubmitApplicationButton';
 import Button from '@/app/components/shared/Button';
 import { useEffect, useState } from 'react';
+<<<<<<< Updated upstream
 import { api } from '@/app/utils/axios';
 import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+=======
+
+interface Rate {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  from: string;
+  to: string;
+  value: number;
+}
+
+interface ExchangeRateResponse {
+  rate: Rate;
+}
+
+interface ExchangeRateResponse {
+  rubles: string;
+  yen: string;
+  euro: string;
+}
+>>>>>>> Stashed changes
 
 const tableDataAuction = [
   { name: 'Название аукциона:', data: 'JU Gifu' },
@@ -61,6 +85,7 @@ const tableCharasteristics = [
 ];
 
 export default function Page() {
+<<<<<<< Updated upstream
   const [rate, setRate] = useState(1)
 
   useEffect(() => {
@@ -75,6 +100,26 @@ export default function Page() {
     }
     fetchCurrency()
   }, [])
+=======
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await axios.get<ExchangeRateResponse>(
+          'http://45.92.177.64:8103/sold-cars'
+        );
+        setExchangeRate(response.data.rate.value);
+        console.log(response.data);
+      } catch (err) {
+        setError('Failed to fetch exchange rate');
+      }
+    };
+
+    fetchExchangeRate();
+  }, []);
+>>>>>>> Stashed changes
 
   return (
     <>
@@ -284,7 +329,18 @@ export default function Page() {
                   Курс валют, являются усреленным значением из коммерческих
                   банков, курсы валют необходимы для вычесления суммарной цены.
                 </p>
+<<<<<<< Updated upstream
                 <p className="font-bold">1 ¥ = { rate } ₽</p>
+=======
+                <p className="font-bold">
+                  1 ¥ ={' '}
+                  {error
+                    ? error
+                    : exchangeRate !== null
+                    ? `${exchangeRate} ₽`
+                    : 'Loading...'}
+                </p>
+>>>>>>> Stashed changes
               </div>
             </div>
           </div>
