@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import PhoneNumber from "../shared/PhoneNumber";
 import Email from "../shared/Email";
+import Whatsapp from "../shared/Whatsapp";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -93,17 +94,8 @@ export default function Footer() {
             <ul className="w-full lg:text-sm space-y-5">
               <li className="flex items-center gap-2">
                 {/* Whatsapp */}
-                <a href="tel:" className="group">
-                  <Image
-                    src="/assets/images/icon-whatsapp.png"
-                    alt="Whatsapp Icon"
-                    width={24}
-                    height={24}
-                    className="group-hover:opacity-80 transition-all duration-200"
-                  />
-                </a>
+                <Whatsapp />
                 {/* Tel */}
-
                 <PhoneNumber />
               </li>
               <li>

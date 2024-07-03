@@ -11,6 +11,7 @@ import { api } from "@/app/utils/axios";
 import { fetchContacts } from "@/app/services/contacts";
 import PhoneNumber from "../shared/PhoneNumber";
 import Email from "../shared/Email";
+import Whatsapp from "../shared/Whatsapp";
 
 const links = [
   {
@@ -139,16 +140,7 @@ export default function Navbar() {
           >
             <div className="flex items-center gap-2">
               {/* Whatsapp */}
-              {/* TODO: move to component. make it work */}
-              <a href="tel:" className="group">
-                <Image
-                  src="/assets/images/icon-whatsapp.png"
-                  alt="Whatsapp Icon"
-                  width={24}
-                  height={24}
-                  className="group-hover:opacity-80 transition-all duration-200"
-                />
-              </a>
+              <Whatsapp/>
               {/* Tel */}
               <PhoneNumber />
             </div>

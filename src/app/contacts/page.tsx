@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../utils/axios';
 import Email from '../components/shared/Email';
 import PhoneNumber from '../components/shared/PhoneNumber';
+import Whatsapp from '../components/shared/Whatsapp';
 
 export default function Page() {
   const [email, setEmail] = useState<string | undefined>()
@@ -49,15 +50,7 @@ export default function Page() {
           <div className="w-full lg:w-fit grid place-content-center bg-white rounded-10 p-4">
             <div className="flex items-center gap-2">
               {/* Whatsapp */}
-              <a href="tel:" className="group">
-                <Image
-                  src="/assets/images/icon-whatsapp.png"
-                  alt="Whatsapp Icon"
-                  width={24}
-                  height={24}
-                  className="shrink-0 group-hover:opacity-80 transition-all duration-200"
-                />
-              </a>
+              <Whatsapp/>
               {/* Tel */}
               <PhoneNumber theme="dark"/>
             </div>
