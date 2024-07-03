@@ -1,24 +1,21 @@
-'use client';
+"use client";
 
-import axios from 'axios';
-
-import Image from 'next/image';
+import axios from "axios";
+import Image from "next/image";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/navigation";
 
 // import required modules
-import { Navigation } from 'swiper/modules';
-import SubmitApplicationButton from '@/app/components/shared/SubmitApplicationButton';
-import Button from '@/app/components/shared/Button';
-import { useEffect, useState } from 'react';
-<<<<<<< Updated upstream
-import { api } from '@/app/utils/axios';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
-=======
+import { Navigation } from "swiper/modules";
+import SubmitApplicationButton from "@/app/components/shared/SubmitApplicationButton";
+import Button from "@/app/components/shared/Button";
+import { useEffect, useState } from "react";
+import { api } from "@/app/utils/axios";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 interface Rate {
   id: number;
@@ -38,88 +35,71 @@ interface ExchangeRateResponse {
   yen: string;
   euro: string;
 }
->>>>>>> Stashed changes
 
 const tableDataAuction = [
-  { name: 'Название аукциона:', data: 'JU Gifu' },
-  { name: 'Дата:', data: '27.04.2024' },
-  { name: 'Цена покупки с аукциона:', data: '4307800¥' },
-  { name: 'Номер лота:', data: '2H78' },
-  { name: 'Оценка:', data: '4.5' },
-  { name: 'Оценка салона:', data: '5' },
+  { name: "Название аукциона:", data: "JU Gifu" },
+  { name: "Дата:", data: "27.04.2024" },
+  { name: "Цена покупки с аукциона:", data: "4307800¥" },
+  { name: "Номер лота:", data: "2H78" },
+  { name: "Оценка:", data: "4.5" },
+  { name: "Оценка салона:", data: "5" },
 ];
 
 const tableCharasteristics = [
   {
-    name: 'Тип кузова:',
-    data: 'Седан',
+    name: "Тип кузова:",
+    data: "Седан",
   },
   {
-    name: 'Год выпуска:',
-    data: '2013',
+    name: "Год выпуска:",
+    data: "2013",
   },
   {
-    name: 'Обьем двигателя:',
-    data: '1.2 литра',
+    name: "Обьем двигателя:",
+    data: "1.2 литра",
   },
   {
-    name: 'Мошность:',
-    data: '137 лошадиных сил',
+    name: "Мошность:",
+    data: "137 лошадиных сил",
   },
   {
-    name: 'Пробег:',
-    data: '26000 км.',
+    name: "Пробег:",
+    data: "26000 км.",
   },
   {
-    name: 'Тип привода:',
-    data: 'Зданий привод',
+    name: "Тип привода:",
+    data: "Зданий привод",
   },
   {
-    name: 'Цвет кузова:',
-    data: 'Белый',
+    name: "Цвет кузова:",
+    data: "Белый",
   },
   {
-    name: 'Цвет салона:',
-    data: 'Черный',
+    name: "Цвет салона:",
+    data: "Черный",
   },
 ];
 
 export default function Page() {
-<<<<<<< Updated upstream
-  const [rate, setRate] = useState(1)
-
-  useEffect(() => {
-    const fetchCurrency = async () => {
-      const { data } = await api.get('/currency-converter', {
-        params: {
-          from: 'yen',
-          to: 'rub'
-        }
-      })
-      setRate(data.rate)
-    }
-    fetchCurrency()
-  }, [])
-=======
-  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [rate, setRate] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchExchangeRate = async () => {
+    const fetchCurrency = async () => {
       try {
-        const response = await axios.get<ExchangeRateResponse>(
-          'http://45.92.177.64:8103/sold-cars'
-        );
-        setExchangeRate(response.data.rate.value);
-        console.log(response.data);
+        const { data } = await api.get("/currency-converter", {
+          params: {
+            from: "yen",
+            to: "rub",
+          },
+        });
+        setRate(data.rate);
       } catch (err) {
-        setError('Failed to fetch exchange rate');
+        setError("Failed to fetch exchange rate");
       }
     };
-
-    fetchExchangeRate();
+    fetchCurrency();
   }, []);
->>>>>>> Stashed changes
 
   return (
     <>
@@ -133,7 +113,7 @@ export default function Page() {
             </h2>
             {/* Swiper */}
             <Swiper
-              navigation={{ nextEl: '.next-btn', prevEl: '.prev-btn' }}
+              navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
               modules={[Navigation]}
               className="mySwiper"
             >
@@ -329,18 +309,11 @@ export default function Page() {
                   Курс валют, являются усреленным значением из коммерческих
                   банков, курсы валют необходимы для вычесления суммарной цены.
                 </p>
-<<<<<<< Updated upstream
-                <p className="font-bold">1 ¥ = { rate } ₽</p>
-=======
+
                 <p className="font-bold">
-                  1 ¥ ={' '}
-                  {error
-                    ? error
-                    : exchangeRate !== null
-                    ? `${exchangeRate} ₽`
-                    : 'Loading...'}
+                  1 ¥ ={" "}
+                  {error ? error : rate !== null ? `${rate} ₽` : "Loading..."}
                 </p>
->>>>>>> Stashed changes
               </div>
             </div>
           </div>
