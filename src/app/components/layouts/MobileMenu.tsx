@@ -45,21 +45,20 @@ const links = [
 
 export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
   const pathname = usePathname();
-
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-      onToggle();
-    }
-  };
-
   useEffect(function () {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        onToggle();
+      }
+    };
+
     const handleClick = (e: MouseEvent) => handleClickOutside(e);
     document.addEventListener('mousedown', handleClick);
 
     return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+  }, [onToggle]);
 
   return (
     <motion.div
