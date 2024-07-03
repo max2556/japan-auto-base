@@ -1,14 +1,14 @@
-import React from 'react';
-import Filter from './Filter';
-import FilterBrand from './FilterBrand';
-import FilterModel from './FilterModel';
-import FilterColor from './FilterColor';
-import FilterBodyType from './FilterBodyType';
-import FilterMilageYearManifacture from './FilterMilageYearManifacture';
-import FilterEngineCapacity from './FilterEngineCapacity';
-import FilterGrade from './FilterGrade';
-import Button from './Button';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+import React from "react";
+import Filter from "./Filter";
+import FilterBrand from "./FilterBrand";
+import FilterModel from "./FilterModel";
+import FilterColor from "./FilterColor";
+import FilterBodyType from "./FilterBodyType";
+import FilterMilageYearManifacture from "./FilterMilageYearManifacture";
+import FilterEngineCapacity from "./FilterEngineCapacity";
+import FilterGrade from "./FilterGrade";
+import Button from "./Button";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 export interface OnlineAuctionFilters {
   brand?: string;
@@ -27,14 +27,20 @@ export interface FiltersCotainerProps {
   onChange: (filters: OnlineAuctionFilters) => void;
 }
 
-export default function FiltersCotainer({ filters, onChange }: FiltersCotainerProps) {
+export default function FiltersCotainer({
+  filters,
+  onChange,
+}: FiltersCotainerProps) {
   const setFilter = (field: keyof OnlineAuctionFilters, value: string) => {
-    onChange(({ ...filters, [field]: value }));
-  }
+    onChange({ ...filters, [field]: value });
+  };
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
-      <FilterBrand value={filters.brand} onChange={(e) => setFilter('brand', e)}/>
+      <FilterBrand
+        value={filters.brand}
+        onChange={(e) => setFilter("brand", e)}
+      />
       <FilterModel />
       <FilterBodyType />
       <FilterColor />

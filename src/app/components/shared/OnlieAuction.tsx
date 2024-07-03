@@ -1,7 +1,9 @@
-import React from 'react';
-import FiltersCotainer from './FiltersCotainer';
+import React, { useState } from 'react';
+import FiltersCotainer, { OnlineAuctionFilters } from './FiltersCotainer';
 
 export default function OnlieAuction() {
+  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+
   return (
     <section id="online-auction" className="bg-white -mt-12 lg:-mt-8">
       {/* Auction Filters */}
@@ -17,7 +19,8 @@ export default function OnlieAuction() {
             </p>
           </div>
           {/* Filters Container */}
-          <FiltersCotainer />
+          <FiltersCotainer filters={filters} onChange={(e) => setFilters(e)}/>
+
         </div>
       </div>
     </section>
