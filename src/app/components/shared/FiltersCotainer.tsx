@@ -41,25 +41,37 @@ export default function FiltersCotainer({
         value={filters.brand}
         onChange={(e) => setFilter("brand", e)}
       />
-      <FilterModel />
-      <FilterBodyType />
-      <FilterColor />
+      <FilterModel
+        onChange={(e) => setFilter("model", e)}
+        mark={filters.brand?.toLocaleLowerCase()}
+      />
+      <FilterBodyType onChange={(e) => setFilter("bodyType", e)} />
+      <FilterColor onChange={(e) => setFilter("color", e)} />
+      {/* 
+      //TODO: fix 
+      Using same components == using same inputs with same id
+      Id collision -> error
+      */}
+      
+      {/* 
       <div className="sm:hidden">
-        <FilterGrade />
+        <FilterGrade onChange={(e) => setFilter("grade", e)} />
       </div>
       <div className="sm:hidden">
-        <FilterEngineCapacity />
+        <FilterEngineCapacity onChange={(e) => setFilter("engineCapacity", e)} />
+      </div> */}
+      <FilterMilageYearManifacture onChange={(e) => setFilter("milage", e)} />
+      <div className="sm:block">
+        <FilterEngineCapacity
+          onChange={(e) => setFilter("engineCapacity", e)}
+        />
       </div>
-      <FilterMilageYearManifacture />
-      <div className="hidden sm:block">
-        <FilterEngineCapacity />
-      </div>
-      <div className="hidden sm:block">
-        <FilterGrade />
+      <div className="sm:block">
+        <FilterGrade onChange={(e) => setFilter("color", e)} />
       </div>
       <div className="w-full sm:hidden gap-2 bg-white rounded-10 p-4">
         <input
-          type="text"
+          type="date"
           placeholder="Дата &#10;торогов"
           className="w-full h-12 grid place-content-center bg-brand-gray-100 text-sm outline-none placeholder:text-brand-dark placeholder:whitespace-pre-line placeholder:text-xs rounded-5 pb-4 pl-4 pr-2"
         />
