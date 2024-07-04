@@ -1,6 +1,6 @@
-import React from 'react';
-import CarInfo from '../../shared/CarInfo';
-import Link from 'next/link';
+import React from "react";
+import CarInfo from "../../shared/CarInfo";
+import Link from "next/link";
 
 export default function Catalog() {
   return (
@@ -16,8 +16,22 @@ export default function Catalog() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {Array.from({ length: 6 }).map((_, idx) => (
-              <CarInfo key={idx} />
+            {[... Array(6)].map((_, idx) => (
+              <CarInfo
+                key={idx}
+                id={idx}
+                auctionTitle="JU Gifu"
+                bodyType="Седан"
+                engineCapacity="2.5л"
+                enginePower="120 л.с."
+                grade="S"
+                lotIndex="2"
+                mileage="23456км"
+                price={1000000}
+                releaseDate={2012}
+                soldDate="24.04.2024"
+                title="Nissan Maxima"
+              />
             ))}
           </div>
           <div className="flex items-center justify-center">

@@ -1,28 +1,87 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import CarInfo from '../components/shared/CarInfo';
-import FiltersCotainer, { OnlineAuctionFilters } from '../components/shared/FiltersCotainer';
-import Pagination from '../components/shared/Pagination';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
-import { api } from '../utils/axios';
+import { cache, useEffect, useState } from "react";
+import CarInfo from "../components/shared/CarInfo";
+import FiltersCotainer, {
+  OnlineAuctionFilters,
+} from "../components/shared/FiltersCotainer";
+import Pagination from "../components/shared/Pagination";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+import { api } from "../utils/axios";
+
+interface Auction {
+  id: 0;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  positions: [
+    {
+      id: 0;
+      createdAt: string;
+      updatedAt: string;
+      auctionDate: string;
+      lotNumber: string;
+      mark: string;
+      model: string;
+      modification: string;
+      registrationYear: 0;
+      mileageInKm: 0;
+      engineCapacity: string;
+      transmission: string;
+      color: string;
+      bodyModel: string;
+      startPrice: 0;
+      finalPrice: 0;
+      result: "не известен" | "доступен" | "не доступен";
+      auctionValuation: string;
+      auctionId: 0;
+      auction: string;
+    }
+  ];
+}
 
 export default function Page() {
-  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+  const pageSize = 8;
+  const [page, setPage] = useState<number>(0);
 
-  const fetchAutction = async (filters: OnlineAuctionFilters) => {
-    const {data} = await api.get('/auctions', {
-      params: {
-        ...filters
-      }
-    })
-    return data;
-  }
+  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+  const [auctions, setAuction] = useState<Auction[] | null>(null);
+
+  const getAuctions = async (params?: {
+    page?: number;
+    limit?: number;
+    expanded?: boolean;
+  }) => {
+    // TODO: fix when api will be ready
+    const auctions = await api.get<{
+      auctions: Auction[];
+      count: number;
+    }>(`/auctions`, {
+      params,
+    });
+
+    setAuction(auctions.data.auctions);
+  };
 
   useEffect(() => {
-    fetchAutction(filters)
-  }, [filters])
-  
+    getAuctions({ expanded: true });
+  }, [filters]);
+
+  const flatAuctions = () => {
+    return auctions?.flatMap((auction) =>
+      auction.positions?.map((position) => ({
+        ...position,
+        auctionTitle: auction.title,
+      }))
+    );
+  };
+
+  const pagesCount = () => {
+    const len = flatAuctions()?.length;
+    if(!len) return 0;
+    return Math.ceil(len / pageSize);
+  }
+
   return (
     <div className=" -my-24 py-20">
       {/* Auction Filters */}
@@ -39,7 +98,10 @@ export default function Page() {
               </p>
             </div>
             {/* Filters Container */}
-            <FiltersCotainer filters={filters} onChange={(e) => setFilters(e)}/>
+            <FiltersCotainer
+              filters={filters}
+              onChange={(e) => setFilters(e)}
+            />
 
             {JSON.stringify(filters)}
           </div>
@@ -50,11 +112,27 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {Array.from({ length: 8 }).map((_, idx) => (
-            <CarInfo key={idx} />
-          ))}
+          {flatAuctions()
+            ?.slice(page * pageSize, (page + 1) * pageSize)
+            .map((card) => (
+              <CarInfo
+                key={card.id}
+                id={card.id}
+                auctionTitle={card.auctionTitle}
+                bodyType={card.bodyModel}
+                engineCapacity={card.engineCapacity}
+                enginePower="???"
+                grade="???"
+                lotIndex={card.lotNumber}
+                mileage={card.mileageInKm}
+                price={card.finalPrice}
+                releaseDate={card.registrationYear}
+                soldDate={card.auctionDate}
+                title={card.mark + " " + card.model}
+              />
+            ))}
         </div>
-        <Pagination />
+        <Pagination page={page} pages={pagesCount()} onClick={(page) => setPage(page)}  />
       </section>
     </div>
   );
