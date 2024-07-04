@@ -55,6 +55,7 @@ export default function Navbar() {
 
   useEffect(function () {
     function handleScroll() {
+      // TODO: fix.
       if (window.scrollY > 100) {
         setScrolling(true);
       } else {
