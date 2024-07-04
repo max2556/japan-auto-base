@@ -64,6 +64,10 @@ input[type='checkbox']:checked + div > span {
   @apply block;
 }
 
+input[type='radio']:checked + div > span {
+  @apply block;
+}
+
 /* Scroll Styles */
 .no-scroll::-webkit-scrollbar {
   @apply w-2;
