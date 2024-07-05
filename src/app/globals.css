@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
 @font-face {
   font-family: 'Sansation';
@@ -71,4 +72,20 @@ input[type='checkbox']:checked + div > span {
 
 .swiper-button-disabled {
   background-color: gray !important;
+}
+
+
+/* Dialog Styles */
+dialog {
+  @apply shadow-xl rounded-5 bg-white overflow-hidden
+}
+
+dialog::backdrop {
+  opacity: 0.2;
+  @apply bg-brand-gray;
+}
+
+/* Disable page scroll while dialog is open */
+body:has(dialog[open]) {
+  @apply overflow-hidden;
 }
