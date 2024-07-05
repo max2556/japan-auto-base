@@ -1,8 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import Button from '../../shared/Button';
 import Logo from '../../shared/Logo';
+import { useState } from 'react';
+import { SubmitDialog } from '../../shared/SubmitDialog';
 
 export default function Delivery() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <section
       id="delivery"
@@ -55,7 +61,7 @@ export default function Delivery() {
               <li className="">Самые выгодные сделки</li>
             </ul>
             <div className="relative hidden lg:block shrink-0 bg-white rounded-10 pt-4 pb-6">
-              <Button red>Оставить заявку</Button>
+              <Button red onClick={() => setShowModal(!showModal)}> Оставить заявку</Button>
               <div className="h-[0.1875rem] w-20 hidden lg:block absolute -right-2 top-[41%] bg-brand-red rounded-l-full"></div>
             </div>
           </div>
@@ -65,10 +71,11 @@ export default function Delivery() {
       <div className="flex lg:hidden items-center mt-10">
         <div className="w-full h-[0.1875rem] bg-brand-red rounded-r-full"></div>
         <div className="shrink-0 bg-white rounded-10 p-4">
-          <Button red>Оставить заявку</Button>
+          <Button red onClick={() => setShowModal(!showModal)}>Оставить заявку</Button>
         </div>
         <div className="w-full h-[0.1875rem] bg-brand-red rounded-l-full"></div>
       </div>
+      <SubmitDialog open={showModal} setOpen={setShowModal} />
     </section>
   );
 }

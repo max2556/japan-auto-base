@@ -16,6 +16,7 @@ import Button from "@/app/components/shared/Button";
 import { useEffect, useState } from "react";
 import { api } from "@/app/utils/axios";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 
 interface Rate {
   id: number;
@@ -83,6 +84,7 @@ const tableCharasteristics = [
 export default function Page() {
   const [rate, setRate] = useState(1);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchCurrency = async () => {
@@ -182,6 +184,7 @@ export default function Page() {
             <Button
               red
               className="absolute bottom-3 left-1/2 -translate-x-1/2 -mt-10"
+              onClick={() => setShowModal(!showModal)}
             >
               Оставить заявку
             </Button>
@@ -354,6 +357,7 @@ export default function Page() {
             </table>
           </div>
         </div>
+        <SubmitDialog open={showModal} setOpen={setShowModal} />
       </section>
     </>
   );
