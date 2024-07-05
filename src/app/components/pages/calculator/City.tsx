@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const options = [
   {
-    label: 'С-Петербург',
+    label: "С-Петербург",
   },
   {
-    label: 'Москва',
+    label: "Москва",
   },
-];
+] as const;
 
-export default function City() {
+interface Props {
+  onClick: (val: (typeof options)[number]["label"]) => void;
+}
+
+export default function City({ onClick }: Props) {
+  const [checked, setChecked] =
+    useState<(typeof options)[number]["label"]>("С-Петербург");
+
   return (
     <div className="no-scroll col-span-2 lg:col-span-1 h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-3 pr-1">
       <h4>Город</h4>
@@ -19,8 +26,18 @@ export default function City() {
             key={option.label}
             htmlFor={option.label}
             className="flex gap-1 text-sm cursor-pointer"
+            onChange={() => {
+              onClick(option.label);
+              setChecked(option.label);
+            }}
           >
-            <input type="checkbox" id={option.label} className="hidden" />
+            <input
+              type="radio"
+              id={option.label}
+              name="city"
+              className="hidden"
+              checked={option.label === checked}
+            />
             <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
               <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>
             </div>
