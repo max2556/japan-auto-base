@@ -28,17 +28,14 @@ export default function VehicleType({ onClick }: Props) {
             key={option.label}
             htmlFor={option.label}
             className="flex gap-1 text-sm cursor-pointer"
-            onChange={() => {
-              onClick(option.label);
-              setChecked(option.label);
-            }}
+            onChange={() => onClick(option.label)}
           >
             <input
               type="radio"
               id={option.label}
               name="vehicleType"
               className="hidden"
-              checked={option.label == checked}
+              defaultChecked={option.label == "Легковой"}
             />
             <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
               <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>
