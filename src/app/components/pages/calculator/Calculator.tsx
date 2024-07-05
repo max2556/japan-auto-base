@@ -112,7 +112,7 @@ export default function Calculator({ onClick }: CalculatorProps) {
             to,
           },
         });
-        return data.rate;
+        return data.rate ?? 1;
       } catch (err) {
         console.error("Failed to fetch exchange rate");
       }
