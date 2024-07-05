@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterModel from "../../shared/FilterModel";
 import TypeOfImport from "./TypeOfImport";
 import VehicleType from "./VehicleType";
@@ -8,6 +8,7 @@ import Assembly from "./Assembly";
 import City from "./City";
 import CostOfVehicleInAuction from "./CostOfVehicleInAuction";
 import Button from "../../shared/Button";
+import { api } from "@/app/utils/axios";
 
 const cityTaxesMap = {
   Москва: {
@@ -48,15 +49,19 @@ function calcSum({
   city,
   needAssembly,
   importType,
+  yenToRubCurs,
+  dollarToRubCurs,
 }: {
   value: number;
   bodyType: "Легковой" | "Автобус" | "Джип";
   city: "Москва" | "С-Петербург";
   needAssembly: boolean;
   importType: "Распил" | "Конструктор";
+  yenToRubCurs: number;
+  dollarToRubCurs: number;
 }) {
-  const curs = 0.5; // Convert yen to rub ???
-  const curs1 = 60; // Convert from dollar to rub ????
+  const curs = yenToRubCurs; // Convert yen to rub ???
+  const curs1 = dollarToRubCurs; // Convert from dollar to rub ????
 
   const cityTaxRub = cityTaxesMap[city][bodyType];
   const importTypeRub = importTypeMap[importType][bodyType] * curs1;
@@ -93,6 +98,35 @@ export default function Calculator({ onClick }: CalculatorProps) {
   >("Легковой");
   const [needAssembly, setNeedAssembly] = useState<boolean>(true);
   const [city, setCity] = useState<"Москва" | "С-Петербург">("С-Петербург");
+  const [yenToRubCurs, setYenToRubCurs] = useState(1);
+  const [dollarToRubCurs, setDollarToRubCurs] = useState(1);
+
+  useEffect(() => {
+    //TODO: move to service
+    type Currency = "rubles" | "yen" | "euro";
+    const fetchCurrency = async (from: Currency, to: Currency) => {
+      try {
+        const { data } = await api.get("/currency-converter", {
+          params: {
+            from,
+            to,
+          },
+        });
+        return data.rate;
+      } catch (err) {
+        console.error("Failed to fetch exchange rate");
+      }
+    };
+
+    const fetchYenToRubles = async () => {
+      setYenToRubCurs(await fetchCurrency("yen", "rubles"));
+    };
+    const fetchEuroToRubles = async () => {
+      setDollarToRubCurs(await fetchCurrency("euro", "rubles"));
+    };
+    fetchYenToRubles();
+    fetchEuroToRubles();
+  }, []);
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
@@ -114,6 +148,8 @@ export default function Calculator({ onClick }: CalculatorProps) {
                   city: city,
                   needAssembly,
                   importType,
+                  yenToRubCurs,
+                  dollarToRubCurs,
                 }),
                 assemblyPrice: assemblyPriceMap[importType],
                 comission: 49900, //TODO: is it depends on some properties?
