@@ -1,10 +1,49 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
-export default function CarInfo() {
+interface CarProps {
+  id: number | string;
+  title: string;
+  price: string | number;
+  grade: string;
+  lotIndex: string | number;
+  auctionTitle: string;
+  soldDate: string;
+  releaseDate: string | number;
+  engineCapacity: string;
+  enginePower: string;
+  mileage: string | number;
+  bodyType: string;
+}
+
+export default function CarInfo({
+  id,
+  title,
+  price,
+  grade,
+  lotIndex,
+  auctionTitle,
+  soldDate,
+  releaseDate,
+  engineCapacity,
+  enginePower,
+  mileage,
+  bodyType,
+}: CarProps) {
+  const convertDate = (date: string) => {
+    const splitted = date?.split("T")[0];
+    if (splitted)
+      return splitted
+        .split("-") // [2024, 01, 01]
+        .reverse() // [01, 01, 2024]
+        .join("."); // 2024.01.01
+
+    return date;
+  };
+
   return (
     <Link
-      href="/online-auction/1"
+      href={`/online-auction/${id}`}
       className="min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3"
     >
       {/* Car Image & Name */}
@@ -16,7 +55,7 @@ export default function CarInfo() {
           height={350}
           className=""
         />
-        <h3>Nissan Maxima</h3>
+        <h3>{title}</h3>
       </div>
       {/* Info */}
       <div className="grid grid-cols-2 gap-3 text-xs">
@@ -50,7 +89,7 @@ export default function CarInfo() {
                 fill="white"
               />
             </svg>
-            143010000
+            {price}
           </li>
           <li className="flex items-center gap-1">
             <svg
@@ -72,7 +111,7 @@ export default function CarInfo() {
                 fill="#0B1736"
               />
             </svg>
-            Оценка: <span>S</span>
+            Оценка: <span>{grade}</span>
           </li>
           <li className="flex items-center gap-1">
             <svg
@@ -95,7 +134,7 @@ export default function CarInfo() {
               />
               <circle cx="12.7773" cy="6.97147" r="1" fill="white" />
             </svg>
-            2 лот
+            {lotIndex} лот
           </li>
           <li className="flex items-center gap-1">
             <svg
@@ -157,9 +196,11 @@ export default function CarInfo() {
                 fill="white"
               />
             </svg>
-            JU Gifu
+            {auctionTitle}
           </li>
-          <li className="flex items-center gap-1 pl-6">27.04.2024</li>
+          <li className="flex items-center gap-1 pl-6">
+            {convertDate(soldDate)}
+          </li>
         </ul>
         {/* Tech Char */}
         <div className="bg-brand-gray-100 rounded-7">
@@ -178,12 +219,12 @@ export default function CarInfo() {
                 />
                 <circle cx="10" cy="10" r="2" fill="#EFEFEF" />
               </svg>
-              Седан
+              {bodyType}
             </li>
-            <li className="pl-6">2012 г.</li>
-            <li className="pl-6">1.4 л.</li>
-            <li className="pl-6">137 л.с.</li>
-            <li className="pl-6">23546км</li>
+            <li className="pl-6">{releaseDate}</li>
+            <li className="pl-6">{engineCapacity}</li>
+            <li className="pl-6">{enginePower}</li>
+            <li className="pl-6">{mileage}</li>
           </ul>
         </div>
       </div>
