@@ -1,8 +1,47 @@
-import React from 'react';
-import CarInfo from '../../shared/CarInfo';
-import Link from 'next/link';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import CarInfo, { CarProps } from "../../shared/CarInfo";
+import Link from "next/link";
+import page from "@/app/page";
+import { getSoldCars } from "@/app/services/salesHistory";
 
 export default function SalesHistory() {
+  const [pageData, setPageData] = useState<CarProps[]>([]);
+
+  useEffect(() => {
+    const fetchSalesHistory = async (params: {
+      page: number;
+      limit: number;
+      expanded: boolean;
+    }) => {
+      const { cars } = await getSoldCars(params);
+
+      const carsData = cars.map((car) => ({
+        id: car.id,
+        title: `${car.brand} ${car.model}`,
+        price: car.price,
+        grade: null,
+        lotIndex: null,
+        auctionTitle: null,
+        soldDate: car.createdAt,
+        releaseDate: car.registrationYear,
+        engineCapacity: car.engineCapacity,
+        enginePower: null,
+        mileage: car.mileageInKm,
+        bodyType: car.bodyType,
+      }));
+
+      setPageData(carsData);
+    };
+
+    fetchSalesHistory({
+      page: 1,
+      limit: 6,
+      expanded: true,
+    });
+  }, []);
+
   return (
     <section id="sales-history" className="bg-brand-gray-100">
       <div className="pb-8 -mt-5 lg:mt-0">
@@ -15,8 +54,22 @@ export default function SalesHistory() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {Array.from({ length: 6 }).map((_, idx) => (
-              <CarInfo key={idx} />
+            {pageData.map((car) => (
+              <CarInfo
+                key={car.id}
+                id={car.id}
+                auctionTitle={car.auctionTitle}
+                bodyType={car.bodyType}
+                engineCapacity={car.engineCapacity}
+                enginePower={car.enginePower}
+                grade={car.grade}
+                lotIndex={car.lotIndex}
+                mileage={car.mileage}
+                price={car.price}
+                releaseDate={car.releaseDate}
+                soldDate={car.soldDate}
+                title={car.title}
+              />
             ))}
           </div>
           <div className="flex items-center justify-center">

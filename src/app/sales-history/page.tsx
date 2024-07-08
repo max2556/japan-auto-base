@@ -3,31 +3,7 @@
 import { useEffect, useState } from "react";
 import CarInfo, { CarProps } from "../components/shared/CarInfo";
 import Pagination from "../components/shared/Pagination";
-import { api } from "../utils/axios";
-
-interface SoldCarsResponse {
-  id: 1;
-  createdAt: string;
-  updatedAt: string;
-  color: string;
-  brand: string;
-  model: string;
-  bodyType: string;
-  registrationYear: number;
-  engineCapacity: string;
-  transmission: string;
-  mileageInKm: number;
-  price: number;
-  description: string;
-  photos: {
-    id: string;
-    name: string;
-    mimetype: string;
-    size: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
-}
+import { getSoldCars } from "../services/salesHistory";
 
 export default function Page() {
   const [page, setPage] = useState(0);
@@ -39,14 +15,9 @@ export default function Page() {
       limit: number;
       expanded: boolean;
     }) => {
-      const { data } = await api.get<{ cars: SoldCarsResponse[] }>(
-        "/sold-cars",
-        {
-          params,
-        }
-      );
+      const { cars } = await getSoldCars(params);
 
-      const carsData = data.cars.map((car) => ({
+      const carsData = cars.map((car) => ({
         id: car.id,
         title: `${car.brand} ${car.model}`,
         price: car.price,
@@ -62,8 +33,6 @@ export default function Page() {
       }));
 
       setPageData(carsData);
-
-      return data;
     };
 
     fetchSalesHistory({
