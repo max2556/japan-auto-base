@@ -1,7 +1,78 @@
-import CarInfo from '../components/shared/CarInfo';
-import Pagination from '../components/shared/Pagination';
+"use client";
+
+import { useEffect, useState } from "react";
+import CarInfo, { CarProps } from "../components/shared/CarInfo";
+import Pagination from "../components/shared/Pagination";
+import { api } from "../utils/axios";
+
+interface SoldCarsResponse {
+  id: 1;
+  createdAt: string;
+  updatedAt: string;
+  color: string;
+  brand: string;
+  model: string;
+  bodyType: string;
+  registrationYear: number;
+  engineCapacity: string;
+  transmission: string;
+  mileageInKm: number;
+  price: number;
+  description: string;
+  photos: {
+    id: string;
+    name: string;
+    mimetype: string;
+    size: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
 
 export default function Page() {
+  const [page, setPage] = useState(0);
+  const [pageData, setPageData] = useState<CarProps[]>([]);
+
+  useEffect(() => {
+    const fetchSalesHistory = async (params: {
+      page: number;
+      limit: number;
+      expanded: boolean;
+    }) => {
+      const { data } = await api.get<{ cars: SoldCarsResponse[] }>(
+        "/sold-cars",
+        {
+          params,
+        }
+      );
+
+      const carsData = data.cars.map((car) => ({
+        id: car.id,
+        title: `${car.brand} ${car.model}`,
+        price: car.price,
+        grade: null,
+        lotIndex: null,
+        auctionTitle: null,
+        soldDate: car.createdAt,
+        releaseDate: car.registrationYear,
+        engineCapacity: car.engineCapacity,
+        enginePower: null,
+        mileage: car.mileageInKm,
+        bodyType: car.bodyType,
+      }));
+
+      setPageData(carsData);
+
+      return data;
+    };
+
+    fetchSalesHistory({
+      page: page+1,
+      limit: 10,
+      expanded: true,
+    });
+  }, [page]);
+
   return (
     <div className="bg-brand-gray  ">
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
@@ -12,11 +83,28 @@ export default function Page() {
           </p>
         </div>
         <div className="grid sm:grid-cols-2 gap-2">
-          {Array.from({ length: 8 }).map((_, idx) => (
-            <CarInfo key={idx} />
+          {pageData.map((car, idx) => (
+            <CarInfo
+              key={car.id}
+              id={car.id}
+              auctionTitle={car.auctionTitle}
+              bodyType={car.bodyType}
+              engineCapacity={car.engineCapacity}
+              enginePower={car.enginePower}
+              grade={car.grade}
+              lotIndex={car.lotIndex}
+              mileage={car.mileage}
+              price={car.price}
+              releaseDate={car.releaseDate}
+              soldDate={car.soldDate}
+              title={car.title}
+            />
           ))}
+          {/* {Array.from({ length: 8 }).map((_, idx) => (
+            <CarInfo key={idx} />
+          ))} */}
         </div>
-        <Pagination />
+        <Pagination page={page} pages={10} onClick={(page) => setPage(page)} />
       </section>
     </div>
   );
