@@ -8,6 +8,8 @@ import { getSoldCars } from "../services/salesHistory";
 export default function Page() {
   const [page, setPage] = useState(0);
   const [pageData, setPageData] = useState<CarProps[]>([]);
+  const [count, setCount] = useState(0);
+  const limit = 10;
 
   useEffect(() => {
     const fetchSalesHistory = async (params: {
@@ -15,7 +17,7 @@ export default function Page() {
       limit: number;
       expanded: boolean;
     }) => {
-      const { cars } = await getSoldCars(params);
+      const { cars, count } = await getSoldCars(params);
 
       const carsData = cars.map((car) => ({
         id: car.id,
@@ -33,11 +35,12 @@ export default function Page() {
       }));
 
       setPageData(carsData);
+      setCount(count);
     };
 
     fetchSalesHistory({
-      page: page+1,
-      limit: 10,
+      page: page + 1,
+      limit,
       expanded: true,
     });
   }, [page]);
@@ -69,11 +72,12 @@ export default function Page() {
               title={car.title}
             />
           ))}
-          {/* {Array.from({ length: 8 }).map((_, idx) => (
-            <CarInfo key={idx} />
-          ))} */}
         </div>
-        <Pagination page={page} pages={10} onClick={(page) => setPage(page)} />
+        <Pagination
+          page={page}
+          pages={Math.ceil(count / limit)}
+          onClick={(page) => setPage(page)}
+        />
       </section>
     </div>
   );
