@@ -23,7 +23,7 @@ const VKWidget: React.FC = () => {
     script.onload = () => {
       if (window.VK) {
         window.VK.init({
-          apiId: 51926923,
+          apiId: process.env.NEXT_PUBLIC_VK_API_ID,
         });
 
         window.VK.Widgets.Comments('vk_comments', {
