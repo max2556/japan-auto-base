@@ -41,8 +41,9 @@ interface Auction {
 }
 
 export default function Page() {
-  const pageSize = 8;
+  const limit = 8;
   const [page, setPage] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
   const [filters, setFilters] = useState<OnlineAuctionFilters>({});
   const [auctions, setAuction] = useState<Auction[] | null>(null);
@@ -60,27 +61,13 @@ export default function Page() {
       params,
     });
 
+    setCount(auctions.data.count);
     setAuction(auctions.data.auctions);
   };
 
   useEffect(() => {
     getAuctions({ expanded: true });
   }, [filters]);
-
-  const flatAuctions = () => {
-    return auctions?.flatMap((auction) =>
-      auction.positions?.map((position) => ({
-        ...position,
-        auctionTitle: auction.title,
-      }))
-    );
-  };
-
-  const pagesCount = () => {
-    const len = flatAuctions()?.length;
-    if(!len) return 0;
-    return Math.ceil(len / pageSize);
-  }
 
   return (
     <div className=" -my-24 py-20">
@@ -112,27 +99,30 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {flatAuctions()
-            ?.slice(page * pageSize, (page + 1) * pageSize)
-            .map((card) => (
-              <CarInfo
-                key={card.id}
-                id={card.id}
-                auctionTitle={card.auctionTitle}
-                bodyType={card.bodyModel}
-                engineCapacity={card.engineCapacity}
-                enginePower="???"
-                grade="???"
-                lotIndex={card.lotNumber}
-                mileage={card.mileageInKm}
-                price={card.finalPrice}
-                releaseDate={card.registrationYear}
-                soldDate={card.auctionDate}
-                title={card.mark + " " + card.model}
-              />
-            ))}
+          {/* TODO: fix, when api ready */}
+          {auctions?.map((card) => (
+            <CarInfo
+              key={card.id}
+              id={card.id}
+              auctionTitle={card.auctionTitle}
+              bodyType={card.bodyModel}
+              engineCapacity={card.engineCapacity}
+              enginePower="???"
+              grade="???"
+              lotIndex={card.lotNumber}
+              mileage={card.mileageInKm}
+              price={card.finalPrice}
+              releaseDate={card.registrationYear}
+              soldDate={card.auctionDate}
+              title={card.mark + " " + card.model}
+            />
+          ))}
         </div>
-        <Pagination page={page} pages={pagesCount()} onClick={(page) => setPage(page)}  />
+        <Pagination
+          page={page}
+          pages={Math.ceil(count / limit)}
+          onClick={(page) => setPage(page)}
+        />
       </section>
     </div>
   );
