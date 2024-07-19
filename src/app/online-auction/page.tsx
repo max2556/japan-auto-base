@@ -8,53 +8,10 @@ import FiltersCotainer, {
 import Pagination from "../components/shared/Pagination";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import { api } from "../utils/axios";
+import { PaginationsParams } from "../services/pagination";
+import { AuctionPosition } from "../services/auctions";
 
-interface AuctionPosition {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  mark: string;
-  model: string;
-  registrationYear: number;
-  mileageInKm: number;
-  engineCapacity: string;
-  transmission: string;
-  color: string;
-  bodyModel: string;
-  auctionDate: string;
-  lotNumber: string;
-  modification: string;
-  startPrice: number;
-  finalPrice: number;
-  result: "продан" | "доступен" | "не доступен" | "не известен";
-  auctionValuation: string;
-  auctionId: number;
-  auction?: {
-    id: number;
-    createdAt: string;
-    updatedAt: string;
-    title: string;
-  };
-}
 
-interface Auction {
-  id: 0;
-  createdAt: string;
-  updatedAt: string;
-  title: string;
-  positions: AuctionPosition[];
-}
-
-//TODO: fix
-//@ts-ignore
-type Filters<T extends object> = Record<`filters[${keyof T}]`, string>;
-type PaginationsParams<T extends object = object> = {
-  page?: number;
-  limit?: number;
-  expanded?: boolean;
-  sort?: "ASC" | "DESC";
-  sortBy?: keyof T;
-} & Partial<Filters<T>>;
 
 export default function Page() {
   const limit = 8;
