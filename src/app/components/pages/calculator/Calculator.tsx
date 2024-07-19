@@ -9,6 +9,7 @@ import City from "./City";
 import CostOfVehicleInAuction from "./CostOfVehicleInAuction";
 import Button from "../../shared/Button";
 import { api } from "@/app/utils/axios";
+import { BaseEntity } from "@/app/services/base";
 
 const cityTaxesMap = {
   Москва: {
@@ -50,18 +51,18 @@ function calcSum({
   needAssembly,
   importType,
   yenToRubCurs,
-  dollarToRubCurs,
+  euroToRubCurs,
 }: {
-  value: number;
+  value: number; // Стоимость в рублях
   bodyType: "Легковой" | "Автобус" | "Джип";
   city: "Москва" | "С-Петербург";
   needAssembly: boolean;
   importType: "Распил" | "Конструктор";
   yenToRubCurs: number;
-  dollarToRubCurs: number;
+  euroToRubCurs: number;
 }) {
-  const curs = yenToRubCurs; // Convert yen to rub ???
-  const curs1 = dollarToRubCurs; // Convert from dollar to rub ????
+  const curs = yenToRubCurs; // Convert yen to rub
+  const curs1 = euroToRubCurs; // Convert from dollar to rub
 
   const cityTaxRub = cityTaxesMap[city][bodyType];
   const importTypeRub = importTypeMap[importType][bodyType] * curs1;
@@ -99,14 +100,20 @@ export default function Calculator({ onClick }: CalculatorProps) {
   const [needAssembly, setNeedAssembly] = useState<boolean>(true);
   const [city, setCity] = useState<"Москва" | "С-Петербург">("С-Петербург");
   const [yenToRubCurs, setYenToRubCurs] = useState(1);
-  const [dollarToRubCurs, setDollarToRubCurs] = useState(1);
+  const [euroToRubCurs, setEuroToRubCurs] = useState(1);
 
   useEffect(() => {
     //TODO: move to service
-    type Currency = "rubles" | "yen" | "euro";
+    type Currency = "rub" | "yen" | "euro" | "usd";
     const fetchCurrency = async (from: Currency, to: Currency) => {
       try {
-        const { data } = await api.get("/currency-converter", {
+        const { data } = await api.get<{
+          rate: BaseEntity & {
+            from: Currency;
+            to: Currency;
+            value: number;
+          };
+        }>("/currency-converter", {
           params: {
             from,
             to,
@@ -119,10 +126,12 @@ export default function Calculator({ onClick }: CalculatorProps) {
     };
 
     const fetchYenToRubles = async () => {
-      setYenToRubCurs(await fetchCurrency("yen", "rubles"));
+      const response = await fetchCurrency("yen", "rub");
+      setYenToRubCurs(response?.value ?? 1);
     };
     const fetchEuroToRubles = async () => {
-      setDollarToRubCurs(await fetchCurrency("euro", "rubles"));
+      const response = await fetchCurrency("euro", "rub");
+      setEuroToRubCurs(response?.value ?? 1);
     };
     fetchYenToRubles();
     fetchEuroToRubles();
@@ -149,9 +158,10 @@ export default function Calculator({ onClick }: CalculatorProps) {
                   needAssembly,
                   importType,
                   yenToRubCurs,
-                  dollarToRubCurs,
+                  euroToRubCurs,
                 }),
-                assemblyPrice: assemblyPriceMap[importType],
+                assemblyPrice:
+                  assemblyPriceMap[importType] * (needAssembly ? 1 : 0),
                 comission: 49900, //TODO: is it depends on some properties?
                 customsExpenses: 49900, //TODO: is it depends on some properties?
                 deliveryPrice: cityTaxesMap[city][vehicleType],
