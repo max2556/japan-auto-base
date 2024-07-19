@@ -16,6 +16,7 @@ import Button from "@/app/components/shared/Button";
 import { useEffect, useState } from "react";
 import { api } from "@/app/utils/axios";
 import { AuctionPosition } from "@/app/services/auctions";
+import { BaseEntity } from "@/app/services/base";
 
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
@@ -48,13 +49,13 @@ export default function Page({ params }: { params: { id: string | number } }) {
   useEffect(() => {
     const fetchCurrency = async () => {
       try {
-        const { data } = await api.get("/currency-converter", {
+        const { data } = await api.get<{rate: BaseEntity & {from: string; to: string, value: number}}>("/currency-converter", {
           params: {
             from: "yen",
             to: "rub",
           },
         });
-        setRate(data.rate);
+        setRate(data.rate.value);
       } catch (err) {
         setError("Failed to fetch exchange rate");
       }
