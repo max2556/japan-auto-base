@@ -17,9 +17,9 @@ export default function Page() {
       limit: number;
       expanded: boolean;
     }) => {
-      const { cars, count } = await getSoldCars(params);
+      const { autos, count } = await getSoldCars(params);
 
-      const carsData = cars.map((car) => ({
+      const carsData = autos.map((car) => ({
         id: car.id,
         title: `${car.brand} ${car.model}`,
         price: car.price,
@@ -55,29 +55,33 @@ export default function Page() {
           </p>
         </div>
         <div className="grid sm:grid-cols-2 gap-2">
-          {pageData.map((car, idx) => (
-            <CarInfo
-              key={car.id}
-              id={car.id}
-              auctionTitle={car.auctionTitle}
-              bodyType={car.bodyType}
-              engineCapacity={car.engineCapacity}
-              enginePower={car.enginePower}
-              grade={car.grade}
-              lotIndex={car.lotIndex}
-              mileage={car.mileage}
-              price={car.price}
-              releaseDate={car.releaseDate}
-              soldDate={car.soldDate}
-              title={car.title}
-            />
-          ))}
+          {pageData.length > 0
+            ? pageData.map((car, idx) => (
+                <CarInfo
+                  key={car.id}
+                  id={car.id}
+                  auctionTitle={car.auctionTitle}
+                  bodyType={car.bodyType}
+                  engineCapacity={car.engineCapacity}
+                  enginePower={car.enginePower}
+                  grade={car.grade}
+                  lotIndex={car.lotIndex}
+                  mileage={car.mileage}
+                  price={car.price}
+                  releaseDate={car.releaseDate}
+                  soldDate={car.soldDate}
+                  title={car.title}
+                />
+              ))
+            : "Нет данных"}
         </div>
-        <Pagination
-          page={page}
-          pages={Math.ceil(count / limit)}
-          onClick={(page) => setPage(page)}
-        />
+        {count > 0 && (
+          <Pagination
+            page={page}
+            pages={Math.ceil(count / limit)}
+            onClick={(page) => setPage(page)}
+          />
+        )}
       </section>
     </div>
   );

@@ -29,7 +29,7 @@ export const getSoldCars = async (params: {
   limit: number;
   expanded: boolean;
 }) => {
-  const { data } = await api.get<{ cars: SoldCarsResponse[], count: number }>("/sold-cars", {
+  const { data } = await api.get<{ autos: SoldCarsResponse[], count: number }>("/sold-cars", {
     params,
   });
   return data;
