@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const options = [
   {
-    label: "Любая3",
+    label: "Любая",
   },
   {
     label: "S",
@@ -27,7 +27,7 @@ const options = [
 
 export interface FilterBrandProps {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (value?: string) => void;
 }
 
 export default function FilterGrade({ value, onChange }: FilterBrandProps) {
@@ -41,7 +41,11 @@ export default function FilterGrade({ value, onChange }: FilterBrandProps) {
               key={option.label}
               htmlFor={"grade_" + option.label}
               className="flex gap-2.5 text-sm cursor-pointer"
-              onClick={() => onChange(option.label)}
+              onClick={() =>
+                option.label == "Любая"
+                  ? onChange(undefined)
+                  : onChange(option.label)
+              }
             >
               <input
                 type="radio"

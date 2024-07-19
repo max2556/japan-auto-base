@@ -11,7 +11,7 @@ interface CarProps {
   soldDate: string;
   releaseDate: string | number;
   engineCapacity: string;
-  enginePower: string;
+  enginePower?: string;
   mileage: string | number;
   bodyType: string;
 }
@@ -39,6 +39,11 @@ export default function CarInfo({
         .join("."); // 2024.01.01
 
     return date;
+  };
+
+  const convertCCtoLitre = (engineCapacity: string) => {
+    const value = engineCapacity.split("cc")[0];
+    return Number(value) / 1000;
   };
 
   return (
@@ -221,10 +226,12 @@ export default function CarInfo({
               </svg>
               {bodyType}
             </li>
-            <li className="pl-6">{releaseDate}</li>
-            <li className="pl-6">{engineCapacity}</li>
-            <li className="pl-6">{enginePower}</li>
-            <li className="pl-6">{mileage}</li>
+            {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
+            {engineCapacity && (
+              <li className="pl-6">{convertCCtoLitre(engineCapacity)} л.</li>
+            )}
+            {enginePower && <li className="pl-6">{enginePower} л.с.</li>}
+            {mileage && <li className="pl-6">{mileage} км</li>}
           </ul>
         </div>
       </div>

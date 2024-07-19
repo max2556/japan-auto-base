@@ -9,36 +9,52 @@ import Pagination from "../components/shared/Pagination";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import { api } from "../utils/axios";
 
+interface AuctionPosition {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  mark: string;
+  model: string;
+  registrationYear: number;
+  mileageInKm: number;
+  engineCapacity: string;
+  transmission: string;
+  color: string;
+  bodyModel: string;
+  auctionDate: string;
+  lotNumber: string;
+  modification: string;
+  startPrice: number;
+  finalPrice: number;
+  result: "продан" | "доступен" | "не доступен" | "не известен";
+  auctionValuation: string;
+  auctionId: number;
+  auction?: {
+    id: number;
+    createdAt: string;
+    updatedAt: string;
+    title: string;
+  };
+}
+
 interface Auction {
   id: 0;
   createdAt: string;
   updatedAt: string;
   title: string;
-  positions: [
-    {
-      id: 0;
-      createdAt: string;
-      updatedAt: string;
-      auctionDate: string;
-      lotNumber: string;
-      mark: string;
-      model: string;
-      modification: string;
-      registrationYear: 0;
-      mileageInKm: 0;
-      engineCapacity: string;
-      transmission: string;
-      color: string;
-      bodyModel: string;
-      startPrice: 0;
-      finalPrice: 0;
-      result: "не известен" | "доступен" | "не доступен";
-      auctionValuation: string;
-      auctionId: 0;
-      auction: string;
-    }
-  ];
+  positions: AuctionPosition[];
 }
+
+//TODO: fix
+//@ts-ignore
+type Filters<T extends object> = Record<`filters[${keyof T}]`, string>;
+type PaginationsParams<T extends object = object> = {
+  page?: number;
+  limit?: number;
+  expanded?: boolean;
+  sort?: "ASC" | "DESC";
+  sortBy?: keyof T;
+} & Partial<Filters<T>>;
 
 export default function Page() {
   const limit = 8;
@@ -46,28 +62,47 @@ export default function Page() {
   const [count, setCount] = useState<number>(0);
 
   const [filters, setFilters] = useState<OnlineAuctionFilters>({});
-  const [auctions, setAuction] = useState<Auction[] | null>(null);
+  const [auctionPositions, setAuctionPositions] = useState<
+    AuctionPosition[] | null
+  >(null);
 
-  const getAuctions = async (params?: {
-    page?: number;
-    limit?: number;
-    expanded?: boolean;
-  }) => {
+  const getAuctionsPositions = async (
+    params?: PaginationsParams<AuctionPosition>
+  ) => {
     // TODO: fix when api will be ready
     const auctions = await api.get<{
-      auctions: Auction[];
+      positions: AuctionPosition[];
       count: number;
-    }>(`/auctions`, {
+    }>(`/auctions/positions`, {
       params,
     });
 
     setCount(auctions.data.count);
-    setAuction(auctions.data.auctions);
+    setAuctionPositions(auctions.data.positions);
+    return auctions;
   };
 
   useEffect(() => {
-    getAuctions({ expanded: true });
-  }, [filters]);
+    const preparedFilterValues = Object.entries(filters)
+      .filter(([_, value]) => value)
+      .map(([key, value]) => {
+        if (value) return [`filters[${key}]`, value];
+      });
+    //TODO:fix
+    //@ts-ignore
+    const preparedFilters = Object.fromEntries(preparedFilterValues);
+
+    // getAuctionsPositions({ page: 1, limit: 100, expanded: true }).then(
+    //   (response) => {
+    //     const a = response.data.positions
+    //       .map((item) => item.color)
+    //       .reduce((a, b) => (a.includes(b) ? a : [...a, b]), [] as string[]);
+    //     console.log(a);
+    //   }
+    // );
+
+    getAuctionsPositions({ page: page + 1, limit, expanded: true, ...preparedFilters });
+  }, [filters, page]);
 
   return (
     <div className=" -my-24 py-20">
@@ -90,7 +125,7 @@ export default function Page() {
               onChange={(e) => setFilters(e)}
             />
 
-            {JSON.stringify(filters)}
+            {/* {JSON.stringify(filters)} */}
           </div>
         </div>
       </section>
@@ -99,16 +134,14 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {/* TODO: fix, when api ready */}
-          {auctions?.map((card) => (
+          {auctionPositions?.map((card) => (
             <CarInfo
               key={card.id}
               id={card.id}
-              auctionTitle={card.auctionTitle}
+              auctionTitle={card.auction?.title ?? "Неизвестно"}
               bodyType={card.bodyModel}
               engineCapacity={card.engineCapacity}
-              enginePower="???"
-              grade="???"
+              grade={card.auctionValuation}
               lotIndex={card.lotNumber}
               mileage={card.mileageInKm}
               price={card.finalPrice}

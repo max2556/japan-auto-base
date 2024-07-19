@@ -2,31 +2,53 @@ import React from "react";
 
 const options = [
   {
-    label: "Любой2",
+    label: "Любой",
   },
   {
     label: "Белый",
+    value: "WHITE",
   },
   {
     label: "Серый",
+    value: "GRAY",
   },
   {
     label: "Черный",
+    value: "BLACK",
   },
   {
     label: "Синий",
+    value: "BLUE",
   },
   {
     label: "Желтый",
+    value: "YELLOW",
   },
   {
     label: "Оранжевый",
+    value: "ORANGE",
+  },
+  {
+    label: "Коричневый",
+    value: "BROWN",
+  },
+  {
+    label: "Серебристый",
+    value: "SILVER",
+  },
+  {
+    label: "Золотой",
+    value: "GOLD",
+  },
+  {
+    label: "Розовый",
+    value: "PINK",
   },
 ];
 
 export interface FilterBrandProps {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (value?: string) => void;
 }
 
 export default function FilterColor({ value, onChange }: FilterBrandProps) {
@@ -37,13 +59,17 @@ export default function FilterColor({ value, onChange }: FilterBrandProps) {
         {options.map((option) => (
           <label
             key={option.label}
-            htmlFor={option.label}
+            htmlFor={option.label+"_color"}
             className="flex gap-1 text-sm cursor-pointer"
-            onClick={() => onChange(option.label)}
+            onClick={() =>
+              option.label == "Любой"
+                ? onChange(undefined)
+                : onChange(option.value)
+            }
           >
             <input
               type="radio"
-              id={option.label}
+              id={option.label+"_color"}
               name="color"
               className="hidden"
             />

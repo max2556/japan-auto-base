@@ -734,7 +734,7 @@ const options = {
 
 export interface FilterBrandProps {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (value?: string) => void;
   // mark: keyof typeof options | undefined;
   mark: string | undefined;
 }
@@ -754,14 +754,11 @@ export default function FilterModel({
               key={model}
               htmlFor={model}
               className="flex gap-1 text-sm cursor-pointer"
-              onClick={() => onChange(model)}
+              onClick={() =>
+                model == "Все модели" ? onChange(undefined) : onChange(model)
+              }
             >
-              <input
-                type="radio"
-                id={model}
-                name="model"
-                className="hidden"
-              />
+              <input type="radio" id={model} name="model" className="hidden" />
               <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
                 <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>
               </div>

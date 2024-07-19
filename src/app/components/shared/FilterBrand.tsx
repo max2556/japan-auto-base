@@ -32,7 +32,7 @@ const options = [
 
 export interface FilterBrandProps {
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (value?: string) => void;
 }
 
 export default function FilterBrand({ value, onChange }: FilterBrandProps) {
@@ -45,7 +45,7 @@ export default function FilterBrand({ value, onChange }: FilterBrandProps) {
             key={option.label}
             htmlFor={option.label}
             className="flex gap-1 text-sm cursor-pointer"
-            onClick={() => onChange(option.label)}
+            onClick={() => option.label == 'Любая' ? onChange(undefined) : onChange(option.label)}
           >
             <input type="radio" id={option.label} name="brand" className="hidden" />
             <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
