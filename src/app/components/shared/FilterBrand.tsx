@@ -5,6 +5,9 @@ const options = [
     label: "Любая",
   },
   {
+    label: "Honda",
+  },
+  {
     label: "Toyota",
   },
   {
@@ -21,12 +24,6 @@ const options = [
   },
   {
     label: "Nissan",
-  },
-  {
-    label: "Mazda2",
-  },
-  {
-    label: "Nissan2",
   },
 ];
 

@@ -1,8 +1,40 @@
-import React, { useState } from 'react';
-import FiltersCotainer, { OnlineAuctionFilters } from './FiltersCotainer';
+import React, { useEffect, useState } from "react";
+import FiltersCotainer, { OnlineAuctionFilters } from "./FiltersCotainer";
+import { AuctionPosition } from "@/app/services/auctions";
+import { api } from "@/app/utils/axios";
+import CarInfo from "./CarInfo";
 
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+  const [auctionPositions, setAuctionPositions] = useState<
+    AuctionPosition[] | null
+  >(null);
+
+  const fetchFirstPage = async (filters: OnlineAuctionFilters) => {
+    console.log(filters);
+    const preparedFilterValues = Object.entries(filters)
+      .filter(([_, value]) => value)
+      .map(([key, value]) => {
+        if (value) return [`filters[${key}]`, value];
+      });
+    //TODO:fix
+    //@ts-ignore
+    const preparedFilters = Object.fromEntries(preparedFilterValues);
+
+    const response = await api.get<{
+      positions: AuctionPosition[];
+      count: number;
+    }>("/auctions/positions", {
+      params: {
+        page: 1,
+        limit: 8,
+        expanded: true,
+        ...preparedFilters,
+      },
+    });
+
+    setAuctionPositions(response.data.positions);
+  };
 
   return (
     <section id="online-auction" className="bg-white -mt-12 lg:-mt-8">
@@ -19,10 +51,36 @@ export default function OnlieAuction() {
             </p>
           </div>
           {/* Filters Container */}
-          <FiltersCotainer filters={filters} onChange={(e) => setFilters(e)}/>
-
+          <FiltersCotainer
+            filters={filters}
+            onChange={(e) => setFilters(e)}
+            onApply={(filters) => fetchFirstPage(filters)}
+          />
         </div>
       </div>
+      {auctionPositions && auctionPositions.length && (
+        <div className="max-w-4xl mx-auto space-y-4 mt-5 py-5 px-4 lg:px-6 rounded-10 bg-brand-gray-100">
+          <h2>Результаты поиска</h2>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {auctionPositions.map((card) => (
+              <CarInfo
+                key={card.id}
+                id={card.id}
+                auctionTitle={card.auction?.title ?? "Неизвестно"}
+                bodyType={card.bodyModel}
+                engineCapacity={card.engineCapacity}
+                grade={card.auctionValuation}
+                lotIndex={card.lotNumber}
+                mileage={card.mileageInKm}
+                price={card.finalPrice}
+                releaseDate={card.registrationYear}
+                soldDate={card.auctionDate}
+                title={card.mark + " " + card.model}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -382,7 +382,7 @@ const options = {
     "X-90",
     "XBEE",
   ],
-  mitshubishi: [
+  mitsubishi: [
     "Все модели",
     "AIRTREK",
     "BRAVO",

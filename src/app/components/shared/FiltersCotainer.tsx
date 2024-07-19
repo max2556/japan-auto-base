@@ -23,11 +23,13 @@ export interface OnlineAuctionFilters {
 export interface FiltersCotainerProps {
   filters: OnlineAuctionFilters;
   onChange: (filters: OnlineAuctionFilters) => void;
+  onApply?: (filters: OnlineAuctionFilters) => void;
 }
 
 export default function FiltersCotainer({
   filters,
   onChange,
+  onApply,
 }: FiltersCotainerProps) {
   const setFilter = (
     field: keyof OnlineAuctionFilters,
@@ -89,8 +91,13 @@ export default function FiltersCotainer({
           />
         </div>
       </div>
-      <div className="sm:block">
+      <div className="sm:block h-140 sm:h-220 space-y-2">
         <FilterGrade onChange={(e) => setFilter("auctionValuation", e)} />
+        <div className="w-full grid place-content-center bg-white rounded-10 py-4">
+          <Button blue className="h-8 !w-full" onClick={() => onApply?.(filters)}>
+            Применить
+          </Button>
+        </div>
       </div>
       <div className="w-full sm:hidden gap-2 bg-white rounded-10 p-4">
         <input
@@ -103,7 +110,9 @@ export default function FiltersCotainer({
         />
       </div>
       <div className="col-span-3 grid place-content-center sm:hidden pt-4">
-        <Button blue>Применить</Button>
+        <Button blue onClick={() => onApply?.(filters)}>
+          Применить
+        </Button>
       </div>
     </div>
   );
