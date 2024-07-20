@@ -1,6 +1,19 @@
-import Calculator from '../components/pages/calculator/Calculator';
+'use client'
+import { useState } from "react";
+import Calculator from "../components/pages/calculator/Calculator";
 
 export default function Page() {
+  const [resultPrice, setResultPrice] = useState(0);
+  const [inputPrice, setInputPrice] = useState(0);
+  const [japanExpenses, setJapanExpenses] = useState(0);
+  const [russiaExpenses, setRussiaExpenses] = useState(0);
+  const [disassemblyPrice, setDisassemblyPrice] = useState(0);
+  const [customsExpenses, setCustomsExpenses] = useState(0);
+  const [comission, setCommission] = useState(0);
+  const [evacuationPrice, setEvacuationPrice] = useState(0);
+  const [assemblyPrice, setAssemblyPrice] = useState(0);
+  const [deliveryPrice, setDeliveryPrice] = useState(0);
+
   return (
     <div className="bg-brand-gray">
       <section className="max-w-6xl mx-auto space-y-4 -mt-10 px-4 lg:px-7">
@@ -17,7 +30,20 @@ export default function Page() {
           <li>Выберите тип автомобиля: легковой, автобус или джип.</li>
           <li>Укажите нужна ли Вам сборка</li>
         </ul>
-        <Calculator />
+        <Calculator
+          onClick={(prices) => {
+            setInputPrice(prices.inputPrice);
+            setJapanExpenses(prices.japanExpenses);
+            setRussiaExpenses(prices.russiaExpenses);
+            setDisassemblyPrice(prices.disassemblyPrice);
+            setCustomsExpenses(prices.customsExpenses);
+            setCommission(prices.comission);
+            setEvacuationPrice(prices.evacuationPrice);
+            setAssemblyPrice(prices.assemblyPrice);
+            setDeliveryPrice(prices.deliveryPrice);
+            setResultPrice(prices.resultPrice);
+          }}
+        />
       </section>
       <div className="h-[0.1875rem] bg-brand-red mt-8"></div>
       <section>
@@ -49,7 +75,7 @@ export default function Page() {
                   />
                 </svg>
                 <h2 className="text-brand-red leading-5">
-                  Итоговая стоимость: 537032 ₽
+                  Итоговая стоимость: {resultPrice.toFixed(2)} ₽
                 </h2>
               </div>
               <p className="text-sm leading-4">
@@ -59,7 +85,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Стоимость авто на аукционе: 507898 ¥
+                Стоимость авто на аукционе: {inputPrice} ¥
               </h2>
               <p className="text-sm leading-4">
                 Изначальная стоимость покупки на аукционе.
@@ -67,7 +93,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Расходы в Японии: 3572 ¥
+                Расходы в Японии: {japanExpenses} ¥
               </h2>
               <p className="text-sm leading-4">
                 Складывается из комиссии аукциона, комиссии за покупку и
@@ -76,13 +102,13 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Расходы в России: 19990 ₽
+                Расходы в России: {russiaExpenses} ₽
               </h2>
               <p className="text-sm leading-4">Пошлина на физическое лицо.</p>
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Разбор авто и Фрахт: 50789 ₽
+                Разбор авто и Фрахт: {disassemblyPrice} ₽
               </h2>
               <p className="text-sm leading-4">
                 Плата за перевозку груза морским путем.
@@ -90,7 +116,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Услуги растамаживания: 49990 ₽
+                Услуги растамаживания: {customsExpenses} ₽
               </h2>
               <p className="text-sm leading-4">
                 Складывается из цен на растамаживание авто, выгрузку авто,
@@ -102,7 +128,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Комиссия: 49990 ₽
+                Комиссия: {comission} ₽
               </h2>
               <p className="text-sm leading-4">
                 Комиссия нашей компании за выполненную работу.
@@ -110,7 +136,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Эвакуатор с таможни: 49990 ₽
+                Эвакуатор с таможни: {evacuationPrice} ₽
               </h2>
               <p className="text-sm leading-4">
                 Забирает автомобиль с таможни.
@@ -118,7 +144,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Сборка: 49990 ₽
+                Сборка: {assemblyPrice} ₽
               </h2>
               <p className="text-sm leading-4">
                 Расходы необходимые для сборки автомобиля.
@@ -126,7 +152,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Доставка: 49990 ₽
+                Доставка: {deliveryPrice} ₽
               </h2>
               <p className="text-sm leading-4">
                 Расходы необходимые для доставки автомобиля в ваш город.
