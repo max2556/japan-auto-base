@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CarInfo, { CarProps } from "../components/shared/CarInfo";
 import Pagination from "../components/shared/Pagination";
 import { getSoldCars } from "../services/salesHistory";
+import { baseURL } from "../utils/axios";
 
 export default function Page() {
   const [page, setPage] = useState(0);
@@ -21,7 +22,7 @@ export default function Page() {
 
       const carsData = autos.map((car) => ({
         id: car.id,
-        title: `${car.brand} ${car.model}`,
+        title: `${car.mark} ${car.model}`,
         price: car.price,
         grade: null,
         lotIndex: null,
@@ -31,7 +32,8 @@ export default function Page() {
         engineCapacity: car.engineCapacity,
         enginePower: null,
         mileage: car.mileageInKm,
-        bodyType: car.bodyType,
+        bodyType: car.bodyModel,
+        imageSrc: `${baseURL}/files/${car.photos[0].id}`,
       }));
 
       setPageData(carsData);
@@ -71,11 +73,12 @@ export default function Page() {
                   releaseDate={car.releaseDate}
                   soldDate={car.soldDate}
                   title={car.title}
+                  imageSrc={car.imageSrc}
                 />
               ))
             : "Нет данных"}
         </div>
-        {count > 0 && (
+        {Math.ceil(count / limit) > 1 && (
           <Pagination
             page={page}
             pages={Math.ceil(count / limit)}

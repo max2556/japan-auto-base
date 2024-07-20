@@ -5,9 +5,9 @@ interface SoldCarsResponse {
   createdAt: string;
   updatedAt: string;
   color: string;
-  brand: string;
+  mark: string;
   model: string;
-  bodyType: string;
+  bodyModel: string;
   registrationYear: number;
   engineCapacity: string;
   transmission: string;

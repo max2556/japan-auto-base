@@ -19,6 +19,7 @@ export interface CarProps {
   enginePower: string | null;
   mileage: string | number | null;
   bodyType: string | null;
+  imageSrc: string;
 }
 
 export default function CarInfo({
@@ -34,6 +35,7 @@ export default function CarInfo({
   enginePower,
   mileage,
   bodyType,
+  imageSrc
 }: CarProps) {
   const convertDate = (date: string) => {
     const splitted = date?.split("T")[0];
@@ -52,13 +54,13 @@ export default function CarInfo({
       className="min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3"
     >
       {/* Car Image & Name */}
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col h-full">
         <Image
-          src="/assets/images/img-car-1.svg"
+          src={imageSrc ?? "/assets/images/img-car-1.svg"}
           alt="Car Image"
           width={500}
           height={350}
-          className=""
+          className="object-cover w-auto h-full"
         />
         <h3>{title}</h3>
       </div>
