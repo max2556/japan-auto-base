@@ -1,8 +1,50 @@
-import React from 'react';
-import CarInfo from '../../shared/CarInfo';
-import Link from 'next/link';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import CarInfo, { CarProps } from "../../shared/CarInfo";
+import Link from "next/link";
+import page from "@/app/page";
+import { getSoldCars } from "@/app/services/salesHistory";
+import { baseURL } from "@/app/utils/axios";
 
 export default function SalesHistory() {
+  const [pageData, setPageData] = useState<CarProps[]>([]);
+
+  useEffect(() => {
+    const fetchSalesHistory = async (params: {
+      page: number;
+      limit: number;
+      expanded: boolean;
+    }) => {
+      const { autos, count } = await getSoldCars(params);
+
+      const carsData = autos.map((car) => ({
+        id: car.id,
+        title: `${car.mark} ${car.model}`,
+        price: car.price,
+        grade: null,
+        lotIndex: null,
+        auctionTitle: null,
+        soldDate: car.createdAt,
+        releaseDate: car.registrationYear,
+        engineCapacity: car.engineCapacity,
+        enginePower: null,
+        mileage: car.mileageInKm,
+        bodyType: car.bodyModel,
+        imageSrc: `${baseURL}/files/${car.photos[0].id}`,
+      }));
+
+      setPageData(carsData);
+      
+    };
+
+    fetchSalesHistory({
+      page: 1,
+      limit: 8,
+      expanded: true,
+    });
+  }, []);
+
   return (
     <section id="sales-history" className="bg-brand-gray-100">
       <div className="pb-8 -mt-5 lg:mt-0">
@@ -15,21 +57,22 @@ export default function SalesHistory() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-          {[... Array(6)].map((_, idx) => (
+            {pageData.map((car) => (
               <CarInfo
-                key={idx}
-                id={idx}
-                auctionTitle="JU Gifu"
-                bodyType="Седан"
-                engineCapacity="2.5л"
-                enginePower="120 л.с."
-                grade="S"
-                lotIndex="2"
-                mileage="23456км"
-                price={1000000}
-                releaseDate={2012}
-                soldDate="24.04.2024"
-                title="Nissan Maxima"
+                key={car.id}
+                id={car.id}
+                auctionTitle={car.auctionTitle}
+                bodyType={car.bodyType}
+                engineCapacity={car.engineCapacity}
+                enginePower={car.enginePower}
+                grade={car.grade}
+                lotIndex={car.lotIndex}
+                mileage={car.mileage}
+                price={car.price}
+                releaseDate={car.releaseDate}
+                soldDate={car.soldDate}
+                title={car.title}
+                imageSrc={car.imageSrc}
               />
             ))}
           </div>
