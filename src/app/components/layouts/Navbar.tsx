@@ -55,9 +55,7 @@ export default function Navbar() {
   }
 
   return (
-    <header
-      className={`sticky top-0 z-50 font-sansation`}
-    >
+    <header className={`sticky top-0 z-50 font-sansation bg-white`}>
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobMenuOpen && (
@@ -67,7 +65,7 @@ export default function Navbar() {
       {/* Submit Application Button */}
       <SubmitApplicationButton />
       {/* Links */}
-      <div className="max-w-4xl mx-auto relative flex items-center justify-between px-4 lg:px-6">
+      <div className="max-w-4xl mx-auto relative flex items-center justify-between px-4 lg:px-6 ">
         <ul className="md:w-full h-16 md:h-10 lg:h-12 flex items-center justify-between md:text-xs lg:text-sm text-brand-purple/50 ">
           {links.map((link) => (
             <li key={link.name}>
@@ -120,7 +118,7 @@ export default function Navbar() {
           >
             <div className="flex items-center gap-2">
               {/* Whatsapp */}
-              <Whatsapp/>
+              <Whatsapp />
               {/* Tel */}
               <PhoneNumber />
             </div>
