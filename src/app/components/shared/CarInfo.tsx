@@ -35,7 +35,7 @@ export default function CarInfo({
   enginePower,
   mileage,
   bodyType,
-  imageSrc
+  imageSrc,
 }: CarProps) {
   const convertDate = (date: string) => {
     const splitted = date?.split("T")[0];
@@ -49,8 +49,14 @@ export default function CarInfo({
   };
 
   const convertCCtoLitre = (engineCapacity: string) => {
-    const value = engineCapacity.split("cc")[0];
-    return Number(value) / 1000;
+    const splitted = engineCapacity.split("cc");
+
+    // it means that capacity is already in litres
+    if (splitted.length == 1) {
+      return Number(splitted[0]);
+    }
+
+    return Number(splitted[0]) / 1000;
   };
 
   return (
@@ -69,7 +75,7 @@ export default function CarInfo({
         />
         <h3>{title}</h3>
       </div>
-      
+
       {/* Info */}
       <div className="grid grid-cols-2 gap-3 text-xs">
         {/* Auction info */}
@@ -106,9 +112,11 @@ export default function CarInfo({
             ""
           )}
 
-          {soldDate && <li className="flex items-center gap-1 pl-6">
-            {convertDate(soldDate)}
-          </li>}
+          {soldDate && (
+            <li className="flex items-center gap-1 pl-6">
+              {convertDate(soldDate)}
+            </li>
+          )}
         </ul>
         {/* Tech Char */}
         <div className="bg-brand-gray-100 rounded-7">
