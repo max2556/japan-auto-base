@@ -5,19 +5,9 @@ import Pagination from "../components/shared/Pagination";
 import { BaseEntity } from "../services/base";
 import { PaginationsParams } from "../services/pagination";
 import { api } from "../utils/axios";
+import { Catalog } from "../services/catalog";
 
-interface Catalog extends BaseEntity {
-  mark: string;
-  model: string;
-  registrationYear: number;
-  mileageInKm: number;
-  engineCapacity: string;
-  transmission: string;
-  color: string;
-  bodyModel: string;
-  price: number;
-  description: string;
-}
+
 
 export default function Page() {
   const limit = 8;
@@ -29,6 +19,7 @@ export default function Page() {
   );
 
   const getAuctionsPositions = async (params?: PaginationsParams<Catalog>) => {
+    //TODO: move to service
     const response = await api.get<{
       autos: Catalog[];
       count: number;

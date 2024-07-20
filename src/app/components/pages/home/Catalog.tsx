@@ -1,8 +1,39 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
+import { PaginationsParams } from "@/app/services/pagination";
+import { api } from "@/app/utils/axios";
+import { Catalog as CatalogModel } from "@/app/services/catalog";
 
 export default function Catalog() {
+  const limit = 8;
+  const [catalogPositions, setCatalogPositions] = useState<
+    CatalogModel[] | null
+  >(null);
+
+  const getAuctionsPositions = async (
+    params?: PaginationsParams<CatalogModel>
+  ) => {
+    const response = await api.get<{
+      autos: CatalogModel[];
+      count: number;
+    }>(`/statistic`, {
+      params,
+    });
+
+    setCatalogPositions(response.data.autos);
+    return response;
+  };
+
+  useEffect(() => {
+    getAuctionsPositions({
+      page: 1,
+      limit,
+      expanded: true,
+    });
+  }, []);
+
   return (
     <section id="catalog" className="bg-white">
       <div className="bg-brand-dark py-8">
@@ -16,21 +47,17 @@ export default function Catalog() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {[... Array(6)].map((_, idx) => (
+            {catalogPositions?.map((card) => (
+              //TODO: where to get photo?
               <CarInfo
-                key={idx}
-                id={idx}
-                auctionTitle="JU Gifu"
-                bodyType="Седан"
-                engineCapacity="2.5л"
-                enginePower="120 л.с."
-                grade="S"
-                lotIndex="2"
-                mileage="23456км"
-                price={1000000}
-                releaseDate={2012}
-                soldDate="24.04.2024"
-                title="Nissan Maxima"
+                key={card.id}
+                id={card.id}
+                bodyType={card.bodyModel}
+                engineCapacity={card.engineCapacity}
+                mileage={card.mileageInKm}
+                price={card.price}
+                releaseDate={card.registrationYear}
+                title={card.mark + " " + card.model}
               />
             ))}
           </div>
