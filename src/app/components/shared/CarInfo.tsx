@@ -10,13 +10,13 @@ export interface CarProps {
   id: number | string;
   title: string;
   price: string | number;
-  grade: string | null;
-  lotIndex: string | number | null;
-  auctionTitle: string | null;
-  soldDate: string;
+  grade?: string | null;
+  lotIndex?: string | number | null;
+  auctionTitle?: string | null;
+  soldDate?: string;
   releaseDate: string | number;
   engineCapacity: string | null;
-  enginePower: string | null;
+  enginePower?: string | null;
   mileage: string | number | null;
   bodyType: string | null;
   imageSrc: string;
@@ -106,9 +106,9 @@ export default function CarInfo({
             ""
           )}
 
-          <li className="flex items-center gap-1 pl-6">
+          {soldDate && <li className="flex items-center gap-1 pl-6">
             {convertDate(soldDate)}
-          </li>
+          </li>}
         </ul>
         {/* Tech Char */}
         <div className="bg-brand-gray-100 rounded-7">

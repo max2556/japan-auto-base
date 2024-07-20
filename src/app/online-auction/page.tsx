@@ -26,7 +26,6 @@ export default function Page() {
   const getAuctionsPositions = async (
     params?: PaginationsParams<AuctionPosition>
   ) => {
-    // TODO: fix when api will be ready
     const auctions = await api.get<{
       positions: AuctionPosition[];
       count: number;
@@ -48,15 +47,6 @@ export default function Page() {
     //TODO:fix
     //@ts-ignore
     const preparedFilters = Object.fromEntries(preparedFilterValues);
-
-    // getAuctionsPositions({ page: 1, limit: 100, expanded: true }).then(
-    //   (response) => {
-    //     const a = response.data.positions
-    //       .map((item) => item.color)
-    //       .reduce((a, b) => (a.includes(b) ? a : [...a, b]), [] as string[]);
-    //     console.log(a);
-    //   }
-    // );
 
     getAuctionsPositions({ page: page + 1, limit, expanded: true, ...preparedFilters });
   }, [filters, page]);
@@ -92,6 +82,7 @@ export default function Page() {
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
           {auctionPositions?.map((card) => (
+            //TODO: where to get photo?
             <CarInfo
               key={card.id}
               id={card.id}
