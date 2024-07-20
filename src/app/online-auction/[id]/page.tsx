@@ -17,11 +17,14 @@ import { useEffect, useState } from "react";
 import { api } from "@/app/utils/axios";
 import { AuctionPosition } from "@/app/services/auctions";
 import { BaseEntity } from "@/app/services/base";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [car, setCar] = useState<AuctionPosition | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const getRuColor = (color: string) => {
     const map = {
@@ -40,8 +43,9 @@ export default function Page({ params }: { params: { id: string | number } }) {
     };
 
     const words = color.split(" ");
-    //@ts-ignore
-    if (words.length > 1) return map[words[0]] ?? map[words[1]] ?? "Неизвестный";
+    if (words.length > 1)
+      //@ts-ignore
+      return map[words[0]] ?? map[words[1]] ?? "Неизвестный";
     //@ts-ignore
     return map[color] ?? "Неизвестный";
   };
@@ -49,7 +53,9 @@ export default function Page({ params }: { params: { id: string | number } }) {
   useEffect(() => {
     const fetchCurrency = async () => {
       try {
-        const { data } = await api.get<{rate: BaseEntity & {from: string; to: string, value: number}}>("/currency-converter", {
+        const { data } = await api.get<{
+          rate: BaseEntity & { from: string; to: string; value: number };
+        }>("/currency-converter", {
           params: {
             from: "yen",
             to: "rub",
@@ -328,6 +334,18 @@ export default function Page({ params }: { params: { id: string | number } }) {
               </div>
             </div>
             {/* Table Charasteristics */}
+            {/* Submit Application Button */}
+            <Button
+              red
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 -mt-10"
+              onClick={() => setShowModal(!showModal)}
+            >
+              Оставить заявку
+            </Button>
+          </div>
+          {/* Data Auction */}
+          <div className="grid sm:grid-cols-2 gap-2">
+            {/* Table Data Auction */}
             <div className="order-2 sm:order-1 bg-white rounded-10">
               {/* Header */}
               <div className="space-y-1 p-3">
@@ -392,6 +410,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
               </table>
             </div>
           </div>
+          <SubmitDialog open={showModal} setOpen={setShowModal} />
         </section>
       )}
     </>
