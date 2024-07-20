@@ -1,14 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SubmitApplicationButton from "../shared/SubmitApplicationButton";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";
-import { api } from "@/app/utils/axios";
-import { fetchContacts } from "@/app/services/contacts";
 import PhoneNumber from "../shared/PhoneNumber";
 import Email from "../shared/Email";
 import Whatsapp from "../shared/Whatsapp";
@@ -49,7 +46,6 @@ const links = [
 ];
 
 export default function Navbar() {
-  const [scrolling, setScrolling] = useState<boolean>(false);
   const [isMobMenuOpen, setIsMobMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
 
@@ -58,26 +54,9 @@ export default function Navbar() {
     document.body.classList.toggle("overflow-hidden");
   }
 
-  useEffect(function () {
-    function handleScroll() {
-      // TODO: fix.
-      if (window.scrollY > 100) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <header
-      className={`sticky top-0 z-50 font-sansation  ${
-        scrolling ? "h-16 md:h-10 lg:h-12 shadow bg-white" : "bg-brand-gray"
-      }`}
+      className={`sticky top-0 z-50 font-sansation`}
     >
       {/* Mobile Menu */}
       <AnimatePresence>
