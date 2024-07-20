@@ -5,6 +5,7 @@ import CarInfo, { CarProps } from "../../shared/CarInfo";
 import Link from "next/link";
 import page from "@/app/page";
 import { getSoldCars } from "@/app/services/salesHistory";
+import { baseURL } from "@/app/utils/axios";
 
 export default function SalesHistory() {
   const [pageData, setPageData] = useState<CarProps[]>([]);
@@ -15,11 +16,11 @@ export default function SalesHistory() {
       limit: number;
       expanded: boolean;
     }) => {
-      const { cars } = await getSoldCars(params);
+      const { autos, count } = await getSoldCars(params);
 
-      const carsData = cars.map((car) => ({
+      const carsData = autos.map((car) => ({
         id: car.id,
-        title: `${car.brand} ${car.model}`,
+        title: `${car.mark} ${car.model}`,
         price: car.price,
         grade: null,
         lotIndex: null,
@@ -29,15 +30,17 @@ export default function SalesHistory() {
         engineCapacity: car.engineCapacity,
         enginePower: null,
         mileage: car.mileageInKm,
-        bodyType: car.bodyType,
+        bodyType: car.bodyModel,
+        imageSrc: `${baseURL}/files/${car.photos[0].id}`,
       }));
 
       setPageData(carsData);
+      
     };
 
     fetchSalesHistory({
       page: 1,
-      limit: 6,
+      limit: 8,
       expanded: true,
     });
   }, []);
@@ -69,6 +72,7 @@ export default function SalesHistory() {
                 releaseDate={car.releaseDate}
                 soldDate={car.soldDate}
                 title={car.title}
+                imageSrc={car.imageSrc}
               />
             ))}
           </div>
