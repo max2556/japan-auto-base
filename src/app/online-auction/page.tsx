@@ -1,24 +1,19 @@
 "use client";
 
-import { cache, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CarInfo from "../components/shared/CarInfo";
-import FiltersCotainer, {
-  OnlineAuctionFilters,
-} from "../components/shared/FiltersCotainer";
+import FiltersCotainer, { Filters } from "../components/shared/FiltersCotainer";
 import Pagination from "../components/shared/Pagination";
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
-import { api } from "../utils/axios";
 import { PaginationsParams } from "../services/pagination";
-import { AuctionPosition } from "../services/auctions";
-
-
+import { AuctionPosition, getAuctionPositions } from "../services/auctions";
+import { parseFilters } from "../utils/filters";
 
 export default function Page() {
   const limit = 8;
   const [page, setPage] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+  const [filters, setFilters] = useState<Filters>({});
   const [auctionPositions, setAuctionPositions] = useState<
     AuctionPosition[] | null
   >(null);
@@ -26,29 +21,20 @@ export default function Page() {
   const getAuctionsPositions = async (
     params?: PaginationsParams<AuctionPosition>
   ) => {
-    const auctions = await api.get<{
-      positions: AuctionPosition[];
-      count: number;
-    }>(`/auctions/positions`, {
-      params,
-    });
+    const { count, positions } = await getAuctionPositions(params);
 
-    setCount(auctions.data.count);
-    setAuctionPositions(auctions.data.positions);
-    return auctions;
+    setCount(count);
+    setAuctionPositions(positions);
+    return { count, positions };
   };
 
   useEffect(() => {
-    const preparedFilterValues = Object.entries(filters)
-      .filter(([_, value]) => value)
-      .map(([key, value]) => {
-        if (value) return [`filters[${key}]`, value];
-      });
-    //TODO:fix
-    //@ts-ignore
-    const preparedFilters = Object.fromEntries(preparedFilterValues);
-
-    getAuctionsPositions({ page: page + 1, limit, expanded: true, ...preparedFilters });
+    getAuctionsPositions({
+      page: page + 1,
+      limit,
+      expanded: true,
+      ...parseFilters(filters),
+    });
   }, [filters, page]);
 
   return (

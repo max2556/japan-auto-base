@@ -1,10 +1,9 @@
-//TODO: fix
-//@ts-ignore
-export type Filters<T extends object> = Record<`filters[${keyof T}]`, string>;
+import { FiltersRecord } from "../utils/filters";
+
 export type PaginationsParams<T extends object = object> = {
   page?: number;
   limit?: number;
   expanded?: boolean;
   sort?: "ASC" | "DESC";
   sortBy?: keyof T;
-} & Partial<Filters<T>>;
+} & Partial<FiltersRecord<T>>;

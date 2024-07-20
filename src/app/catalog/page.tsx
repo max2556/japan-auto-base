@@ -2,34 +2,23 @@
 import { useEffect, useState } from "react";
 import CarInfo from "../components/shared/CarInfo";
 import Pagination from "../components/shared/Pagination";
-import { BaseEntity } from "../services/base";
 import { PaginationsParams } from "../services/pagination";
-import { api } from "../utils/axios";
-import { Catalog } from "../services/catalog";
-
-
+import { Catalog, getCatalog } from "../services/catalog";
 
 export default function Page() {
   const limit = 8;
   const [page, setPage] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-
   const [catalogPositions, setCatalogPositions] = useState<Catalog[] | null>(
     null
   );
 
   const getAuctionsPositions = async (params?: PaginationsParams<Catalog>) => {
-    //TODO: move to service
-    const response = await api.get<{
-      autos: Catalog[];
-      count: number;
-    }>(`/statistic`, {
-      params,
-    });
+    const { count, autos } = await getCatalog(params);
 
-    setCount(response.data.count);
-    setCatalogPositions(response.data.autos);
-    return response;
+    setCount(count);
+    setCatalogPositions(autos);
+    return { count, autos };
   };
 
   useEffect(() => {

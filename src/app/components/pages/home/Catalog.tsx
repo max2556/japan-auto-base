@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
 import { PaginationsParams } from "@/app/services/pagination";
-import { api } from "@/app/utils/axios";
-import { Catalog as CatalogModel } from "@/app/services/catalog";
+import { Catalog as CatalogModel, getCatalog } from "@/app/services/catalog";
 
 export default function Catalog() {
   const limit = 8;
@@ -15,15 +14,10 @@ export default function Catalog() {
   const getAuctionsPositions = async (
     params?: PaginationsParams<CatalogModel>
   ) => {
-    const response = await api.get<{
-      autos: CatalogModel[];
-      count: number;
-    }>(`/statistic`, {
-      params,
-    });
+    const {autos} = await getCatalog(params);
 
-    setCatalogPositions(response.data.autos);
-    return response;
+    setCatalogPositions(autos);
+    return {autos};
   };
 
   useEffect(() => {

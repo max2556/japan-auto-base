@@ -1,3 +1,6 @@
+import { api } from "../utils/axios";
+import { PaginationsParams } from "./pagination";
+
 export interface AuctionPosition {
   id: string;
   createdAt: string;
@@ -33,3 +36,15 @@ export interface Auction {
   title: string;
   positions: AuctionPosition[];
 }
+
+export const getAuctionPositions = async (
+  params?: PaginationsParams<AuctionPosition>
+) => {
+  const { data } = await api.get<{
+    positions: AuctionPosition[];
+    count: number;
+  }>(`/auctions/positions`, {
+    params,
+  });
+  return data;
+};

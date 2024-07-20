@@ -8,7 +8,7 @@ import FilterEngineCapacity from "./FilterEngineCapacity";
 import FilterGrade from "./FilterGrade";
 import Button from "./Button";
 
-export interface OnlineAuctionFilters {
+export interface Filters {
   mark?: string;
   model?: string;
   color?: string;
@@ -21,9 +21,9 @@ export interface OnlineAuctionFilters {
 }
 
 export interface FiltersCotainerProps {
-  filters: OnlineAuctionFilters;
-  onChange: (filters: OnlineAuctionFilters) => void;
-  onApply?: (filters: OnlineAuctionFilters) => void;
+  filters: Filters;
+  onChange: (filters: Filters) => void;
+  onApply?: (filters: Filters) => void;
 }
 
 export default function FiltersCotainer({
@@ -32,7 +32,7 @@ export default function FiltersCotainer({
   onApply,
 }: FiltersCotainerProps) {
   const setFilter = (
-    field: keyof OnlineAuctionFilters,
+    field: keyof Filters,
     value: string | undefined
   ) => {
     onChange({ ...filters, [field]: value });

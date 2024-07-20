@@ -1,39 +1,25 @@
 import React, { useEffect, useState } from "react";
-import FiltersCotainer, { OnlineAuctionFilters } from "./FiltersCotainer";
-import { AuctionPosition } from "@/app/services/auctions";
+import FiltersCotainer, { Filters } from "./FiltersCotainer";
+import { AuctionPosition, getAuctionPositions } from "@/app/services/auctions";
 import { api } from "@/app/utils/axios";
 import CarInfo from "./CarInfo";
+import { parseFilters } from "@/app/utils/filters";
 
 export default function OnlieAuction() {
-  const [filters, setFilters] = useState<OnlineAuctionFilters>({});
+  const [filters, setFilters] = useState<Filters>({});
   const [auctionPositions, setAuctionPositions] = useState<
     AuctionPosition[] | null
   >(null);
 
-  const fetchFirstPage = async (filters: OnlineAuctionFilters) => {
-    console.log(filters);
-    const preparedFilterValues = Object.entries(filters)
-      .filter(([_, value]) => value)
-      .map(([key, value]) => {
-        if (value) return [`filters[${key}]`, value];
-      });
-    //TODO:fix
-    //@ts-ignore
-    const preparedFilters = Object.fromEntries(preparedFilterValues);
-
-    const response = await api.get<{
-      positions: AuctionPosition[];
-      count: number;
-    }>("/auctions/positions", {
-      params: {
-        page: 1,
-        limit: 8,
-        expanded: true,
-        ...preparedFilters,
-      },
+  const fetchFirstPage = async (filters: Filters) => {
+    const { positions } = await getAuctionPositions({
+      page: 1,
+      limit: 8,
+      expanded: true,
+      ...parseFilters(filters),
     });
 
-    setAuctionPositions(response.data.positions);
+    setAuctionPositions(positions);
   };
 
   return (

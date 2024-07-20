@@ -1,4 +1,6 @@
+import { api } from "../utils/axios";
 import { BaseEntity } from "./base";
+import { PaginationsParams } from "./pagination";
 
 export interface Catalog extends BaseEntity {
   mark: string;
@@ -12,3 +14,13 @@ export interface Catalog extends BaseEntity {
   price: number;
   description: string;
 }
+
+export const getCatalog = async (params?: PaginationsParams<Catalog>) => {
+  const { data } = await api.get<{ autos: Catalog[]; count: number }>(
+    "/statistic",
+    {
+      params,
+    }
+  );
+  return data;
+};
