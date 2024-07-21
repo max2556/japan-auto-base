@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchContacts } from "@/app/services/contacts";
+import { fetchContacts, formatPhone } from "@/app/services/contacts";
 import { useState, useEffect } from "react";
 
 export interface PhoneNumberProps {
@@ -10,12 +10,6 @@ export interface PhoneNumberProps {
 export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [error, setError] = useState<Nillable<string>>(null);
-
-  const betterDisplay = (phone: string) => {
-    return phone
-      .replace(/\D/g, "") // Remove all non-numeric characters
-      .replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5"); // Format the phone number
-  };
 
   useEffect(() => {
     const fetchPhone = async () => {
@@ -65,8 +59,7 @@ export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
             : "group-hover:text-white/80"
         } transition-all duration-200 text-sm whitespace-nowrap`}
       >
-        {error ??
-          (phoneNumber !== null ? betterDisplay(phoneNumber) : "Loading...")}
+        {error ?? (phoneNumber ? formatPhone(phoneNumber) : "Loading...")}
       </span>
     </a>
   );

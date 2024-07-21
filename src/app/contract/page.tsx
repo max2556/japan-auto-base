@@ -2,16 +2,15 @@ import Button from "../components/shared/Button";
 import PhoneNumber from "../components/shared/PhoneNumber";
 import Email from "../components/shared/Email";
 import Whatsapp from "../components/shared/Whatsapp";
-import { fetchContacts } from "../services/contacts";
+import { fetchContacts, formatPhone } from "../services/contacts";
+import { cache } from "react";
+
+const cachedFetchContacts = cache(fetchContacts);
 
 export default async function Page() {
-  const phoneNumber = (await fetchContacts("phone")).value;
+  const phoneNumber = (await cachedFetchContacts("phone")).value;
 
-  const betterDisplay = (phone: string) => {
-    return phone
-      .replace(/\D/g, "") // Remove all non-numeric characters
-      .replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5"); // Format the phone number
-  };
+
 
   return (
     <div className="bg-brand-gray">
@@ -24,10 +23,10 @@ export default async function Page() {
             связаться с нами!
           </p>
         </div>
-        <div>
+        <div> 
           <h2>Заключение договора Online </h2>
           <ul className="list-decimal text-sm leading-5 mt-1 pl-5">
-            <li>Напишите нам на WhatsApp {phoneNumber ? betterDisplay(phoneNumber) : "Loading..."}!</li>
+            <li>Напишите нам на WhatsApp {phoneNumber ? formatPhone(phoneNumber) : "Loading..."}!</li>
             <li>
               Менеджер запросит все необходимые данные для заключения договора
               (фото паспорта и пожелания по авто).
