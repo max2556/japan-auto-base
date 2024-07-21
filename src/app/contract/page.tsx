@@ -1,30 +1,17 @@
-"use client";
-
 import Button from "../components/shared/Button";
 import PhoneNumber from "../components/shared/PhoneNumber";
 import Email from "../components/shared/Email";
 import Whatsapp from "../components/shared/Whatsapp";
-import { useState, useEffect } from "react";
 import { fetchContacts } from "../services/contacts";
 
-export default function Page() {
-  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+export default async function Page() {
+  const phoneNumber = (await fetchContacts("phone")).value;
 
   const betterDisplay = (phone: string) => {
     return phone
       .replace(/\D/g, "") // Remove all non-numeric characters
       .replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5"); // Format the phone number
   };
-
-  useEffect(() => {
-    const fetchPhone = async () => {
-      const data = await fetchContacts("phone");
-      if (!("error" in data)) {
-        setPhoneNumber(data.value);
-      }
-    };
-    fetchPhone();
-  }, []);
 
   return (
     <div className="bg-brand-gray">
