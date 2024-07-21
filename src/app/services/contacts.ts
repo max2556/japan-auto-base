@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { api } from "../utils/axios";
 
 type ContactsTypes = "phone" | "email" | "whats_up" | "registered_office";
@@ -28,6 +29,8 @@ export async function fetchContacts(
     return { error: `Failed to fetch ${type}` };
   }
 }
+
+export const cachedFetchContacts = cache(fetchContacts);
 
 export const formatPhone = (phone: string) => {
   return phone
