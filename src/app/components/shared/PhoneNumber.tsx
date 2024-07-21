@@ -11,6 +11,12 @@ export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [error, setError] = useState<Nillable<string>>(null);
 
+  const betterDisplay = (phone: string) => {
+    return phone
+      .replace(/\D/g, "") // Remove all non-numeric characters
+      .replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5"); // Format the phone number
+  };
+
   useEffect(() => {
     const fetchPhone = async () => {
       const data = await fetchContacts("phone");
@@ -42,7 +48,9 @@ export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
           r="11"
           fill={theme == "dark" ? "#0B1736" : "white"}
           className={`fill-brand- ${
-            theme == "dark" ? "group-hover:fill-brand-dark/80" : "group-hover:fill-white/80"
+            theme == "dark"
+              ? "group-hover:fill-brand-dark/80"
+              : "group-hover:fill-white/80"
           } transition-all duration-200`}
         />
         <path
@@ -52,10 +60,13 @@ export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
       </svg>
       <span
         className={`${
-          theme == "dark" ? "group-hover:text-brand-dark/80" : "group-hover:text-white/80"
+          theme == "dark"
+            ? "group-hover:text-brand-dark/80"
+            : "group-hover:text-white/80"
         } transition-all duration-200 text-sm whitespace-nowrap`}
       >
-        {error ?? phoneNumber ?? "Loading..."}
+        {error ??
+          (phoneNumber !== null ? betterDisplay(phoneNumber) : "Loading...")}
       </span>
     </a>
   );

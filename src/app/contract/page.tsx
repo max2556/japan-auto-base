@@ -1,10 +1,31 @@
-import Image from "next/image";
+"use client";
+
 import Button from "../components/shared/Button";
 import PhoneNumber from "../components/shared/PhoneNumber";
 import Email from "../components/shared/Email";
 import Whatsapp from "../components/shared/Whatsapp";
+import { useState, useEffect } from "react";
+import { fetchContacts } from "../services/contacts";
 
 export default function Page() {
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+
+  const betterDisplay = (phone: string) => {
+    return phone
+      .replace(/\D/g, "") // Remove all non-numeric characters
+      .replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5"); // Format the phone number
+  };
+
+  useEffect(() => {
+    const fetchPhone = async () => {
+      const data = await fetchContacts("phone");
+      if (!("error" in data)) {
+        setPhoneNumber(data.value);
+      }
+    };
+    fetchPhone();
+  }, []);
+
   return (
     <div className="bg-brand-gray">
       <section className="max-w-5xl mx-auto space-y-4 -mt-10 px-4 lg:px-11">
@@ -19,7 +40,7 @@ export default function Page() {
         <div>
           <h2>Заключение договора Online </h2>
           <ul className="list-decimal text-sm leading-5 mt-1 pl-5">
-            <li>Напишите нам на WhatsApp +7-952-080-58-58!</li>
+            <li>Напишите нам на WhatsApp {phoneNumber ? betterDisplay(phoneNumber) : "Loading..."}!</li>
             <li>
               Менеджер запросит все необходимые данные для заключения договора
               (фото паспорта и пожелания по авто).
