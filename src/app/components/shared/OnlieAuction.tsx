@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useState } from "react";
 import FiltersCotainer, { Filters } from "./FiltersCotainer";
 import { AuctionPosition, getAuctionPositions } from "@/app/services/auctions";
-import { api } from "@/app/utils/axios";
 import CarInfo from "./CarInfo";
 import { parseFilters } from "@/app/utils/filters";
 

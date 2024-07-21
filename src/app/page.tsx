@@ -1,5 +1,3 @@
-'use client'
-
 import Catalog from './components/pages/home/Catalog';
 import Delivery from './components/pages/home/Delivery';
 import Hero from './components/pages/home/Hero';

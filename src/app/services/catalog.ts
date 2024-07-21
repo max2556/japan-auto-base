@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { api } from "../utils/axios";
 import { BaseEntity } from "./base";
 import { PaginationsParams } from "./pagination";
@@ -24,3 +25,5 @@ export const getCatalog = async (params?: PaginationsParams<Catalog>) => {
   );
   return data;
 };
+
+export const cachedGetCatalog = cache(getCatalog);

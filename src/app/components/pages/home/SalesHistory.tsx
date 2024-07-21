@@ -1,48 +1,31 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import CarInfo, { CarProps } from "../../shared/CarInfo";
+import React from "react";
+import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
-import page from "@/app/page";
 import { getSoldCars } from "@/app/services/salesHistory";
 import { baseURL } from "@/app/utils/axios";
 
-export default function SalesHistory() {
-  const [pageData, setPageData] = useState<CarProps[]>([]);
+export default async function SalesHistory() {
+  const { autos } = await getSoldCars({
+    page: 1,
+    limit: 8,
+    expanded: true,
+  });
 
-  useEffect(() => {
-    const fetchSalesHistory = async (params: {
-      page: number;
-      limit: number;
-      expanded: boolean;
-    }) => {
-      const { autos, count } = await getSoldCars(params);
-
-      const carsData = autos.map((car) => ({
-        id: car.id,
-        title: `${car.mark} ${car.model}`,
-        price: car.price,
-        grade: null,
-        lotIndex: null,
-        auctionTitle: null,
-        soldDate: car.createdAt,
-        releaseDate: car.registrationYear,
-        engineCapacity: car.engineCapacity,
-        enginePower: null,
-        mileage: car.mileageInKm,
-        bodyType: car.bodyModel,
-        imageSrc: `${baseURL}/files/${car.photos[0].id}`,
-      }));
-
-      setPageData(carsData);
-    };
-
-    fetchSalesHistory({
-      page: 1,
-      limit: 8,
-      expanded: true,
-    });
-  }, []);
+  const carsData = autos.map((car) => ({
+    id: car.id,
+    title: `${car.mark} ${car.model}`,
+    price: car.price,
+    grade: null,
+    lotIndex: null,
+    auctionTitle: null,
+    soldDate: car.createdAt,
+    releaseDate: car.registrationYear,
+    engineCapacity: car.engineCapacity,
+    enginePower: null,
+    mileage: car.mileageInKm,
+    bodyType: car.bodyModel,
+    imageSrc: `${baseURL}/files/${car.photos[0].id}`,
+  }));
 
   return (
     <section id="sales-history" className="bg-brand-gray-100">
@@ -56,7 +39,7 @@ export default function SalesHistory() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {pageData.map((car) => (
+            {carsData.map((car) => (
               <CarInfo
                 key={car.id}
                 id={car.id}

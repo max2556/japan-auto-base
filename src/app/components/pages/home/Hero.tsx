@@ -1,5 +1,6 @@
+"use client"
+
 import Image from "next/image";
-import SubmitApplicationButton from "../../shared/SubmitApplicationButton";
 import Button from "../../shared/Button";
 import { useState } from "react";
 import { SubmitDialog } from "../../shared/SubmitDialog";

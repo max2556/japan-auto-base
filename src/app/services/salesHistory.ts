@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { api } from "../utils/axios";
 
 interface SoldCarsResponse {
@@ -34,3 +35,5 @@ export const getSoldCars = async (params: {
   });
   return data;
 };
+
+export const cachedGetSoldCars = cache(getSoldCars);

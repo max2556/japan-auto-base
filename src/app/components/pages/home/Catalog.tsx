@@ -1,32 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
-import { PaginationsParams } from "@/app/services/pagination";
-import { Catalog as CatalogModel, getCatalog } from "@/app/services/catalog";
+import { cachedGetCatalog } from "@/app/services/catalog";
 
-export default function Catalog() {
-  const limit = 8;
-  const [catalogPositions, setCatalogPositions] = useState<
-    CatalogModel[] | null
-  >(null);
-
-  const getAuctionsPositions = async (
-    params?: PaginationsParams<CatalogModel>
-  ) => {
-    const {autos} = await getCatalog(params);
-
-    setCatalogPositions(autos);
-    return {autos};
-  };
-
-  useEffect(() => {
-    getAuctionsPositions({
-      page: 1,
-      limit,
-      expanded: true,
-    });
-  }, []);
+export default async function Catalog() {
+  const catalogPositions = await cachedGetCatalog({
+    page: 1,
+    limit: 8,
+    expanded: true,
+  });
 
   return (
     <section id="catalog" className="bg-white">
@@ -41,7 +23,7 @@ export default function Catalog() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {catalogPositions?.map((card) => (
+            {catalogPositions.autos?.map((card) => (
               //TODO: where to get photo?
               <CarInfo
                 key={card.id}
