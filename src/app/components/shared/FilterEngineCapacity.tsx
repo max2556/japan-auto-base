@@ -61,10 +61,7 @@ export interface FilterBrandProps {
   onChange: (value?: string) => void;
 }
 
-export default function FilterEngineCapacity({
-  value,
-  onChange,
-}: FilterBrandProps) {
+export default function FilterEngineCapacity({ onChange }: FilterBrandProps) {
   return (
     <div className="no-scroll h-[9.0625rem] space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4 className="leading-3">Обьем двигателя</h4>

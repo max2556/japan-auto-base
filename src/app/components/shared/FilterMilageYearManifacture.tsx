@@ -3,7 +3,7 @@ export interface FilterBrandProps {
   onChange: (value: string) => void;
 }
 
-export default function FilterMilageYearManifacture({onChange}: FilterBrandProps) {
+export default function FilterMilageYearManifacture({}: FilterBrandProps) {
   return (
     <div className="sm:h-220 col-span-2 sm:col-span-1 flex items-center sm:flex-col gap-2">
       {/* Milage */}

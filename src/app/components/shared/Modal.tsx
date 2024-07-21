@@ -1,10 +1,4 @@
-import {
-  HTMLAttributes,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 
 export interface ModalProps {
   open: boolean;

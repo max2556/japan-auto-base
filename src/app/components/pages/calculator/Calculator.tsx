@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import FilterModel from "../../shared/FilterModel";
 import TypeOfImport from "./TypeOfImport";
 import VehicleType from "./VehicleType";
 import Assembly from "./Assembly";

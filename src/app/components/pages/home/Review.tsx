@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function Review() {
   return (
     <div className="space-y-2 bg-white rounded-10 py-3 px-4">

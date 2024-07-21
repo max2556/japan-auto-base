@@ -11,6 +11,7 @@ export function parseFilters<T extends object>(
   filters: Filters
 ): FiltersRecord<T> {
   const preparedFilterValues = Object.entries(filters)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .filter(([_, value]) => value)
     .map(([key, value]) => {
       if (value) return [`filters[${key}]`, value];

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SubmitApplicationButton from "../shared/SubmitApplicationButton";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";

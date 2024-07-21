@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -10,55 +10,58 @@ interface MobileMenuProps {
 
 const links = [
   {
-    name: 'Главная страница',
-    href: '/',
+    name: "Главная страница",
+    href: "/",
   },
   {
-    name: 'Online аукцион',
-    href: '/online-auction',
+    name: "Online аукцион",
+    href: "/online-auction",
   },
   {
-    name: 'Каталог',
-    href: '/catalog',
+    name: "Каталог",
+    href: "/catalog",
   },
   {
-    name: 'История продаж',
-    href: '/sales-history',
+    name: "История продаж",
+    href: "/sales-history",
   },
   {
-    name: 'Калькулятор',
-    href: '/calculator',
+    name: "Калькулятор",
+    href: "/calculator",
   },
   {
-    name: 'Договор',
-    href: '/contract',
+    name: "Договор",
+    href: "/contract",
   },
   {
-    name: 'Доставка',
-    href: '/delivery',
+    name: "Доставка",
+    href: "/delivery",
   },
   {
-    name: 'Контакты',
-    href: '/contacts',
+    name: "Контакты",
+    href: "/contacts",
   },
 ];
 
-export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
+export default function MobileMenu({ onToggle }: MobileMenuProps) {
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(function () {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        onToggle();
-      }
-    };
+  useEffect(
+    function () {
+      const handleClickOutside = (e: MouseEvent) => {
+        if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+          onToggle();
+        }
+      };
 
-    const handleClick = (e: MouseEvent) => handleClickOutside(e);
-    document.addEventListener('mousedown', handleClick);
+      const handleClick = (e: MouseEvent) => handleClickOutside(e);
+      document.addEventListener("mousedown", handleClick);
 
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [onToggle]);
+      return () => document.removeEventListener("mousedown", handleClick);
+    },
+    [onToggle]
+  );
 
   return (
     <motion.div
@@ -96,8 +99,8 @@ export default function MobileMenu({ isOpen, onToggle }: MobileMenuProps) {
                 href={link.href}
                 className={`${
                   pathname === link.href
-                    ? 'text-brand-dark'
-                    : 'text-brand-purple/50'
+                    ? "text-brand-dark"
+                    : "text-brand-purple/50"
                 } hover:text-brand-purple transition-all duration-200`}
               >
                 {link.name}

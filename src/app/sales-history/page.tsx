@@ -54,7 +54,7 @@ export default function Page() {
         </div>
         <div className="grid sm:grid-cols-2 gap-2">
           {pageData.length > 0
-            ? pageData.map((car, idx) => (
+            ? pageData.map((car) => (
                 <CarInfo
                   key={car.id}
                   id={car.id}

@@ -51,7 +51,7 @@ export interface FilterBrandProps {
   onChange: (value?: string) => void;
 }
 
-export default function FilterColor({ value, onChange }: FilterBrandProps) {
+export default function FilterColor({ onChange }: FilterBrandProps) {
   return (
     <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4>Цвет кузова</h4>
@@ -59,7 +59,7 @@ export default function FilterColor({ value, onChange }: FilterBrandProps) {
         {options.map((option) => (
           <label
             key={option.label}
-            htmlFor={option.label+"_color"}
+            htmlFor={option.label + "_color"}
             className="flex gap-1 text-sm cursor-pointer"
             onClick={() =>
               option.label == "Любой"
@@ -69,7 +69,7 @@ export default function FilterColor({ value, onChange }: FilterBrandProps) {
           >
             <input
               type="radio"
-              id={option.label+"_color"}
+              id={option.label + "_color"}
               name="color"
               className="hidden"
             />

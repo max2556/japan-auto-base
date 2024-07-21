@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import Image from "next/image";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,13 +10,11 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper/modules";
-import SubmitApplicationButton from "@/app/components/shared/SubmitApplicationButton";
 import Button from "@/app/components/shared/Button";
 import { useEffect, useState } from "react";
 import { api } from "@/app/utils/axios";
 import { AuctionPosition } from "@/app/services/auctions";
 import { BaseEntity } from "@/app/services/base";
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 
 export default function Page({ params }: { params: { id: string | number } }) {

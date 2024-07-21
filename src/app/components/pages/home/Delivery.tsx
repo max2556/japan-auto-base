@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Button from '../../shared/Button';
-import Logo from '../../shared/Logo';
 import { useState } from 'react';
 import { SubmitDialog } from '../../shared/SubmitDialog';
 

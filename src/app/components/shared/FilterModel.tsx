@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 
 const options = {
   honda: [
@@ -739,11 +739,7 @@ export interface FilterBrandProps {
   mark: string | undefined;
 }
 
-export default function FilterModel({
-  value,
-  onChange,
-  mark,
-}: FilterBrandProps) {
+export default function FilterModel({ onChange, mark }: FilterBrandProps) {
   return (
     <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4>Модель</h4>

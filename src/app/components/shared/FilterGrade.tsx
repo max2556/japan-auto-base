@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "./Button";
 
 const options = [
   {
@@ -30,7 +29,7 @@ export interface FilterBrandProps {
   onChange: (value?: string) => void;
 }
 
-export default function FilterGrade({ value, onChange }: FilterBrandProps) {
+export default function FilterGrade({ onChange }: FilterBrandProps) {
   return (
     <div className="no-scroll h-[9.0625rem] space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4>Оценка</h4>
