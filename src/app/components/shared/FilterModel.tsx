@@ -1,8 +1,8 @@
 import React from "react";
+import { Radio } from "./Radio";
 
 const options = {
   honda: [
-    "Все модели",
     "ACORD",
     "ACORD HYBRID",
     "ACORD TOURER",
@@ -99,7 +99,6 @@ const options = {
     "ZR-V",
   ],
   toyota: [
-    "Все модели",
     "4RUNNER",
     "86",
     "ALLEX",
@@ -322,7 +321,6 @@ const options = {
     "YARIS CROSS",
   ],
   suzuki: [
-    "Все модели",
     "AERIO SEDAN",
     "ALTO",
     "ALTO ECO",
@@ -383,7 +381,6 @@ const options = {
     "XBEE",
   ],
   mitsubishi: [
-    "Все модели",
     "AIRTREK",
     "BRAVO",
     "CANTER",
@@ -471,7 +468,6 @@ const options = {
     "TRITON",
   ],
   subaru: [
-    "Все модели",
     "360",
     "ALCYONE SVX",
     "BRZ",
@@ -523,7 +519,6 @@ const options = {
     "WRX STI",
   ],
   mazda: [
-    "Все модели",
     "ATENZA",
     "ATENZA SEDAN",
     "ATENZA SPORT",
@@ -607,7 +602,6 @@ const options = {
     "VERISA",
   ],
   nissan: [
-    "Все модели",
     "180SX",
     "AD",
     "AD EXPERT",
@@ -743,30 +737,16 @@ export default function FilterModel({ onChange, mark }: FilterBrandProps) {
   return (
     <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4>Модель</h4>
-      <fieldset className="space-y-2">
-        {mark ? (
-          options[mark as keyof typeof options]?.map((model) => (
-            <label
-              key={model}
-              htmlFor={model}
-              className="flex gap-1 text-sm cursor-pointer"
-              onClick={() =>
-                model == "Все модели" ? onChange(undefined) : onChange(model)
-              }
-            >
-              <input type="radio" id={model} name="model" className="hidden" />
-              <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
-                <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>
-              </div>
-              <p className="leading-4">{model}</p>
-            </label>
-          ))
-        ) : (
-          <p className="text-sm leading-4">
-            Сначала выберите <br /> марку
-          </p>
-        )}
-      </fieldset>
+      {mark && (
+        <Radio
+          options={options[mark as keyof typeof options].map((e) => ({
+            label: e,
+          }))}
+          onChange={onChange}
+          name="model"
+          needAnyOption
+        />
+      )}
     </div>
   );
 }
