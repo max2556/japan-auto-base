@@ -6,8 +6,7 @@
 @font-face {
   font-family: 'Sansation';
   src: url('/assets/fonts/sansation/SansationRegular.eot');
-  src: url('/assets/fonts/sansation/SansationRegular.eot?#iefix')
-      format('embedded-opentype'),
+  src: url('/assets/fonts/sansation/SansationRegular.eot?#iefix') format('embedded-opentype'),
     url('/assets/fonts/sansation/SansationRegular.woff2') format('woff2'),
     url('/assets/fonts/sansation/SansationRegular.woff') format('woff'),
     url('/assets/fonts/sansation/SansationRegular.ttf') format('truetype');
@@ -19,8 +18,7 @@
 @font-face {
   font-family: 'Sansation';
   src: url('/assets/fonts/sansation/SansationBold.eot');
-  src: url('/assets/fonts/sansation/SansationBold.eot?#iefix')
-      format('embedded-opentype'),
+  src: url('/assets/fonts/sansation/SansationBold.eot?#iefix') format('embedded-opentype'),
     url('/assets/fonts/sansation/SansationBold.woff2') format('woff2'),
     url('/assets/fonts/sansation/SansationBold.woff') format('woff'),
     url('/assets/fonts/sansation/SansationBold.ttf') format('truetype');
@@ -61,11 +59,11 @@
 }
 
 /* Checkbox Styles */
-input[type='checkbox']:checked + div > span {
+input[type='checkbox']:checked+div>span {
   @apply block;
 }
 
-input[type='radio']:checked + div > span {
+input[type='radio']:checked+div>span {
   @apply block;
 }
 
@@ -78,18 +76,89 @@ input[type='radio']:checked + div > span {
   background-color: gray !important;
 }
 
-
-/* Dialog Styles */
-dialog {
-  @apply shadow-xl rounded-5 bg-white overflow-hidden
-}
-
-dialog::backdrop {
-  opacity: 0.2;
-  @apply bg-brand-gray;
-}
-
-/* Disable page scroll while dialog is open */
+/* Disable page scroll while dialog is open
 body:has(dialog[open]) {
-  @apply overflow-hidden;
+  @apply overflow-visible;
+} */
+
+
+/*   Open state of the dialog  */
+/* dialog[open] {
+  animation-name: popup;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+} */
+
+/*   Closed state of the dialog   */
+/* dialog {
+  @apply shadow-xl rounded-5 bg-white overflow-hidden;
+
+  animation-name: popup;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+} */
+
+/* dialog::backdrop {
+  @apply bg-brand-gray;
+
+  animation-name: backdrop-popup;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+} */
+
+dialog {
+  @apply shadow-xl rounded-5 bg-white overflow-hidden;
+  animation: fade-out 0.7s ease-out;
+}
+
+dialog[open] {
+  animation: fade-in 0.7s ease-out;
+}
+
+dialog[open]::backdrop {
+  animation: backdrop-fade-in 0.7s ease-out forwards;
+}
+
+/* Animation keyframes */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    display: block;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+
+  100% {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+}
+
+@keyframes backdrop-fade-in {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }

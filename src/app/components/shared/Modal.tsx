@@ -1,4 +1,5 @@
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 export interface ModalProps {
   open: boolean;
@@ -43,9 +44,12 @@ export function Modal({ open, setOpen, children }: InternalModalProps) {
     };
   }, [isVisible, open, setOpen]);
 
-  return (
-    <dialog ref={dialog} className="z-10">
-      <div ref={dialogBody}>{children}</div>
-    </dialog>
+  return createPortal(
+    <div className="z-10 relative w-full h-full">
+      <dialog ref={dialog}>
+        <div ref={dialogBody}>{children}</div>
+      </dialog>
+    </div>,
+    document.body
   );
 }
