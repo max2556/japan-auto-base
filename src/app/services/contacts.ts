@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { api } from "../utils/axios";
 
-type ContactsTypes = "phone" | "email" | "whats_up" | "registered_office";
+type ContactsTypes = "phone" | "email" | "whats_up";
 
 interface ContactsResponse {
   contacts: {

@@ -9,13 +9,17 @@ export default function Whatsapp() {
 
   useEffect(() => {
     const fetchPhone = async () => {
-      const data = await fetchContacts("phone");
-      if ("value" in data && data.value) setPhoneNumber(data.value.split("+")[1]);
+      const data = await fetchContacts("whats_up");
+      if ("value" in data && data.value) setPhoneNumber(data.value);
+      else {
+        const data = await fetchContacts("phone");
+        if ("value" in data && data.value) setPhoneNumber(data.value.split("+")[1]);
+      }
     };
     fetchPhone();
   });
 
-  return (
+  return phoneNumber ? (
     <a href={`https://wa.me/${phoneNumber}`} target="_blank" className="group">
       <Image
         src="/assets/images/icon-whatsapp.png"
@@ -25,5 +29,5 @@ export default function Whatsapp() {
         className="group-hover:opacity-80 transition-all duration-200"
       />
     </a>
-  );
+  ) : (<></>);
 }
