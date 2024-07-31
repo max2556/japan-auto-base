@@ -69,13 +69,13 @@ export default function CarInfo({
       }`}
     >
       {/* Car Image & Name */}
-      <div className="mt-auto flex flex-col h-full">
+      <div className="mt-auto flex flex-col justify-between h-full">
         <Image
           src={imageSrc ?? "/assets/images/img-car-1.svg"}
           alt="Car Image"
           width={500}
           height={350}
-          className="object-cover w-auto h-full"
+          className="w-full rounded-10"
         />
         <h3>{title}</h3>
       </div>
