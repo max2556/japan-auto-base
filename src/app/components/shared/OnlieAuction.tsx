@@ -51,6 +51,7 @@ export default function OnlieAuction() {
           <div className="grid sm:grid-cols-2 gap-2">
             {auctionPositions.map((card) => (
               <CarInfo
+                isLink={true}
                 key={card.id}
                 id={card.id}
                 auctionTitle={card.auction?.title ?? "Неизвестно"}

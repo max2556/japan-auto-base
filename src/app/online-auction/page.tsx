@@ -88,6 +88,7 @@ export default function Page() {
             ? auctionPositions.map((card) => (
                 //TODO: where to get photo?
                 <CarInfo
+                  isLink={true}
                   key={card.id}
                   id={card.id}
                   auctionTitle={card.auction?.title ?? "Неизвестно"}

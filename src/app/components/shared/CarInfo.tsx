@@ -20,6 +20,7 @@ export interface CarProps {
   mileage: string | number | null;
   bodyType: string | null;
   imageSrc: string;
+  isLink?: boolean;
 }
 
 export default function CarInfo({
@@ -36,6 +37,7 @@ export default function CarInfo({
   mileage,
   bodyType,
   imageSrc,
+  isLink = false,
 }: CarProps) {
   const convertDate = (date: string) => {
     const splitted = date?.split("T")[0];
@@ -61,8 +63,10 @@ export default function CarInfo({
 
   return (
     <Link
-      href={`/online-auction/${id}`}
-      className="min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3"
+      href={isLink ? `/online-auction/${id}` : ""}
+      className={`min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3 ${
+        isLink ? "cursor-pointer" : "cursor-default"
+      }`}
     >
       {/* Car Image & Name */}
       <div className="mt-auto flex flex-col h-full">
@@ -127,7 +131,9 @@ export default function CarInfo({
             </li>
             {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
             {engineCapacity && (
-              <li className="pl-6">{convertCCtoLitre(String(engineCapacity))} л.</li>
+              <li className="pl-6">
+                {convertCCtoLitre(String(engineCapacity))} л.
+              </li>
             )}
             {enginePower && <li className="pl-6">{enginePower} л.с.</li>}
             {mileage && <li className="pl-6">{mileage} км.</li>}
