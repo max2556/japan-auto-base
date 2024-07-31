@@ -7,6 +7,7 @@ import Pagination from "../components/shared/Pagination";
 import { PaginationsParams } from "../services/pagination";
 import { AuctionPosition, getAuctionPositions } from "../services/auctions";
 import { parseFilters } from "../utils/filters";
+import _ from "lodash";
 
 export default function Page() {
   const limit = 8;
@@ -19,7 +20,12 @@ export default function Page() {
   >(null);
 
   const getAuctionsPositions = async (
-    params?: PaginationsParams<AuctionPosition>
+    params?: PaginationsParams<AuctionPosition> & {
+      startMileageInKm?: number | string;
+      endMileageInKm?: number | string;
+      startRegistrationYear?: number | string;
+      endRegistrationYear?: number | string;
+    }
   ) => {
     const { count, positions } = await getAuctionPositions(params);
 
@@ -33,7 +39,18 @@ export default function Page() {
       page: page + 1,
       limit,
       expanded: true,
-      ...parseFilters(filters),
+      startMileageInKm: filters.startMileageInKm,
+      endMileageInKm: filters.endMileageInKm,
+      startRegistrationYear: filters.startRegistrationYear,
+      endRegistrationYear: filters.endRegistrationYear,
+      ...parseFilters(
+        _.omit(filters, [
+          "startMileageInKm",
+          "endMileageInKm",
+          "startRegistrationYear",
+          "endRegistrationYear",
+        ])
+      ),
     });
   }, [filters, page]);
 
@@ -67,29 +84,35 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {auctionPositions?.map((card) => (
-            //TODO: where to get photo?
-            <CarInfo
-              key={card.id}
-              id={card.id}
-              auctionTitle={card.auction?.title ?? "Неизвестно"}
-              bodyType={card.bodyModel}
-              engineCapacity={card.engineCapacity}
-              grade={card.auctionValuation}
-              lotIndex={card.lotNumber}
-              mileage={card.mileageInKm}
-              price={card.finalPrice}
-              releaseDate={card.registrationYear}
-              soldDate={card.auctionDate}
-              title={card.mark + " " + card.model}
-            />
-          ))}
+          {auctionPositions && auctionPositions.length
+            ? auctionPositions.map((card) => (
+                //TODO: where to get photo?
+                <CarInfo
+                  key={card.id}
+                  id={card.id}
+                  auctionTitle={card.auction?.title ?? "Неизвестно"}
+                  bodyType={card.bodyModel}
+                  engineCapacity={card.engineCapacity}
+                  grade={card.auctionValuation}
+                  lotIndex={card.lotNumber}
+                  mileage={card.mileageInKm}
+                  price={card.finalPrice}
+                  releaseDate={card.registrationYear}
+                  soldDate={card.auctionDate}
+                  title={card.mark + " " + card.model}
+                />
+              ))
+            : "Ничего не нашлось"}
         </div>
-        <Pagination
-          page={page}
-          pages={Math.ceil(count / limit)}
-          onClick={(page) => setPage(page)}
-        />
+        {Math.ceil(count / limit) ? (
+          <Pagination
+            page={page}
+            pages={Math.ceil(count / limit)}
+            onClick={(page) => setPage(page)}
+          />
+        ) : (
+          ""
+        )}
       </section>
     </div>
   );

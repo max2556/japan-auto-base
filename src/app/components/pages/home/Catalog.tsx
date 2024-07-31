@@ -29,7 +29,7 @@ export default async function Catalog() {
                 key={card.id}
                 id={card.id}
                 bodyType={card.bodyModel}
-                engineCapacity={card.engineCapacity}
+                engineCapacity={Number(card.engineCapacity)/1000}
                 mileage={card.mileageInKm}
                 price={card.price}
                 releaseDate={card.registrationYear}

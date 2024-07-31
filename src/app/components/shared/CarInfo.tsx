@@ -15,7 +15,7 @@ export interface CarProps {
   auctionTitle?: string | null;
   soldDate?: string;
   releaseDate: string | number;
-  engineCapacity: string | null;
+  engineCapacity: string | number | null;
   enginePower?: string | null;
   mileage: string | number | null;
   bodyType: string | null;
@@ -127,7 +127,7 @@ export default function CarInfo({
             </li>
             {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
             {engineCapacity && (
-              <li className="pl-6">{convertCCtoLitre(engineCapacity)} л.</li>
+              <li className="pl-6">{convertCCtoLitre(String(engineCapacity))} л.</li>
             )}
             {enginePower && <li className="pl-6">{enginePower} л.с.</li>}
             {mileage && <li className="pl-6">{mileage} км.</li>}
