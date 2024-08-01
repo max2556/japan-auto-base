@@ -50,17 +50,6 @@ export default function CarInfo({
     return date;
   };
 
-  const convertCCtoLitre = (engineCapacity: string) => {
-    const splitted = engineCapacity.split("cc");
-
-    // it means that capacity is already in litres
-    if (splitted.length == 1) {
-      return Number(splitted[0]);
-    }
-
-    return Number(splitted[0]) / 1000;
-  };
-
   return (
     <Link
       href={isLink ? `/online-auction/${id}` : ""}
@@ -132,11 +121,16 @@ export default function CarInfo({
             {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
             {engineCapacity && (
               <li className="pl-6">
-                {convertCCtoLitre(String(engineCapacity))} л.
+                {/* {convertCCtoLitre(engineCapacity)} л. */}
+                {engineCapacity} л.
               </li>
             )}
             {enginePower && <li className="pl-6">{enginePower} л.с.</li>}
-            {mileage && <li className="pl-6">{mileage} км.</li>}
+            {mileage && Number(mileage) > 0 ? (
+              <li className="pl-6">{mileage} км.</li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       </div>
