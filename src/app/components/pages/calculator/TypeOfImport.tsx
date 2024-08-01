@@ -1,16 +1,19 @@
 import React from "react";
+import { ImportType } from "./Calculator";
 
-const options = [
+const options: { label: string; value: ImportType }[] = [
   {
     label: "Распил",
+    value: 'raspil',
   },
   {
     label: "Конструктор",
+    value: 'constructor'
   },
 ] as const;
 
 interface Props {
-  onClick: (val: (typeof options)[number]["label"]) => void;
+  onClick: (val: ImportType) => void;
 }
 
 export default function TypeOfImport({ onClick }: Props) {
@@ -23,7 +26,7 @@ export default function TypeOfImport({ onClick }: Props) {
             key={option.label}
             htmlFor={option.label}
             className="flex gap-1 text-sm cursor-pointer"
-            onChange={() => onClick(option.label)}
+            onChange={() => onClick(option.value)}
           >
             <input
               type="radio"

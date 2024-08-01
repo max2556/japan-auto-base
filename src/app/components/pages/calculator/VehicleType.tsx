@@ -1,19 +1,23 @@
 import React from "react";
+import { BodyType } from "./Calculator";
 
-const options = [
+const options: { label: string; value: BodyType }[] = [
   {
     label: "Легковой",
+    value: "light",
   },
   {
     label: "Автобус",
+    value: "bus",
   },
   {
     label: "Джип",
+    value: "jeep",
   },
 ] as const;
 
 interface Props {
-  onClick: (val: (typeof options)[number]["label"]) => void;
+  onClick: (val: BodyType) => void;
 }
 
 export default function VehicleType({ onClick }: Props) {
@@ -26,7 +30,7 @@ export default function VehicleType({ onClick }: Props) {
             key={option.label}
             htmlFor={option.label}
             className="flex gap-1 text-sm cursor-pointer"
-            onChange={() => onClick(option.label)}
+            onChange={() => onClick(option.value)}
           >
             <input
               type="radio"

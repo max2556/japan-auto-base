@@ -75,7 +75,7 @@ export default function Page() {
                   />
                 </svg>
                 <h2 className="text-brand-red leading-5">
-                  Итоговая стоимость: {resultPrice.toFixed(2)} ₽
+                  Итоговая стоимость: {resultPrice.toFixed(0)} ₽
                 </h2>
               </div>
               <p className="text-sm leading-4">
