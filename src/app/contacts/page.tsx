@@ -36,7 +36,7 @@ export default function Page() {
           </div>
           {/* Email */}
           <div className="w-full lg:flex-1 text-center text-sm font-bold bg-white rounded-10 p-4">
-            Место для банковских реквезитов
+            Место для банковских реквизитов
           </div>
         </div>
         {/* Map */}

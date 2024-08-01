@@ -41,7 +41,7 @@ export default async function Page() {
           {/* Doc */}
           <div className="w-full lg:w-fit bg-white rounded-10 p-4">
             <Button blue className="w-full">
-              Отркыть договор (ссылка на google disk)
+              Открыть договор (ссылка на google disk)
             </Button>
           </div>
           {/* Tel */}
