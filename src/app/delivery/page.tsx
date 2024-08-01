@@ -1,10 +1,47 @@
 import Image from "next/image";
 import { CarIcon } from "../components/shared/icons/CarIcon";
 
-//TODO: fill actual data
+
 const tableData = [
-  { city: "Санкт-Петребруг", distance: "12000", duration: "5", cost: "108000" },
-  { city: "Москва", distance: "10000", duration: "4", cost: "100000" },
+  { city: "Ачинск", distance: 5315, duration: 10, cost: 102000 },
+  { city: "Барнаул", distance: undefined, duration: 10, cost: 142500 },
+  { city: "Благовещенск", distance: 1460, duration: 3, cost: 42000 },
+  { city: "Воронеж", distance: 9273, duration: 18, cost: 147000 },
+  { city: "Екатеринбург", distance: 9327, duration: 14, cost: 120000 },
+  { city: "Ижевск", distance: undefined, duration: 18, cost: 135000 },
+  { city: "Иркутск", distance: 4114, duration: 6, cost: 75000 },
+  { city: "Казань", distance: 8547, duration: 18, cost: 135000 },
+  { city: "Канск", distance: undefined, duration: 8, cost: 90000 },
+  { city: "Кемерово", distance: 5681, duration: 10, cost: 102000 },
+  { city: "Киров", distance: undefined, duration: 20, cost: 147000 },
+  { city: "Краснодар", distance: 10016, duration: 20, cost: 147000 },
+  { city: "Красноярск", distance: 5153, duration: 8, cost: 90000 },
+  { city: "Курган", distance: 7317, duration: 12, cost: 120000 },
+  { city: "Москва", distance: 9100, duration: 18, cost: 135000 },
+  { city: "Набережные Челны", distance: 8100, duration: 18, cost: 135000 },
+  { city: "Нижний Новгород", distance: 8743, duration: 18, cost: 135000 },
+  { city: "Новосибирск", distance: 5937, duration: 10, cost: 102000 },
+  { city: "Омск", distance: 6582, duration: 12, cost: 120000 },
+  { city: "Пенза", distance: 8827, duration: 18, cost: 135000 },
+  { city: "Пермь", distance: 7893, duration: 14, cost: 127500 },
+  { city: "Ростов-на-Дону", distance: 9743, duration: 18, cost: 147000 },
+  { city: "Рязань", distance: undefined, duration: 18, cost: 135000 },
+  { city: "Самара", distance: 8457, duration: 18, cost: 147000 },
+  { city: "Санкт-Петербург", distance: 9722, duration: 20, cost: 147000 },
+  { city: "Саратов", distance: 8655, duration: 18, cost: 147000 },
+  { city: "Свободный", distance: undefined, duration: 3, cost: 75000 },
+  { city: "Сковоровино", distance: undefined, duration: 3, cost: 75000 },
+  { city: "Тайшет", distance: undefined, duration: 8, cost: 90000 },
+  { city: "Томск", distance: undefined, duration: 10, cost: 102000 },
+  { city: "Тулун", distance: undefined, duration: 8, cost: 90000 },
+  { city: "Тюмень", distance: 7210, duration: 14, cost: 120000 },
+  { city: "Улан-Уде", distance: 3670, duration: 5, cost: 75000 },
+  { city: "Уфа", distance: 8007, duration: 14, cost: 120000 },
+  { city: "Хабаровск", distance: 761, duration: 2, cost: 27000 },
+  { city: "Чебоксары", distance: 8450, duration: 18, cost: 135000 },
+  { city: "Челябинск", distance: 7579, duration: 14, cost: 120000 },
+  { city: "Чита", distance: 3015, duration: 5, cost: 75000 },
+  { city: "Юрга", distance: undefined, duration: 10, cost: 102000 },
 ];
 
 export default function Page() {
