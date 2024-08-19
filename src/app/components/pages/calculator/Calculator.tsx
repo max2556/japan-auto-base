@@ -9,6 +9,8 @@ import CostOfVehicleInAuction from "./CostOfVehicleInAuction";
 import Button from "../../shared/Button";
 import { api } from "@/app/utils/axios";
 import { BaseEntity } from "@/app/services/base";
+import EngineVolumeField from "./EngineVolumeField";
+import { Radio } from "../../shared/Radio";
 
 export const cityTaxesMap = {
   vladivostok: {
@@ -232,6 +234,102 @@ export const importTypeMap = {
   },
 } as const;
 
+function calcCustomsExpenses(
+  priceInYen: number,
+  yenToRubCurse: number,
+  euroToRubCurs: number,
+  engine_volume: number,
+  years: Years
+): number {
+  const priceInEur = (priceInYen * yenToRubCurse) / euroToRubCurs;
+
+  const calcIfLessThanThree = (
+    priceInEur: number,
+    engine_volume: number
+  ): number => {
+    const priceToPercentageMap = {
+      8500: 0.54,
+      16700: 0.48,
+      42300: 0.48,
+      84500: 0.48,
+      169000: 0.48,
+    };
+    const priceToVolumePriceMap = {
+      8500: 2.5,
+      16700: 3.5,
+      42300: 5.5,
+      84500: 7.5,
+      169000: 15,
+    };
+
+    const percentage =
+      Object.entries(priceToPercentageMap).find(([key, _]) => {
+        return priceInEur <= Number(key);
+      })?.[1] ?? 0.48;
+
+    const volumePrice =
+      Object.entries(priceToVolumePriceMap).find(([key, _]) => {
+        return priceInEur <= Number(key);
+      })?.[1] ?? 20;
+
+    return Math.max(priceInEur * percentage, engine_volume * volumePrice);
+  };
+
+  const calcIfThreeToFive = (engine_volume: number): number => {
+    const volumeToVolumePriceMap = {
+      1000: 1.5,
+      1500: 1.7,
+      1800: 2.5,
+      2300: 2.7,
+      3000: 3,
+    };
+
+    const volumePrice =
+      Object.entries(volumeToVolumePriceMap).find(([key, _]) => {
+        return engine_volume <= Number(key);
+      })?.[1] ?? 3.6;
+
+    return volumePrice * engine_volume;
+  };
+
+  const calcMoreThanFive = (engine_volume: number): number => {
+    const volumeToVolumePriceMap = {
+      1000: 3,
+      1500: 3.2,
+      1800: 3.5,
+      2300: 4.8,
+      3000: 5,
+    };
+
+    const volumePrice =
+      Object.entries(volumeToVolumePriceMap).find(([key, _]) => {
+        return engine_volume <= Number(key);
+      })?.[1] ?? 5.7;
+
+    return volumePrice * engine_volume;
+  };
+
+  switch (years) {
+    case Years.LessThanThree:
+      return calcIfLessThanThree(priceInEur, engine_volume) * euroToRubCurs;
+
+    case Years.ThreeToFive:
+      return calcIfThreeToFive(engine_volume) * euroToRubCurs;
+
+    case Years.MoreThanFive:
+      return calcMoreThanFive(engine_volume) * euroToRubCurs;
+
+    default:
+      // Unreachable!
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const _: never = years;
+      break;
+  }
+
+  // Unreachable?
+  return 0;
+}
+
 const assemblyPriceMap = {
   raspil: 20000,
   constructor: 12000,
@@ -244,30 +342,40 @@ export type ImportType = keyof typeof importTypeMap;
 export type CityType = keyof typeof cityTaxesMap;
 
 function calcSum({
-  value,
+  priceInYen,
   bodyType,
   city,
   needAssembly,
   importType,
   yenToRubCurs,
   euroToRubCurs,
+  engineVolume,
+  years,
 }: {
-  value: number; // Стоимость в рублях
+  priceInYen: number; // Стоимость в рублях
   bodyType: BodyType;
   city: CityType;
   needAssembly: boolean;
   importType: ImportType;
   yenToRubCurs: number;
   euroToRubCurs: number;
+  engineVolume: number;
+  years: number;
 }) {
-  const curs = yenToRubCurs; // Convert yen to rub
-  const curs1 = euroToRubCurs; // Convert from dollar to rub
-
   const cityTaxRub = cityTaxesMap[city][bodyType];
-  const importTypeRub = importTypeMap[importType][bodyType] * curs1;
-  const calcPriceRub = value * curs;
+  const importTypeRub = importTypeMap[importType][bodyType] * euroToRubCurs;
+  const calcPriceRub = priceInYen * yenToRubCurs;
 
-  let sum = calcPriceRub + importTypeRub + dopsbor + cityTaxRub;
+  const customsExpenses = calcCustomsExpenses(
+    priceInYen,
+    yenToRubCurs,
+    euroToRubCurs,
+    engineVolume,
+    years
+  );
+
+  let sum =
+    calcPriceRub + importTypeRub + dopsbor + cityTaxRub + customsExpenses;
   if (needAssembly) sum += assemblyPriceMap[importType];
 
   return sum;
@@ -288,16 +396,41 @@ interface CalculatorProps {
   }) => void;
 }
 
+enum Years {
+  LessThanThree,
+  ThreeToFive,
+  MoreThanFive,
+  // MoreThanSeven,
+}
+const yearsOptions = [
+  {
+    label: "до 3х лет",
+    value: Years.LessThanThree,
+  },
+  {
+    label: "3-5 лет",
+    value: Years.ThreeToFive,
+  },
+  {
+    label: "Больше 5 лет",
+    value: Years.MoreThanFive,
+  },
+  // {
+  //   label: "более 7 лет",
+  //   value: Years.MoreThanSeven,
+  // },
+] as const;
+
 export default function Calculator({ onClick }: CalculatorProps) {
-  const [inputValue, setInputValue] = useState(0);
-  const [importType, setImportType] =
-    useState<ImportType>("raspil");
-  const [vehicleType, setVehicleType] =
-    useState<BodyType>("light");
+  const [priceInYen, setPrice] = useState(0);
+  const [engineVolume, setEngineVolume] = useState(1600);
+  const [years, setYears] = useState<Years>(Years.ThreeToFive);
+  const [importType, setImportType] = useState<ImportType>("raspil");
+  const [vehicleType, setVehicleType] = useState<BodyType>("light");
   const [needAssembly, setNeedAssembly] = useState<boolean>(true);
   const [city, setCity] = useState<CityType>("saintpetersburg");
-  const [yenToRubCurs, setYenToRubCurs] = useState(1);
-  const [euroToRubCurs, setEuroToRubCurs] = useState(1);
+  const [yenToRubCurs, setYenToRubCurs] = useState(0.61);
+  const [euroToRubCurs, setEuroToRubCurs] = useState(99.56);
 
   useEffect(() => {
     //TODO: move to service
@@ -316,7 +449,7 @@ export default function Calculator({ onClick }: CalculatorProps) {
             to,
           },
         });
-        return data.rate ?? 1;
+        return data.rate;
       } catch (err) {
         console.error("Failed to fetch exchange rate");
       }
@@ -324,11 +457,13 @@ export default function Calculator({ onClick }: CalculatorProps) {
 
     const fetchYenToRubles = async () => {
       const response = await fetchCurrency("yen", "rub");
-      setYenToRubCurs(response?.value ?? 1);
+      if (response && "value" in response && response.value)
+        setYenToRubCurs(response.value);
     };
     const fetchEuroToRubles = async () => {
       const response = await fetchCurrency("euro", "rub");
-      setEuroToRubCurs(response?.value ?? 1);
+      if (response && "value" in response && response.value)
+        setEuroToRubCurs(response.value);
     };
     fetchYenToRubles();
     fetchEuroToRubles();
@@ -336,35 +471,53 @@ export default function Calculator({ onClick }: CalculatorProps) {
 
   return (
     <div className="grid grid-cols-1 xs:grid-cols-3 lg:grid-cols-6 gap-2">
-      <TypeOfImport onClick={(val) => setImportType(val)} />
-      {/* TODO: how price depends on auto model? */}
-      {/* <FilterModel /> */}
-      <VehicleType onClick={(val) => setVehicleType(val)} />
-      <Assembly onClick={(val) => setNeedAssembly(val)} />
-      <City onClick={(val) => setCity(val)} />
+      <TypeOfImport onClick={(val) => setImportType(val ?? "constructor")} />
+      <VehicleType onClick={(val) => setVehicleType(val ?? "light")} />
+      <Assembly onClick={(val) => setNeedAssembly(val ?? true)} />
+      <City onClick={(val) => setCity(val ?? "saintpetersburg")} />
+      <div className="gap-2 bg-white rounded-10 p-4">
+        <h3>Возраст</h3>
+        <Radio
+          name="years"
+          options={yearsOptions}
+          onChange={(val) => setYears(val ?? Years.ThreeToFive)}
+          defaultChecked={Years.ThreeToFive}
+        ></Radio>
+      </div>
       <div className="col-span-1 xs:col-span-2 md:col-span-2 space-y-2">
-        <CostOfVehicleInAuction onChange={(val) => setInputValue(val)} />
+        <CostOfVehicleInAuction onChange={(val) => setPrice(val)} />
+        <EngineVolumeField onChange={(val) => setEngineVolume(val || 1600)} />
+
         <div className="flex items-center justify-center sm:bg-white rounded-10 p-3 lg:p-4">
           <Button
             onClick={() =>
               onClick({
                 resultPrice: calcSum({
-                  value: inputValue,
+                  priceInYen: priceInYen,
                   bodyType: vehicleType,
                   city: city,
                   needAssembly,
                   importType,
                   yenToRubCurs,
                   euroToRubCurs,
+                  engineVolume,
+                  years,
                 }),
                 assemblyPrice:
                   assemblyPriceMap[importType] * (needAssembly ? 1 : 0),
                 comission: 49900, //TODO: is it depends on some properties?
-                customsExpenses: 49900, //TODO: is it depends on some properties?
+                customsExpenses:
+                  calcCustomsExpenses(
+                    priceInYen,
+                    yenToRubCurs,
+                    euroToRubCurs,
+                    engineVolume,
+                    years
+                  ) ?? 0,
                 deliveryPrice: cityTaxesMap[city][vehicleType],
                 disassemblyPrice: 50789, //TODO: is it depends on some properties?
                 evacuationPrice: 49900, //TODO: is it depends on some properties?
-                inputPrice: inputValue,
+                inputPrice: priceInYen,
                 japanExpenses: 3572, //TODO: is it depends on some properties?
                 russiaExpenses: 19900, //TODO: is it depends on some properties?
               })
