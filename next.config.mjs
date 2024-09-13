@@ -9,6 +9,10 @@ const nextConfig = {
         port: process.env.NEXT_PUBLIC_BASE_URL_PORT,
         pathname: "/files/**",
       },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
   rewrites: async () => [
