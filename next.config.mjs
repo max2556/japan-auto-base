@@ -18,7 +18,11 @@ const nextConfig = {
   rewrites: async () => [
     {
       source: "/api/:path*",
-      destination: process.env.NEXT_PUBLIC_BASE_URL + "/:path*",
+      destination:
+        process.env.NEXT_PUBLIC_PROTOCOL +
+        "://" +
+        process.env.NEXT_PUBLIC_BASE_URL_IP +
+        "/api/:path*",
     },
   ],
 };
