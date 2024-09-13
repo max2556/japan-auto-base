@@ -61,7 +61,7 @@ export default function CarInfo({
       <div className="mt-auto flex flex-col justify-between h-full">
         <Image
           src={imageSrc ?? "/assets/images/img-car-1.svg"}
-          alt="Car Image"
+          alt={title}
           width={500}
           height={350}
           className="w-full rounded-10"
