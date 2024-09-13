@@ -20,8 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/assets/favicon.svg"/>
+      </head>
       <FilterContextProvider>
-        <body className={inter.className}>
+        <body className={inter.className + 'foo'}>
           <Navbar />
           <Logo />
           <main>{children}</main>

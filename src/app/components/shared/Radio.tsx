@@ -15,7 +15,7 @@ export function Radio({ name, options, onChange, needAnyOption, anyOptionLabel }
       {(needAnyOption ? [{ label: undefined }, ...options] : options).map(
         (option) => (
           <label
-            key={option.label}
+            key={option.label ?? 'first'}
             htmlFor={option.label + `_${name}`}
             className="flex gap-1 text-sm cursor-pointer"
             onClick={() => onChange(option.value ?? option.label)}

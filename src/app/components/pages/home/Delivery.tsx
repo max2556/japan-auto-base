@@ -14,15 +14,7 @@ export default function Delivery() {
       className="lg:flex items-end justify-between bg-white"
     >
       <div className="h-12 w-full group flex justify-center lg:hidden items-center gap-2 bg-white text-sm font-bold rounded-full px-4">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="16" height="16" rx="8" fill="#A4031F" />
-        </svg>
+        <Image src="/assets/favicon.svg" alt="logo" width={26} height={26}/>
         <span>JapanAutoBase</span>
       </div>
       <div className="hidden lg:block flex-1 h-[0.1875rem] bg-brand-red rounded-r-full"></div>
@@ -37,15 +29,7 @@ export default function Delivery() {
         {/* Logo & Texts */}
         <div className="space-y-3">
           <div className="h-12 w-fit group hidden lg:flex items-center gap-2 bg-white text-sm font-bold rounded-full mt-12 -ml-4 px-4">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="16" height="16" rx="8" fill="#A4031F" />
-            </svg>
+            <Image src="/assets/favicon.svg" alt="logo" width={16}height={16}/>
             <span>JapanAutoBase</span>
           </div>
           {/* Texts */}

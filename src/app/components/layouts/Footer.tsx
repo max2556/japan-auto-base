@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import PhoneNumber from "../shared/PhoneNumber";
 import Email from "../shared/Email";
 import Whatsapp from "../shared/Whatsapp";
+import Image from "next/image";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -117,17 +118,8 @@ export default function Footer() {
           <div className="lg:max-w-[11.25rem] space-y-7 mt-5 lg:mt-0">
             <h2 className="text-white">О нас </h2>
             <div className="w-full text-sm space-y-4">
-              <div className="h-8 w-[6.5rem] group flex items-center gap-2 text-brand-dark bg-white text-[0.5625rem] font-bold rounded-full px-2">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="shrink-0"
-                >
-                  <rect width="16" height="16" rx="8" fill="#A4031F" />
-                </svg>
+              <div className="h-8 w-[7rem] group flex items-center gap-2 text-brand-dark bg-white text-[0.5625rem] font-bold rounded-full px-2">
+                <Image src="/assets/favicon.svg" alt="logo" width={16}height={16}/>
                 <span>JapanAutoBase</span>
               </div>
               <p className="leading-4">
