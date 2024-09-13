@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios, { CreateAxiosDefaults } from "axios";
 
-export const baseURL = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_BASE_URL_IP}:${process.env.NEXT_PUBLIC_BASE_URL_PORT}/api`;
+export const baseURL = '/api';
 
 export const createAxiosInstance = () => {
-  const axiosConfiguration = {
+  const axiosConfiguration: CreateAxiosDefaults = {
     baseURL,
   };
 
