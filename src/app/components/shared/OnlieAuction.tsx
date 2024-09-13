@@ -64,6 +64,7 @@ export default function OnlieAuction() {
                 releaseDate={card.registrationYear}
                 soldDate={card.auctionDate}
                 title={card.mark + " " + card.model}
+                imageSrc={card.photos[0]}
               />
             ))}
           </div>

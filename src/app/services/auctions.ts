@@ -27,6 +27,7 @@ export interface AuctionPosition {
     updatedAt: string;
     title: string;
   };
+  photos: string[];
 }
 
 export interface Auction {

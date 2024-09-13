@@ -105,33 +105,17 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 modules={[Navigation]}
                 className="mySwiper"
               >
-                <SwiperSlide>
-                  <Image
-                    src="/assets/images/img-camry.png"
-                    alt="Camry"
-                    width={648}
-                    height={292}
-                    className="w-4/5 mx-auto mt-12 lg:mt-7"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    src="/assets/images/img-camry.png"
-                    alt="Camry"
-                    width={648}
-                    height={292}
-                    className="w-4/5 mx-auto mt-12 lg:mt-7"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    src="/assets/images/img-camry.png"
-                    alt="Camry"
-                    width={648}
-                    height={292}
-                    className="w-4/5 mx-auto mt-12 lg:mt-7"
-                  />
-                </SwiperSlide>
+                {car.photos.map((photo) => (
+                  <SwiperSlide key={photo}>
+                    <Image
+                      src={photo}
+                      alt={car.mark + " " + car.model}
+                      width={648}
+                      height={292}
+                      className="w-4/5 mx-auto mt-12 lg:mt-7"
+                    />
+                  </SwiperSlide>
+                ))}
               </Swiper>
               {/* Custom Navigating Buttons */}
               <div className="w-full absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-between pr-7">
