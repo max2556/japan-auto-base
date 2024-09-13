@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { CarIcon } from "../components/shared/icons/CarIcon";
 
-
 const tableData = [
   { city: "Ачинск", distance: 5315, duration: 10, cost: 102000 },
   { city: "Барнаул", distance: undefined, duration: 10, cost: 142500 },
@@ -68,8 +67,16 @@ export default function Page() {
                   <tr key={item.city} className="odd:bg-brand-gray-100">
                     <td>{item.city}</td>
                     <td>
-                      {item.distance} <span className="sm:hidden">км</span>
-                      <span className="hidden sm:inline-block">километров</span>
+                      {item.distance ? (
+                        <>
+                          {item.distance} <span className="sm:hidden">км</span>
+                          <span className="hidden sm:inline-block">
+                            километров
+                          </span>
+                        </>
+                      ) : (
+                        <span>--</span>
+                      )}
                     </td>
                     <td className=" whitespace-nowrap">
                       {item.duration}{" "}
