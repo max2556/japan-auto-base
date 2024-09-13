@@ -23,7 +23,7 @@ export function Radio<T>({
       {(needAnyOption ? [{ label: undefined }, ...options] : options).map(
         (option) => (
           <label
-            key={option.label ?? 'first'}
+            key={option.label ?? "any"}
             htmlFor={option.label + `_${name}`}
             className="flex gap-1 text-sm cursor-pointer"
             //TODO: fix
