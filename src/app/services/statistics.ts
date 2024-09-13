@@ -17,13 +17,18 @@ export interface Statistic extends BaseEntity {
 }
 
 export const getStatistics = async (params?: PaginationsParams<Statistic>) => {
-  const { data } = await api.get<{ autos: Statistic[]; count: number }>(
-    "/statistic",
-    {
-      params,
-    }
-  );
-  return data;
+  try {
+
+    const { data } = await api.get<{ autos: Statistic[]; count: number }>(
+      "/statistic",
+      {
+        params,
+      }
+    );
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const cachedGetStatistics = cache(getStatistics);

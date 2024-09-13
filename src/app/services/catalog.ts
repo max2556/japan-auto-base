@@ -25,10 +25,15 @@ export const getCatalog = async (params: {
   limit: number;
   expanded: boolean;
 }) => {
-  const { data } = await api.get<{ autos: Catalog[], count: number }>("/sold-cars", {
-    params,
-  });
-  return data;
+  try{
+
+    const { data } = await api.get<{ autos: Catalog[], count: number }>("/sold-cars", {
+      params,
+    });
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const cachedGetCatalog = cache(getCatalog);

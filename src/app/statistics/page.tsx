@@ -16,7 +16,10 @@ export default function Page() {
   const getStatisticsPositions = async (
     params?: PaginationsParams<Statistic>
   ) => {
-    const { count, autos } = await getStatistics(params);
+    const { count, autos } = (await getStatistics(params)) ?? {
+      count: 0,
+      autos: [],
+    };
 
     setCount(count);
     setStatisticsPositions(autos);
@@ -31,33 +34,48 @@ export default function Page() {
     });
   }, [page]);
 
-  return (
-    <div className="bg-brand-gray">
-      <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-        <div className="max-w-96 lg:pr-6 space-y-1">
-          <h2>Статистика</h2>
-        </div>
-        <div className="grid sm:grid-cols-2 gap-2">
-          {statisticsPositions?.map((card) => (
-            //TODO: where to get photo?
-            <CarInfo
-              key={card.id}
-              id={card.id}
-              bodyType={card.bodyModel}
-              engineCapacity={parseInt(card.engineCapacity) / 1000}
-              mileage={card.mileageInKm}
-              price={card.price}
-              releaseDate={card.registrationYear}
-              title={card.mark + " " + card.model}
-            />
-          ))}
-        </div>
+  const statisticsSection = () => (
+    <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
+      <div className="max-w-96 lg:pr-6 space-y-1">
+        <h2>Статистика</h2>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-2">
+        {statisticsPositions?.map((card) => (
+          //TODO: where to get photo?
+          <CarInfo
+            key={card.id}
+            id={card.id}
+            bodyType={card.bodyModel}
+            engineCapacity={parseInt(card.engineCapacity) / 1000}
+            mileage={card.mileageInKm}
+            price={card.price}
+            releaseDate={card.registrationYear}
+            title={card.mark + " " + card.model}
+          />
+        ))}
+      </div>
+
+      {Math.ceil(count / limit) > 1 && (
         <Pagination
           page={page}
           pages={Math.ceil(count / limit)}
           onClick={(page) => setPage(page)}
         />
-      </section>
+      )}
+    </section>
+  );
+
+  const notFound = () => (
+    <div className="max-w-4xl mx-auto py-12 px-4 lg:px-6">
+      <div className="max-w-96 lg:pr-6 py-1">
+        <h2 className="text-center">Ничего не найдено</h2>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-brand-gray">
+      {statisticsPositions?.length ? statisticsSection() : notFound()}
     </div>
   );
 }

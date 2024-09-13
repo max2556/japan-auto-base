@@ -5,11 +5,12 @@ import { getCatalog } from "@/app/services/catalog";
 import { baseURL } from "@/app/utils/axios";
 
 export default async function Catalog() {
-  const { autos } = await getCatalog({
+  const catalog  = await getCatalog({
     page: 1,
     limit: 8,
     expanded: true,
   });
+  const autos  = catalog?.autos ?? [];
 
   const carsData = autos.map((car) => ({
     id: car.id,

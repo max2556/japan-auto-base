@@ -10,6 +10,8 @@ export default async function Statistics() {
     expanded: true,
   });
 
+  const autos = catalogPositions?.autos;
+
   return (
     <section id="catalog" className="bg-white">
       <div className="bg-brand-dark py-8">
@@ -19,7 +21,7 @@ export default async function Statistics() {
           </div>
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
-            {catalogPositions.autos?.map((card) => (
+            {autos?.map((card) => (
               //TODO: where to get photo?
               <CarInfo
                 key={card.id}
