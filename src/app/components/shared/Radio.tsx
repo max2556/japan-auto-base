@@ -34,7 +34,7 @@ export function Radio<T>({
               id={option.label + `_${name}`}
               name={name}
               className="hidden"
-              defaultChecked={option.value === defaultChecked}
+              defaultChecked={defaultChecked ? option.value === defaultChecked : option.label === undefined}
             />
             <div className="w-5 h-5 shrink-0 grid place-content-center bg-brand-gray-100 rounded-3">
               <span className="w-3 h-3 hidden bg-brand-red rounded-1.5"></span>

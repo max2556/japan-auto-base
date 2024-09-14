@@ -14,6 +14,7 @@ export interface Statistic extends BaseEntity {
   bodyModel: string;
   price: number;
   description: string;
+  photos: string[];
 }
 
 export const getStatistics = async (params?: PaginationsParams<Statistic>) => {

@@ -101,7 +101,7 @@ export default function Page() {
                   releaseDate={card.registrationYear}
                   soldDate={card.auctionDate}
                   title={card.mark + " " + card.model}
-                  imageSrc={card.photos[0]}
+                  imageSrc={card.photos[1].replace("google.com", "p3.aleado.com")}
                 />
               ))
             : "Ничего не нашлось"}

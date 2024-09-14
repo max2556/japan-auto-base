@@ -56,13 +56,13 @@ export default async function Catalog() {
                 releaseDate={car.releaseDate}
                 soldDate={car.soldDate}
                 title={car.title}
-                imageSrc={car.imageSrc}
+                imageSrc={car.imageSrc.replace("google.com", "p3.aleado.com")}
               />
             ))}
           </div>
           <div className="flex items-center justify-center">
             <Link
-              href="/sales-history"
+              href="/catalog"
               className="h-12 lg:h-8 grid place-content-center font-bold text-sm bg-brand-dark text-white font-sansation rounded-7 lg:rounded-5 transition-all duration-200 hover:bg-brand-red px-4 lg:px-3"
             >
               Показать больше

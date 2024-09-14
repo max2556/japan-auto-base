@@ -108,11 +108,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 {car.photos.map((photo) => (
                   <SwiperSlide key={photo}>
                     <Image
-                      src={photo}
+                      src={photo.replace("google.com", "p3.aleado.com")}
                       alt={car.mark + " " + car.model}
                       width={648}
                       height={292}
-                      className="w-4/5 mx-auto mt-12 lg:mt-7"
+                      className="max-w-4/5 max-h-40 md:max-h-60 w-auto mx-auto mt-4 md:mt-12 lg:mt-7 rounded-10"
                     />
                   </SwiperSlide>
                 ))}

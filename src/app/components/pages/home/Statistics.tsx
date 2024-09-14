@@ -32,12 +32,13 @@ export default async function Statistics() {
                 price={card.price}
                 releaseDate={card.registrationYear}
                 title={card.mark + " " + card.model}
+                imageSrc={card.photos[0]}
               />
             ))}
           </div>
           <div className="flex items-center justify-center">
             <Link
-              href="/catalog"
+              href="/statistics"
               className="h-12 lg:h-8 grid place-content-center font-bold text-sm bg-white text-brand-dark font-sansation rounded-7 lg:rounded-5 transition-all duration-200 hover:text-brand-dark hover:bg-white/90  px-4 lg:px-3"
             >
               Показать больше

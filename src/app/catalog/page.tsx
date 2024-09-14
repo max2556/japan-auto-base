@@ -18,7 +18,10 @@ export default function Page() {
       limit: number;
       expanded: boolean;
     }) => {
-      const { autos, count } = await getCatalog(params);
+      const { autos, count } = await getCatalog(params) ?? {
+        autos: [],
+        count: 0,
+      };
 
       const carsData = autos.map((car) => ({
         id: car.id,
@@ -70,7 +73,7 @@ export default function Page() {
                   releaseDate={car.releaseDate}
                   soldDate={car.soldDate}
                   title={car.title}
-                  imageSrc={car.imageSrc}
+                  imageSrc={car.imageSrc.replace("google.com", "p3.aleado.com")}
                 />
               ))
             : "Нет данных"}
