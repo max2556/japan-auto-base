@@ -2,8 +2,8 @@
 
 IMAGE_NAME="japancar-frontend"
 
-docker stop japancar-frontend || true
-docker rm japancar-frontend || true
+docker stop $IMAGE_NAME || true
+docker rm $IMAGE_NAME || true
 
 docker build -t $IMAGE_NAME .
 
