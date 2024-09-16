@@ -15,6 +15,7 @@ export function Modal({ open, setOpen, children }: InternalModalProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const dialogBody = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [pageBody, setPageBody] = useState<HTMLBodyElement | null>(null);
 
   useEffect(() => {
     if (!dialog.current) return;
@@ -44,12 +45,18 @@ export function Modal({ open, setOpen, children }: InternalModalProps) {
     };
   }, [isVisible, open, setOpen]);
 
+  useEffect(() => {
+    setPageBody(document.body as HTMLBodyElement);
+  }, [pageBody]);
+
+  if (!pageBody) return null;
+
   return createPortal(
     <div className="z-10 relative w-full h-full">
       <dialog ref={dialog}>
         <div ref={dialogBody}>{children}</div>
       </dialog>
     </div>,
-    document.body
+    pageBody
   );
 }
