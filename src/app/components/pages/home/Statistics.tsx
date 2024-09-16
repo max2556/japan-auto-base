@@ -1,16 +1,34 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
-import { cachedGetStatistics } from "@/app/services/statistics";
+import { Statistic, getStatistics } from "@/app/services/statistics";
+import { PaginationsParams } from "@/app/services/pagination";
 
-export default async function Statistics() {
-  const catalogPositions = await cachedGetStatistics({
-    page: 1,
-    limit: 8,
-    expanded: true,
-  });
+export default function Statistics() {
+  const [autos, setAutos] = useState<
+    Statistic[] | null
+  >(null);
 
-  const autos = catalogPositions?.autos;
+  const getStatisticsPositions = async (
+    params?: PaginationsParams<Statistic>
+  ) => {
+    const { count, autos } = (await getStatistics(params)) ?? {
+      count: 0,
+      autos: [],
+    };
+
+    setAutos(autos);
+    return { count, autos };
+  };
+
+  useEffect(() => {
+    getStatisticsPositions({
+      page: 1,
+      limit: 8,
+      expanded: true,
+    });
+  }, []);
 
   return (
     <section id="catalog" className="bg-white">

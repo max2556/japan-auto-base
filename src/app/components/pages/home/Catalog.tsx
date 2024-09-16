@@ -1,32 +1,50 @@
-import React from "react";
-import CarInfo from "../../shared/CarInfo";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import CarInfo, { CarProps } from "../../shared/CarInfo";
 import Link from "next/link";
 import { getCatalog } from "@/app/services/catalog";
 import { baseURL } from "@/app/utils/axios";
 
-export default async function Catalog() {
-  const catalog  = await getCatalog({
-    page: 1,
-    limit: 8,
-    expanded: true,
-  });
-  const autos  = catalog?.autos ?? [];
+export default function Catalog() {
+  const [carsData, setCarsData] = useState<CarProps[]>([]);
+  
+  const fetchCatalog = async (params: {
+    page: number;
+    limit: number;
+    expanded: boolean;
+  }) => {
+    const { autos } = (await getCatalog(params)) ?? {
+      autos: [],
+      count: 0,
+    };
 
-  const carsData = autos.map((car) => ({
-    id: car.id,
-    title: `${car.mark} ${car.model}`,
-    price: car.price,
-    grade: null,
-    lotIndex: null,
-    auctionTitle: null,
-    soldDate: car.createdAt,
-    releaseDate: car.registrationYear,
-    engineCapacity: car.engineCapacity,
-    enginePower: null,
-    mileage: car.mileageInKm,
-    bodyType: car.bodyModel,
-    imageSrc: `${baseURL}/files/${car.photos[0].id}`,
-  }));
+    const data = autos.map((car) => ({
+      id: car.id,
+      title: `${car.mark} ${car.model}`,
+      price: car.price,
+      grade: null,
+      lotIndex: null,
+      auctionTitle: null,
+      soldDate: car.createdAt,
+      releaseDate: car.registrationYear,
+      engineCapacity: car.engineCapacity,
+      enginePower: null,
+      mileage: car.mileageInKm,
+      bodyType: car.bodyModel,
+      imageSrc: `${baseURL}/files/${car.photos[0].id}`,
+    }));
+
+    setCarsData(data);
+  };
+
+  useEffect(() => {
+    fetchCatalog({
+      page: 1,
+      limit: 8,
+      expanded: true,
+    });
+  }, []);  
 
   return (
     <section id="sales-history" className="bg-brand-gray-100">

@@ -12,34 +12,34 @@ export default function Page() {
   const [count, setCount] = useState(0);
   const limit = 10;
 
-  useEffect(() => {
-    const fetchSalesHistory = async (params: {
-      page: number;
-      limit: number;
-      expanded: boolean;
-    }) => {
-      const { autos, count } = await getCatalog(params) ?? {
-        autos: [],
-        count: 0,
-      };
-
-      const carsData = autos.map((car) => ({
-        id: car.id,
-        title: `${car.mark} ${car.model}`,
-        price: car.price,
-        soldDate: car.createdAt,
-        releaseDate: car.registrationYear,
-        engineCapacity: car.engineCapacity,
-        mileage: car.mileageInKm,
-        bodyType: car.bodyModel,
-        imageSrc: `${baseURL}/files/${car.photos[0].id}`,
-      }));
-
-      setPageData(carsData);
-      setCount(count);
+  const fetchCatalog = async (params: {
+    page: number;
+    limit: number;
+    expanded: boolean;
+  }) => {
+    const { autos, count } = (await getCatalog(params)) ?? {
+      autos: [],
+      count: 0,
     };
 
-    fetchSalesHistory({
+    const carsData = autos.map((car) => ({
+      id: car.id,
+      title: `${car.mark} ${car.model}`,
+      price: car.price,
+      soldDate: car.createdAt,
+      releaseDate: car.registrationYear,
+      engineCapacity: car.engineCapacity,
+      mileage: car.mileageInKm,
+      bodyType: car.bodyModel,
+      imageSrc: `${baseURL}/files/${car.photos[0].id}`,
+    }));
+
+    setPageData(carsData);
+    setCount(count);
+  };
+
+  useEffect(() => {
+    fetchCatalog({
       page: page + 1,
       limit,
       expanded: true,
