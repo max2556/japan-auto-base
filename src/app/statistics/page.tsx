@@ -51,6 +51,7 @@ export default function Page() {
             price={card.price}
             releaseDate={card.registrationYear}
             title={card.mark + " " + card.model}
+            imageSrc={card.photos[1].replace("google.com", "p3.aleado.com")}
           />
         ))}
       </div>
