@@ -5,6 +5,14 @@ import Link from "next/link";
 import { Statistic, getStatistics } from "@/app/services/statistics";
 import { PaginationsParams } from "@/app/services/pagination";
 
+function convertCCtoLitres(value: string) {
+  if (value.includes("cc")) {
+    return parseInt(value) / 1000;
+  }
+  
+  return parseInt(value);
+}
+
 export default function Statistics() {
   const [autos, setAutos] = useState<
     Statistic[] | null
@@ -45,7 +53,7 @@ export default function Statistics() {
                 key={card.id}
                 id={card.id}
                 bodyType={card.bodyModel}
-                engineCapacity={Number(card.engineCapacity) / 1000}
+                engineCapacity={convertCCtoLitres(card.engineCapacity)}
                 mileage={card.mileageInKm}
                 price={card.price}
                 releaseDate={card.registrationYear}
