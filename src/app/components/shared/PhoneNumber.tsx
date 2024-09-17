@@ -11,15 +11,16 @@ export default function PhoneNumber({ theme = "light" }: PhoneNumberProps) {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [error, setError] = useState<Nillable<string>>(null);
 
+  const fetchPhone = async () => {
+    const data = await fetchContacts("phone");
+    if ("error" in data) {
+      setError(data.error);
+    } else {
+      setPhoneNumber(data.value);
+    }
+  };
+  
   useEffect(() => {
-    const fetchPhone = async () => {
-      const data = await fetchContacts("phone");
-      if ("error" in data) {
-        setError(data.error);
-      } else {
-        setPhoneNumber(data.value);
-      }
-    };
     fetchPhone();
   }, [error]);
 

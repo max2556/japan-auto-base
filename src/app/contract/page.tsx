@@ -1,12 +1,25 @@
+"use client";
 import Button from "../components/shared/Button";
 import PhoneNumber from "../components/shared/PhoneNumber";
 import Email from "../components/shared/Email";
 import Whatsapp from "../components/shared/Whatsapp";
-import { cachedFetchContacts, formatPhone } from "../services/contacts";
+import { fetchContacts, formatPhone } from "../services/contacts";
+import { useEffect, useState } from "react";
 
-export default async function Page() {
-  const phoneNumber = (await cachedFetchContacts("phone")).value;
+export default function Page() {
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
 
+  const fetchPhone = async () => {
+    const data = await fetchContacts("phone");
+    if ("value" in data && data.value) {
+      setPhoneNumber(data.value);
+    }
+  };
+  
+  useEffect(() => {
+    fetchPhone();
+  }, []);
+  
   return (
     <div className="bg-brand-gray">
       <section className="max-w-5xl mx-auto space-y-4 -mt-10 px-4 lg:px-11">
@@ -40,8 +53,8 @@ export default async function Page() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-2">
           {/* Doc */}
           <div className="w-full lg:w-fit bg-white rounded-10 p-4">
-            <Button blue className="w-full">
-              Открыть договор (ссылка на google disk)
+            <Button blue className="w-full" link={process.env.NEXT_PUBLIC_CONTRACT_URL ?? "#"}>
+              Открыть договор
             </Button>
           </div>
           {/* Tel */}

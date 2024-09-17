@@ -59,7 +59,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/agreement"
+                    href={process.env.NEXT_PUBLIC_CONTRACT_URL ?? "#"}
                     className="hover:underline underline-offset-2 transition-all duration-200"
                   >
                     Договор
