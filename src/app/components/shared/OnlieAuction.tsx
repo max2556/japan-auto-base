@@ -5,12 +5,15 @@ import FiltersCotainer, { Filters } from "./FiltersCotainer";
 import { AuctionPosition, getAuctionPositions } from "@/app/services/auctions";
 import CarInfo from "./CarInfo";
 import { parseFilters } from "@/app/utils/filters";
+import Link from "next/link";
+import { convertCCtoLitres } from "@/app/utils/convert";
 
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<Filters>({});
   const [auctionPositions, setAuctionPositions] = useState<
     AuctionPosition[] | null
   >(null);
+  const [isClicked, setIsClicked] = useState(false);
 
   const fetchFirstPage = async (filters: Filters) => {
     const { positions } = await getAuctionPositions({
@@ -41,11 +44,14 @@ export default function OnlieAuction() {
           <FiltersCotainer
             filters={filters}
             onChange={(e) => setFilters(e)}
-            onApply={(filters) => fetchFirstPage(filters)}
+            onApply={(filters) => {
+              setIsClicked(true);
+              fetchFirstPage(filters);
+            }}
           />
         </div>
       </div>
-      {auctionPositions && auctionPositions.length && (
+      {auctionPositions && auctionPositions.length ? (
         <div className="max-w-4xl mx-auto space-y-4 mt-5 py-5 px-4 lg:px-6 rounded-10 bg-brand-gray-100">
           <h2>Результаты поиска</h2>
           <div className="grid sm:grid-cols-2 gap-2">
@@ -56,7 +62,7 @@ export default function OnlieAuction() {
                 id={card.id}
                 auctionTitle={card.auction?.title ?? "Неизвестно"}
                 bodyType={card.bodyModel}
-                engineCapacity={card.engineCapacity}
+                engineCapacity={convertCCtoLitres(card.engineCapacity + "cc")}
                 grade={card.auctionValuation}
                 lotIndex={card.lotNumber}
                 mileage={card.mileageInKm}
@@ -68,8 +74,21 @@ export default function OnlieAuction() {
               />
             ))}
           </div>
+          <div className="flex items-center justify-center">
+            <Link
+              href="/online-auction"
+              className="h-12 lg:h-8 grid place-content-center font-bold text-sm bg-brand-dark text-white font-sansation rounded-7 lg:rounded-5 hover:bg-brand-red transition-all duration-200 px-4 lg:px-3"
+            >
+              Показать больше
+            </Link>
+          </div>
         </div>
-      )}
+      ) : isClicked ? (
+        <div className="max-w-4xl mx-auto space-y-4 mt-5 py-5 px-4 lg:px-6 rounded-10 bg-brand-gray-100">
+          <h2>Результаты поиска</h2>
+          <p className="text-sm leading-4">Ничего не нашлось</p>
+        </div>
+      ) : null}
     </section>
   );
 }

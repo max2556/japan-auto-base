@@ -123,7 +123,6 @@ export default function CarInfo({
             {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
             {engineCapacity && (
               <li className="pl-6">
-                {/* {convertCCtoLitre(engineCapacity)} л. */}
                 {engineCapacity} л.
               </li>
             )}

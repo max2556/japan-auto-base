@@ -8,6 +8,7 @@ import { PaginationsParams } from "../services/pagination";
 import { AuctionPosition, getAuctionPositions } from "../services/auctions";
 import { parseFilters } from "../utils/filters";
 import _ from "lodash";
+import { convertCCtoLitres } from "../utils/convert";
 
 export default function Page() {
   const limit = 8;
@@ -84,7 +85,7 @@ export default function Page() {
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
         <h2>Результаты поиска</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          {auctionPositions && auctionPositions.length
+          {(auctionPositions && auctionPositions.length)
             ? auctionPositions.map((card) => (
                 //TODO: where to get photo?
                 <CarInfo
@@ -93,7 +94,7 @@ export default function Page() {
                   id={card.id}
                   auctionTitle={card.auction?.title ?? "Неизвестно"}
                   bodyType={card.bodyModel}
-                  engineCapacity={card.engineCapacity}
+                  engineCapacity={convertCCtoLitres(card.engineCapacity+"cc")}
                   grade={card.auctionValuation}
                   lotIndex={card.lotNumber}
                   mileage={card.mileageInKm}
