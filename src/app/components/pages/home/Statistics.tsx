@@ -31,7 +31,7 @@ export default function Statistics() {
   }, []);
 
   return (
-    <section id="catalog" className="bg-white">
+    <section id="statistics" className="bg-white">
       <div className="bg-brand-dark py-8">
         <div className="max-w-4xl mx-auto space-y-4 px-4 sm:px-10 md:px-14 lg:px-6">
           <div className="max-w-[25rem] text-white lg:pr-6 space-y-1">
