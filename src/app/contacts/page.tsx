@@ -29,14 +29,10 @@ export default function Page() {
             </div>
           </div>
           {/* Email */}
-          <div className="w-full lg:w-fit text-center bg-white rounded-10 p-4 lg:px-7">
+          <div className="w-full lg:w-fit text-center bg-white rounded-10 p-4 lg:px-7 mr-auto">
             <span className="text-sm font-bold hover:text-brand-dark/80 transition-all duration-200">
               <Email />
             </span>
-          </div>
-          {/* Email */}
-          <div className="w-full lg:flex-1 text-center text-sm font-bold bg-white rounded-10 p-4">
-            Место для банковских реквизитов
           </div>
         </div>
         {/* Map */}
