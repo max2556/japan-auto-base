@@ -50,7 +50,7 @@ export default function Statistics() {
                 price={card.price}
                 releaseDate={card.registrationYear}
                 title={card.mark + " " + card.model}
-                imageSrc={card.photos[0]}
+                imageSrc={card.photos[1]}
               />
             ))}
           </div>
