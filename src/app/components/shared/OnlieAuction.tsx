@@ -7,6 +7,7 @@ import CarInfo from "./CarInfo";
 import { parseFilters } from "@/app/utils/filters";
 import Link from "next/link";
 import { convertCCtoLitres } from "@/app/utils/convert";
+import { omit } from "lodash";
 
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<Filters>({});
@@ -20,7 +21,11 @@ export default function OnlieAuction() {
       page: 1,
       limit: 8,
       expanded: true,
-      ...parseFilters(filters),
+      startMileageInKm: filters.startMileageInKm ? parseInt(filters.startMileageInKm) : undefined,
+      endMileageInKm: filters.endMileageInKm ? parseInt(filters.endMileageInKm) : undefined,
+      startRegistrationYear: filters.startRegistrationYear ? parseInt(filters.startRegistrationYear) : undefined,
+      endRegistrationYear: filters.endRegistrationYear ? parseInt(filters.endRegistrationYear) : undefined,
+      ...parseFilters(omit(filters, ["startMileageInKm", "endMileageInKm", "startRegistrationYear", "endRegistrationYear"])),
     });
 
     setAuctionPositions(positions);

@@ -38,8 +38,15 @@ export interface Auction {
   positions: AuctionPosition[];
 }
 
+export interface AuctionPositionsParams extends PaginationsParams<AuctionPosition> {
+  startMileageInKm?: number
+  endMileageInKm?: number
+  startRegistrationYear?: number
+  endRegistrationYear?: number
+}
+
 export const getAuctionPositions = async (
-  params?: PaginationsParams<AuctionPosition>
+  params?: AuctionPositionsParams
 ) => {
   const { data } = await api.get<{
     positions: AuctionPosition[];

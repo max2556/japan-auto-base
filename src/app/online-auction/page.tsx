@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import CarInfo from "../components/shared/CarInfo";
 import FiltersCotainer, { Filters } from "../components/shared/FiltersCotainer";
 import Pagination from "../components/shared/Pagination";
-import { PaginationsParams } from "../services/pagination";
-import { AuctionPosition, getAuctionPositions } from "../services/auctions";
+import { AuctionPosition, AuctionPositionsParams, getAuctionPositions } from "../services/auctions";
 import { parseFilters } from "../utils/filters";
-import _ from "lodash";
+import _, { debounce } from "lodash";
 import { convertCCtoLitres } from "../utils/convert";
 
 export default function Page() {
@@ -21,12 +20,7 @@ export default function Page() {
   >(null);
 
   const getAuctionsPositions = async (
-    params?: PaginationsParams<AuctionPosition> & {
-      startMileageInKm?: number | string;
-      endMileageInKm?: number | string;
-      startRegistrationYear?: number | string;
-      endRegistrationYear?: number | string;
-    }
+    params?: AuctionPositionsParams
   ) => {
     const { count, positions } = await getAuctionPositions(params);
 
@@ -40,10 +34,10 @@ export default function Page() {
       page: page + 1,
       limit,
       expanded: true,
-      startMileageInKm: filters.startMileageInKm,
-      endMileageInKm: filters.endMileageInKm,
-      startRegistrationYear: filters.startRegistrationYear,
-      endRegistrationYear: filters.endRegistrationYear,
+      startMileageInKm: filters.startMileageInKm ? parseInt(filters.startMileageInKm) : undefined,
+      endMileageInKm: filters.endMileageInKm ? parseInt(filters.endMileageInKm) : undefined,
+      startRegistrationYear: filters.startRegistrationYear ? parseInt(filters.startRegistrationYear) : undefined,
+      endRegistrationYear: filters.endRegistrationYear ? parseInt(filters.endRegistrationYear) : undefined,
       ...parseFilters(
         _.omit(filters, [
           "startMileageInKm",
@@ -73,7 +67,7 @@ export default function Page() {
             {/* Filters Container */}
             <FiltersCotainer
               filters={filters}
-              onChange={(e) => setFilters(e)}
+              onChange={debounce((e) => setFilters(e), 400)}
             />
 
             {/* {JSON.stringify(filters)} */}
