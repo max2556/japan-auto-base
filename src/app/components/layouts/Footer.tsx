@@ -46,12 +46,6 @@ export default function Footer() {
                   */}
                 </li>
                 <li>
-                  <Link
-                    href="/sales-history"
-                    className="hover:underline underline-offset-2 transition-all duration-200"
-                  >
-                    История продаж
-                  </Link>
                 </li>
               </ul>
               <ul className="w-full lg:text-sm space-y-5">
@@ -105,12 +99,6 @@ export default function Footer() {
                 <span className="font-sansation hover:text-white/80 transition-all duration-200">
                   <Email />
                 </span>
-              </li>
-              <li>
-                <Link href="/">Политика конфиденциальности</Link>
-              </li>
-              <li>
-                <Link href="/">Оферта</Link>
               </li>
             </ul>
           </div>
