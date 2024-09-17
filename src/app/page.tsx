@@ -1,4 +1,4 @@
-import Catalog from './components/pages/home/Catalog';
+// import Catalog from './components/pages/home/Catalog';
 import Delivery from './components/pages/home/Delivery';
 import Hero from './components/pages/home/Hero';
 import OnlieAuction from './components/shared/OnlieAuction';
@@ -13,7 +13,9 @@ export default function Home() {
       <Hero />
       <OnlieAuction />
       <Statistics />
-      <Catalog />
+      {/*
+        <Catalog /> 
+      */}
       <VKWidget />
       <Delivery />
     </div>

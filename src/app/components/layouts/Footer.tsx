@@ -36,12 +36,14 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/catalog"
-                    className="hover:underline underline-offset-2 transition-all duration-200"
-                  >
-                    Каталог
-                  </Link>
+                  {/* 
+                    <Link
+                      href="/catalog"
+                      className="hover:underline underline-offset-2 transition-all duration-200"
+                    >
+                      Каталог
+                    </Link> 
+                  */}
                 </li>
                 <li>
                   <Link
@@ -100,10 +102,8 @@ export default function Footer() {
               </li>
               <li>
                 {/* Email */}
-                <span
-                  className="font-sansation hover:text-white/80 transition-all duration-200"
-                >
-                  <Email/>
+                <span className="font-sansation hover:text-white/80 transition-all duration-200">
+                  <Email />
                 </span>
               </li>
               <li>
@@ -119,7 +119,12 @@ export default function Footer() {
             <h2 className="text-white">О нас </h2>
             <div className="w-full text-sm space-y-4">
               <div className="h-8 w-[7rem] group flex items-center gap-2 text-brand-dark bg-white text-[0.5625rem] font-bold rounded-full px-2">
-                <Image src="/assets/favicon.svg" alt="logo" width={16}height={16}/>
+                <Image
+                  src="/assets/favicon.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
                 <span>JapanAutoBase</span>
               </div>
               <p className="leading-4">
