@@ -50,7 +50,10 @@ export const getAuctionPositions = async (
     positions: AuctionPosition[];
     count: number;
   }>(`/auctions/positions`, {
-    params,
+    params: {
+      ...params,
+      needStatisticPositions: false,
+    },
   });
   return data;
 };
