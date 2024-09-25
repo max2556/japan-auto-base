@@ -16,14 +16,14 @@ export default function Page() {
   const getStatisticsPositions = async (
     params?: PaginationsParams<Statistic>
   ) => {
-    const { count, autos } = (await getStatistics(params)) ?? {
+    const { count, positions } = (await getStatistics(params)) ?? {
       count: 0,
-      autos: [],
+      positions: [],
     };
 
     setCount(count);
-    setStatisticsPositions(autos);
-    return { count, autos };
+    setStatisticsPositions(positions);
+    return { count, positions };
   };
 
   useEffect(() => {
@@ -45,11 +45,15 @@ export default function Page() {
           <CarInfo
             key={card.id}
             id={card.id}
+            auctionTitle={card.auction?.title ?? "Неизвестно"}
             bodyType={card.bodyModel}
             engineCapacity={parseInt(card.engineCapacity) / 1000}
+            grade={card.auctionValuation}
+            lotIndex={card.lotNumber}
             mileage={card.mileageInKm}
-            price={card.price}
+            price={card.finalPrice}
             releaseDate={card.registrationYear}
+            soldDate={card.auctionDate}
             title={card.mark + " " + card.model}
             imageSrc={card.photos[1].replace("google.com", "p3.aleado.com")}
           />

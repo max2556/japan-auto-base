@@ -1,29 +1,19 @@
 import { cache } from "react";
 import { api } from "../utils/axios";
-import { BaseEntity } from "./base";
 import { PaginationsParams } from "./pagination";
+import { AuctionPosition } from "./auctions";
 
-export interface Statistic extends BaseEntity {
-  mark: string;
-  model: string;
-  registrationYear: number;
-  mileageInKm: number;
-  engineCapacity: string;
-  transmission: string;
-  color: string;
-  bodyModel: string;
-  price: number;
-  description: string;
-  photos: string[];
-}
+export interface Statistic extends AuctionPosition {}
 
 export const getStatistics = async (params?: PaginationsParams<Statistic>) => {
   try {
-
-    const { data } = await api.get<{ autos: Statistic[]; count: number }>(
-      "/statistic",
+    const { data } = await api.get<{ positions: Statistic[]; count: number }>(
+      "/auctions/positions",
       {
-        params,
+        params: {
+          ...params,
+          needStatisticPositions: true,
+        },
       }
     );
     return data;

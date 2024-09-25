@@ -1,10 +1,8 @@
 import { api } from "../utils/axios";
+import { BaseEntity } from "./base";
 import { PaginationsParams } from "./pagination";
 
-export interface AuctionPosition {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
+export interface AuctionPosition extends BaseEntity {
   mark: string;
   model: string;
   registrationYear: number;
