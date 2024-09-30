@@ -92,7 +92,7 @@ export default function Page() {
                   grade={card.auctionValuation}
                   lotIndex={card.lotNumber}
                   mileage={card.mileageInKm}
-                  price={card.startPrice}
+                  price={`${card.startPrice} / ${Number(card.finalPrice) === 0 ? '-' : (card.finalPrice ?? '-')}`}
                   releaseDate={card.registrationYear}
                   soldDate={card.auctionDate}
                   title={card.mark + " " + card.model}

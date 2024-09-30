@@ -71,7 +71,7 @@ export default function OnlieAuction() {
                 grade={card.auctionValuation}
                 lotIndex={card.lotNumber}
                 mileage={card.mileageInKm}
-                price={`${card.startPrice} \ ${Number(card.finalPrice) === 0 ? '-' : card.finalPrice ?? '-'}`}
+                price={`${card.startPrice} / ${Number(card.finalPrice) === 0 ? '-' : (card.finalPrice ?? '-')}`}
                 releaseDate={card.registrationYear}
                 soldDate={card.auctionDate}
                 title={card.mark + " " + card.model}
