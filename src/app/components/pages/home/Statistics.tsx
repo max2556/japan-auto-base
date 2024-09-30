@@ -43,6 +43,9 @@ export default function Statistics() {
               <CarInfo
                 key={card.id}
                 id={card.id}
+                grade={card.auctionValuation}
+                auctionTitle={card.auction?.title ?? ""}
+                lotIndex={card.lotNumber}
                 bodyType={card.bodyModel}
                 engineCapacity={convertCCtoLitres(card.engineCapacity)}
                 mileage={card.mileageInKm}
