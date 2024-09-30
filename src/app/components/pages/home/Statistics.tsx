@@ -12,12 +12,12 @@ export default function Statistics() {
   const getStatisticsPositions = async (
     params?: PaginationsParams<Statistic>
   ) => {
-    const { count, autos } = (await getStatistics(params)) ?? {
+    const { count, positions: autos } = (await getStatistics(params)) ?? {
       count: 0,
       autos: [],
     };
 
-    setAutos(autos);
+    setAutos(autos ?? null);
     return { count, autos };
   };
 
@@ -46,7 +46,7 @@ export default function Statistics() {
                 bodyType={card.bodyModel}
                 engineCapacity={convertCCtoLitres(card.engineCapacity)}
                 mileage={card.mileageInKm}
-                price={card.price}
+                price={card.finalPrice}
                 releaseDate={card.registrationYear}
                 title={card.mark + " " + card.model}
                 imageSrc={card.photos[1]}
