@@ -49,7 +49,7 @@ export default function Statistics() {
                 bodyType={card.bodyModel}
                 engineCapacity={convertCCtoLitres(card.engineCapacity)}
                 mileage={card.mileageInKm}
-                price={card.finalPrice}
+                price={`${card.startPrice} \ ${Number(card.finalPrice) === 0 ? '-' : card.finalPrice ?? '-'}`}
                 releaseDate={card.registrationYear}
                 title={card.mark + " " + card.model}
                 imageSrc={card.photos[1]}
