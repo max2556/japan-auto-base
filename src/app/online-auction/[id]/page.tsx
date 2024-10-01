@@ -17,6 +17,8 @@ import { AuctionPosition } from "@/app/services/auctions";
 import { BaseEntity } from "@/app/services/base";
 import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 
+const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
   const [error, setError] = useState<string | null>(null);
@@ -254,7 +256,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
                     </tr>
                     <tr className="odd:bg-brand-gray-100">
                       <td>Цена покупки с аукциона:</td>
-                      <td>{car.finalPrice}</td>
+                      <td>{prettifyNumber(car.finalPrice)}</td>
                     </tr>
                     <tr className="odd:bg-brand-gray-100">
                       <td>Номер лота:</td>
@@ -294,7 +296,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
                       />
                     </svg>
                     <h2 className="text-brand-red">
-                      Стоимость от: {car.startPrice} ₽
+                      Стоимость от: {prettifyNumber(car.startPrice)} ₽
                     </h2>
                   </div>
                   {/* TODO: нужно ли отображать статус автомобиля? "доступен" / "продано" */}

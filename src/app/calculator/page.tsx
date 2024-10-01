@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Calculator from "../components/pages/calculator/Calculator";
 
+const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+
 export default function Page() {
   const [resultPrice, setResultPrice] = useState(0);
   const [inputPrice, setInputPrice] = useState(0);
@@ -75,7 +77,7 @@ export default function Page() {
                   />
                 </svg>
                 <h2 className="text-brand-red leading-5">
-                  Итоговая стоимость: {resultPrice.toFixed(0)} ₽
+                  Итоговая стоимость: {prettifyNumber(Math.round(resultPrice))} ₽
                 </h2>
               </div>
               <p className="text-sm leading-4">
@@ -85,7 +87,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Стоимость авто на аукционе: {inputPrice} ¥
+                Стоимость авто на аукционе: {prettifyNumber(inputPrice)} ¥
               </h2>
               <p className="text-sm leading-4">
                 Изначальная стоимость покупки на аукционе.
@@ -93,7 +95,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Расходы в Японии: {japanExpenses} ¥
+                Расходы в Японии: {prettifyNumber(japanExpenses)} ¥
               </h2>
               <p className="text-sm leading-4">
                 Складывается из комиссии аукциона, комиссии за покупку и
@@ -102,13 +104,13 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Расходы в России: {russiaExpenses} ₽
+                Расходы в России: {prettifyNumber(russiaExpenses)} ₽
               </h2>
               <p className="text-sm leading-4">Пошлина на физическое лицо.</p>
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Разбор авто и Фрахт: {disassemblyPrice} ₽
+                Разбор авто и Фрахт: {prettifyNumber(disassemblyPrice)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Плата за перевозку груза морским путем.
@@ -116,7 +118,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Услуги растаможивания: {customsExpenses} ₽
+                Услуги растаможивания: {prettifyNumber(customsExpenses)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Складывается из цен на растаможивание авто, выгрузку авто,
@@ -128,7 +130,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Комиссия: {comission} ₽
+                Комиссия: {prettifyNumber(comission)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Комиссия нашей компании за выполненную работу.
@@ -136,7 +138,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Эвакуатор с таможни: {evacuationPrice} ₽
+                Эвакуатор с таможни: {prettifyNumber(evacuationPrice)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Забирает автомобиль с таможни.
@@ -144,7 +146,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Сборка: {assemblyPrice} ₽
+                Сборка: {prettifyNumber(assemblyPrice)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Расходы необходимые для сборки автомобиля.
@@ -152,7 +154,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Доставка: {deliveryPrice} ₽
+                Доставка: {prettifyNumber(deliveryPrice)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Расходы необходимые для доставки автомобиля в ваш город.
