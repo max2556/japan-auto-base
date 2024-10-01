@@ -9,6 +9,8 @@ import Link from "next/link";
 import { convertCCtoLitres } from "@/app/utils/convert";
 import { omit } from "lodash";
 
+const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<Filters>({});
   const [auctionPositions, setAuctionPositions] = useState<
@@ -71,7 +73,7 @@ export default function OnlieAuction() {
                 grade={card.auctionValuation}
                 lotIndex={card.lotNumber}
                 mileage={card.mileageInKm}
-                price={`${card.startPrice} / ${Number(card.finalPrice) === 0 ? '-' : (card.finalPrice ?? '-')}`}
+                price={`${prettifyNumber(card.startPrice)} / ${Number(card.finalPrice) === 0 ? '-' : (prettifyNumber(card.finalPrice) ?? '-')}`}
                 releaseDate={card.registrationYear}
                 soldDate={card.auctionDate}
                 title={card.mark + " " + card.model}

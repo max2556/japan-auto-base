@@ -304,7 +304,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 <div className="h-full space-y-1 bg-white rounded-10 p-3">
                   <h2>Курс валют</h2>
                   <p className="max-w-72 text-sm leading-4">
-                    Курс валют, являются усреленным значением из коммерческих
+                    Курс валют, являются усреднённым значением из коммерческих
                     банков, курсы валют необходимы для вычесления суммарной
                     цены.
                   </p>

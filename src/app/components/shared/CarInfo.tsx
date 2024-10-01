@@ -77,7 +77,7 @@ export default function CarInfo({
         <ul className="space-y-1">
           <li className="flex items-center gap-1">
             <RubleIcon />
-            {price}
+            {typeof price === 'number' ? price.toLocaleString() : price}
           </li>
 
           {grade ? (

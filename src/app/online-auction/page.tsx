@@ -9,6 +9,8 @@ import { parseFilters } from "../utils/filters";
 import _, { debounce } from "lodash";
 import { convertCCtoLitres } from "../utils/convert";
 
+const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+
 export default function Page() {
   const limit = 8;
   const [page, setPage] = useState<number>(0);
@@ -92,7 +94,7 @@ export default function Page() {
                   grade={card.auctionValuation}
                   lotIndex={card.lotNumber}
                   mileage={card.mileageInKm}
-                  price={`${card.startPrice} / ${Number(card.finalPrice) === 0 ? '-' : (card.finalPrice ?? '-')}`}
+                  price={`${prettifyNumber(card.startPrice)} / ${Number(card.finalPrice) === 0 ? '-' : (prettifyNumber(card.finalPrice) ?? '-')}`}
                   releaseDate={card.registrationYear}
                   soldDate={card.auctionDate}
                   title={card.mark + " " + card.model}
