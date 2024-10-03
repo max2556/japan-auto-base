@@ -20,7 +20,7 @@ export default function Whatsapp() {
   });
 
   return phoneNumber ? (
-    <a href={`https://wa.me/${phoneNumber}`} target="_blank" className="group">
+    <a href={`https://wa.me/${phoneNumber.replace(" ", "")}`} target="_blank" className="group">
       <Image
         src="/assets/images/icon-whatsapp.png"
         alt="Whatsapp Icon"
