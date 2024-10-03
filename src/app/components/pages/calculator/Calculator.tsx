@@ -488,7 +488,7 @@ export default function Calculator({ onClick }: CalculatorProps) {
         <CostOfVehicleInAuction onChange={(val) => setPrice(val)} />
         <EngineVolumeField onChange={(val) => setEngineVolume(val || 1600)} />
 
-        <div className="flex items-center justify-center sm:bg-white rounded-10 p-3 lg:p-4">
+        <div className="flex items-center justify-center sm:bg-white rounded-10 p-3 lg:p-4 min-w-[300px]">
           <Button
             onClick={() =>
               onClick({

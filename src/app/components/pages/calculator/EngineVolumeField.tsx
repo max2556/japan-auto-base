@@ -4,7 +4,7 @@ interface Props {
 
 export default function EngineVolumeField({ onChange }: Props) {
   return (
-    <div className="gap-2 bg-white rounded-10 p-4">
+    <div className="gap-2 bg-white rounded-10 p-4 min-w-[300px]">
       <input
         // type="number"
         placeholder="Объем двигателя (см3)"

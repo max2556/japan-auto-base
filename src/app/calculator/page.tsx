@@ -18,7 +18,7 @@ export default function Page() {
 
   return (
     <div className="bg-brand-gray">
-      <section className="max-w-6xl mx-auto space-y-4 -mt-10 px-4 lg:px-7">
+      <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-7">
         <div className="lg:pr-6 space-y-1">
           <h2>Калькулятор</h2>
           <p className="text-sm leading-4">
