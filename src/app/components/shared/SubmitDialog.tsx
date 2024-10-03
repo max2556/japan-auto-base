@@ -8,7 +8,7 @@ export function SubmitDialog({ open, setOpen }: ModalProps) {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   
-  const transformPhone = (phone: string) => phone.replace(' ', '').replace(')', '').replace('(', '').replace('-', '');
+  const transformPhone = (phone: string) => phone.replaceAll(' ', '').replaceAll(')', '').replaceAll('(', '').replaceAll('-', '');
   const validatePhoneNumber = (number: string) => {
     const phonePattern = /^\+7\d{3}\d{3}\d{2}\d{2}$/;
     const res = phonePattern.test(transformPhone(number));
