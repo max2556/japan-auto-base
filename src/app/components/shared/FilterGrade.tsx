@@ -1,26 +1,10 @@
 import React from "react";
 import { Radio } from "./Radio";
 
-const options = [
-  {
-    label: "S",
-  },
-  {
-    label: "6",
-  },
-  {
-    label: "5",
-  },
-  {
-    label: "3",
-  },
-  {
-    label: "4",
-  },
-  {
-    label: "M",
-  },
-];
+
+const grades = ['1','2','3','3.5','4','4.5','5','6','R','RA','S']
+
+const options = grades.map((label) => ({ label }));
 
 export interface FilterBrandProps {
   value?: string;
