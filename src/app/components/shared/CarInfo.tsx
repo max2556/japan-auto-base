@@ -5,6 +5,7 @@ import { TagIcon } from "./icons/TagIcon";
 import { GearIcon } from "./icons/GearIcon";
 import { StarIcon } from "./icons/StarIcon";
 import { RubleIcon } from "./icons/RubleIcon";
+import { useState } from "react";
 
 export interface CarProps {
   id: number | string;
@@ -50,7 +51,9 @@ export default function CarInfo({
     return date;
   };
 
-  const ElComp = (isLink ? Link : 'div') as typeof Link;
+  const [isImageError, setIsImageError] = useState(false);
+
+  const ElComp = (isLink ? Link : "div") as typeof Link;
 
   return (
     <ElComp
@@ -61,13 +64,21 @@ export default function CarInfo({
     >
       {/* Car Image & Name */}
       <div className="mt-auto flex flex-col justify-between h-full">
-        <Image
-          src={imageSrc ?? "/assets/images/img-car-1.svg"}
-          alt={title}
-          width={500}
-          height={350}
-          className="w-full rounded-10"
-        />
+        {!isImageError ? (
+          <Image
+            src={imageSrc}
+            alt={title}
+            width={500}
+            height={350}
+            onError={() => setIsImageError(true)}
+            className="w-full rounded-10"
+          />
+        ) : (
+          <div className="w-full h-full flex justify-center items-center">
+            <h3>Нет картинки</h3>
+          </div>
+        )}
+
         <h3>{title}</h3>
       </div>
 
@@ -77,7 +88,7 @@ export default function CarInfo({
         <ul className="space-y-1">
           <li className="flex items-center gap-1">
             <RubleIcon />
-            {typeof price === 'number' ? price.toLocaleString() : price}
+            {typeof price === "number" ? price.toLocaleString() : price}
           </li>
 
           {grade ? (
@@ -121,11 +132,7 @@ export default function CarInfo({
               {bodyType}
             </li>
             {releaseDate && <li className="pl-6">{releaseDate} г.</li>}
-            {engineCapacity && (
-              <li className="pl-6">
-                {engineCapacity} л.
-              </li>
-            )}
+            {engineCapacity && <li className="pl-6">{engineCapacity} л.</li>}
             {enginePower && <li className="pl-6">{enginePower} л.с.</li>}
             {mileage && Number(mileage) > 0 ? (
               <li className="pl-6">{mileage} км.</li>
