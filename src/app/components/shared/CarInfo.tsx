@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { AuctionHammerIcon } from "./icons/AuctionHammerIcon";
 import { TagIcon } from "./icons/TagIcon";
 import { GearIcon } from "./icons/GearIcon";
 import { StarIcon } from "./icons/StarIcon";
 import { RubleIcon } from "./icons/RubleIcon";
-import { useState } from "react";
+import ImageOrError from "./ImageOrError";
 
 export interface CarProps {
   id: number | string;
@@ -51,8 +50,6 @@ export default function CarInfo({
     return date;
   };
 
-  const [isImageError, setIsImageError] = useState(false);
-
   const ElComp = (isLink ? Link : "div") as typeof Link;
 
   return (
@@ -64,20 +61,13 @@ export default function CarInfo({
     >
       {/* Car Image & Name */}
       <div className="mt-auto flex flex-col justify-between h-full">
-        {!isImageError ? (
-          <Image
-            src={imageSrc}
-            alt={title}
-            width={500}
-            height={350}
-            onError={() => setIsImageError(true)}
-            className="w-full rounded-10"
-          />
-        ) : (
-          <div className="w-full h-full flex justify-center items-center">
-            <h3>Нет картинки</h3>
-          </div>
-        )}
+        <ImageOrError
+          src={imageSrc}
+          alt={title}
+          width={500}
+          height={350}
+          className="w-full rounded-10"
+        />
 
         <h3>{title}</h3>
       </div>

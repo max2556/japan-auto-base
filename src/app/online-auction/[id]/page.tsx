@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,8 +15,10 @@ import { api } from "@/app/utils/axios";
 import { AuctionPosition } from "@/app/services/auctions";
 import { BaseEntity } from "@/app/services/base";
 import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
+import ImageOrError from "@/app/components/shared/ImageOrError";
 
-const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+const prettifyNumber = (price: string | number) =>
+  typeof price === "number" ? price.toLocaleString() : price;
 
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
@@ -96,7 +97,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
         <section>
           <div className="max-w-4xl mx-auto space-y-2 px-5">
             {/* Slider */}
-            <div className="h-80 sm:h-96 md:h-[25.75rem] relative bg-white rounded-10 p-3">
+            <div className="h-80 sm:h-96 md:h-[25.75rem] relative bg-white rounded-10 p-3 flex flex-col">
               {/* Title */}
               <h2 className="text-2xl font-bold font-sansation text-center">
                 {car.mark} {car.model}
@@ -105,11 +106,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
               <Swiper
                 navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
                 modules={[Navigation]}
-                className="mySwiper"
+                className="mySwiper w-full h-full"
               >
                 {car.photos.map((photo) => (
                   <SwiperSlide key={photo}>
-                    <Image
+                    <ImageOrError
                       src={photo.replace("google.com", "p3.aleado.com")}
                       alt={car.mark + " " + car.model}
                       width={648}
@@ -153,13 +154,15 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 </button>
               </div>
               {/* Submit Application Button */}
-              <Button
-                red
-                className="absolute bottom-3 left-1/2 -translate-x-1/2 -mt-10"
-                onClick={() => setShowModal(!showModal)}
-              >
-                Оставить заявку
-              </Button>
+              <div className="w-full flex justify-center">
+                <Button
+                  red
+                  // className="absolute bottom-3 left-1/2 -translate-x-1/2 -mt-10"
+                  onClick={() => setShowModal(!showModal)}
+                >
+                  Оставить заявку
+                </Button>
+              </div>
             </div>
             {/* Data Auction */}
             <div className="grid sm:grid-cols-2 gap-2">
