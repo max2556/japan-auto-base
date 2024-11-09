@@ -76,42 +76,6 @@ input[type='radio']:checked+div>span {
   background-color: gray !important;
 }
 
-/* Disable page scroll while dialog is open
-body:has(dialog[open]) {
-  @apply overflow-visible;
-} */
-
-
-/*   Open state of the dialog  */
-/* dialog[open] {
-  animation-name: popup;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: both;
-  animation-direction: alternate;
-} */
-
-/*   Closed state of the dialog   */
-/* dialog {
-  @apply shadow-xl rounded-5 bg-white overflow-hidden;
-
-  animation-name: popup;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: both;
-  animation-direction: alternate;
-} */
-
-/* dialog::backdrop {
-  @apply bg-brand-gray;
-
-  animation-name: backdrop-popup;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: both;
-  animation-direction: alternate;
-} */
-
 dialog {
   @apply shadow-xl rounded-5 bg-white overflow-hidden;
   animation: fade-out 0.7s ease-out;
