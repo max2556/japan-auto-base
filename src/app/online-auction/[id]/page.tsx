@@ -153,16 +153,6 @@ export default function Page({ params }: { params: { id: string | number } }) {
                   </svg>
                 </button>
               </div>
-              {/* Submit Application Button */}
-              <div className="w-full flex justify-center">
-                <Button
-                  red
-                  // className="absolute bottom-3 left-1/2 -translate-x-1/2 -mt-10"
-                  onClick={() => setShowModal(!showModal)}
-                >
-                  Оставить заявку
-                </Button>
-              </div>
             </div>
             {/* Data Auction */}
             <div className="grid sm:grid-cols-2 gap-2">
