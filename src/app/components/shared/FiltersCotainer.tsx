@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FilterBrand from "./FilterBrand";
 import FilterModel from "./FilterModel";
 import FilterColor from "./FilterColor";
@@ -8,7 +8,10 @@ import FilterMilageYearManifacture from "./FilterMilageYearManifacture";
 import FilterEngineCapacity from "./FilterEngineCapacity";
 import FilterGrade from "./FilterGrade";
 import Button from "./Button";
-import { getAutoBodyModel } from "@/app/services/auto";
+import {
+  AuctionFiltersOptions,
+  getAuctionFiltersOptions,
+} from "@/app/services/auto";
 
 export interface Filters {
   mark?: string;
@@ -36,8 +39,14 @@ export default function FiltersCotainer({
   onChange,
   onApply,
 }: FiltersCotainerProps) {
-  const [bodyModelOptions, setBodyModelOptions] =
-    useState<{ label: string }[]>();
+  const [filterOptions, setFilterOptions] = useState<AuctionFiltersOptions>();
+  const [marks, setMarks] = useState<AuctionFiltersOptions["marks"]>();
+  const [models, setModels] =
+    useState<AuctionFiltersOptions["marks"][number]["models"]>();
+  const [autoBodys, setAutoBodys] =
+    useState<
+      AuctionFiltersOptions["marks"][number]["models"][number]["bodies"]
+    >();
 
   const setFilter = (field: keyof Filters, value: string | undefined) => {
     onChange({ ...filters, [field]: value });
@@ -48,35 +57,53 @@ export default function FiltersCotainer({
     return val * 1000;
   };
 
-  const getBodyModels = async (mark: string, model: string) => {
-    const models = await getAutoBodyModel(mark, model);
-    setBodyModelOptions(models.map((model) => ({ label: model })));
+  const getFilterOptions = async () => {
+    const res = await getAuctionFiltersOptions();
+    setFilterOptions(res);
   };
+
+  // Should be ran once
+  useEffect(() => {
+    getFilterOptions();
+  }, []);
+  useEffect(() => {
+    setMarks(filterOptions?.marks ?? []);
+  }, [filterOptions]);
+  useEffect(() => {
+    setModels(
+      filterOptions?.marks.find((mark) => mark.title == filters.mark)?.models ??
+        []
+    );
+  }, [filters.mark, filterOptions?.marks]);
+  useEffect(() => {
+    setAutoBodys(
+      filterOptions?.marks
+        .find((mark) => mark.title == filters.mark)
+        ?.models.find((model) => model.title == filters.model)?.bodies ?? []
+    );
+  }, [filters.model, filterOptions?.marks, filters.mark]);
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
       <FilterBrand
         value={filters.mark}
+        options={marks?.map((mark) => ({ label: mark.title })) ?? []}
+        isLoading={!!filterOptions}
         onChange={(newMark) => {
-          setFilter("mark", newMark?.toLocaleUpperCase());
-          if (filters.bodyModel) setFilter("bodyModel", undefined);
-          if (filters.model) setFilter("model", undefined);
-
-          if (!newMark || !filters.model) return;
-          getBodyModels(newMark, filters.model);
+          setFilter("mark", newMark);
         }}
       />
       <FilterModel
+        isLoading={!!filterOptions}
         onChange={(newModel) => {
           setFilter("model", newModel);
-          if (!newModel || !filters.mark) return;
-          getBodyModels(filters.mark, newModel);
         }}
-        mark={filters.mark?.toLocaleLowerCase()}
+        options={models?.map((model) => ({ label: model.title })) ?? []}
       />
       <FilterBodyType
+        isLoading={!!filterOptions}
         onChange={(e) => setFilter("bodyModel", e)}
-        options={bodyModelOptions ?? []}
+        options={autoBodys?.map((body) => ({ label: body.title })) ?? []}
       />
       <FilterColor onChange={(e) => setFilter("color", e)} />
       {/* 
