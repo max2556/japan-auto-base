@@ -23,10 +23,6 @@ const links = [
     name: "Статистика",
     href: "/statistics",
   },
-  // {
-  //   name: "Каталог",
-  //   href: "/catalog",
-  // },
   {
     name: "Калькулятор",
     href: "/calculator",

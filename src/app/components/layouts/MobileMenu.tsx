@@ -18,12 +18,8 @@ const links = [
     href: "/online-auction",
   },
   {
-    name: "Каталог",
-    href: "/catalog",
-  },
-  {
-    name: "История продаж",
-    href: "/sales-history",
+    name: "Статистика",
+    href: "/statistics",
   },
   {
     name: "Калькулятор",
