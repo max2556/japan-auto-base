@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CarInfo from "../components/shared/CarInfo";
 import FiltersCotainer, { Filters } from "../components/shared/FiltersCotainer";
 import Pagination from "../components/shared/Pagination";
-import { AuctionPosition, AuctionPositionsParams, getAuctionPositions } from "../services/auctions";
+import {
+  AuctionPosition,
+  AuctionPositionsParams,
+  getAuctionPositions,
+} from "../services/auctions";
 import { parseFilters } from "../utils/filters";
 import _, { debounce } from "lodash";
 import { convertCCtoLitres } from "../utils/convert";
 
-const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+const prettifyNumber = (price: string | number) =>
+  typeof price === "number" ? price.toLocaleString() : price;
 
 export default function Page() {
   const limit = 8;
@@ -20,10 +25,9 @@ export default function Page() {
   const [auctionPositions, setAuctionPositions] = useState<
     AuctionPosition[] | null
   >(null);
+  const [isInteracted, setInteracted] = useState(false);
 
-  const getAuctionsPositions = async (
-    params?: AuctionPositionsParams
-  ) => {
+  const getAuctionsPositions = async (params?: AuctionPositionsParams) => {
     const { count, positions } = await getAuctionPositions(params);
 
     setCount(count);
@@ -31,15 +35,23 @@ export default function Page() {
     return { count, positions };
   };
 
-  useEffect(() => {
+  const getPositions = () =>
     getAuctionsPositions({
       page: page + 1,
       limit,
       expanded: true,
-      startMileageInKm: filters.startMileageInKm ? parseInt(filters.startMileageInKm) : undefined,
-      endMileageInKm: filters.endMileageInKm ? parseInt(filters.endMileageInKm) : undefined,
-      startRegistrationYear: filters.startRegistrationYear ? parseInt(filters.startRegistrationYear) : undefined,
-      endRegistrationYear: filters.endRegistrationYear ? parseInt(filters.endRegistrationYear) : undefined,
+      startMileageInKm: filters.startMileageInKm
+        ? parseInt(filters.startMileageInKm)
+        : undefined,
+      endMileageInKm: filters.endMileageInKm
+        ? parseInt(filters.endMileageInKm)
+        : undefined,
+      startRegistrationYear: filters.startRegistrationYear
+        ? parseInt(filters.startRegistrationYear)
+        : undefined,
+      endRegistrationYear: filters.endRegistrationYear
+        ? parseInt(filters.endRegistrationYear)
+        : undefined,
       ...parseFilters(
         _.omit(filters, [
           "startMileageInKm",
@@ -49,7 +61,6 @@ export default function Page() {
         ])
       ),
     });
-  }, [filters, page]);
 
   return (
     <div className=" -my-24 py-20">
@@ -70,6 +81,10 @@ export default function Page() {
             <FiltersCotainer
               filters={filters}
               onChange={debounce((e) => setFilters(e), 400)}
+              onApply={() => {
+                getPositions();
+                setInteracted(true);
+              }}
             />
 
             {/* {JSON.stringify(filters)} */}
@@ -77,42 +92,59 @@ export default function Page() {
         </div>
       </section>
       <div className="h-[0.1875rem] bg-brand-red"></div>
-      {/* Search Results */}
-      <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-        <h2>Результаты поиска</h2>
-        <div className="grid sm:grid-cols-2 gap-2">
-          {(auctionPositions && auctionPositions.length)
-            ? auctionPositions.map((card) => (
-                //TODO: where to get photo?
-                <CarInfo
-                  isLink={true}
-                  key={card.id}
-                  id={card.id}
-                  auctionTitle={card.auction?.title ?? "Неизвестно"}
-                  bodyType={card.bodyModel}
-                  engineCapacity={convertCCtoLitres(card.engineCapacity+"cc")}
-                  grade={card.auctionValuation}
-                  lotIndex={card.lotNumber}
-                  mileage={card.mileageInKm}
-                  price={`${prettifyNumber(card.startPrice)} / ${Number(card.finalPrice) === 0 ? '-' : (prettifyNumber(card.finalPrice) ?? '-')}`}
-                  releaseDate={card.registrationYear}
-                  soldDate={card.auctionDate}
-                  title={card.mark + " " + card.model}
-                  imageSrc={card.photos[1].replace("google.com", "p3.aleado.com")}
-                />
-              ))
-            : "Ничего не нашлось"}
-        </div>
-        {Math.ceil(count / limit) ? (
-          <Pagination
-            page={page}
-            pages={Math.ceil(count / limit)}
-            onClick={(page) => setPage(page)}
-          />
-        ) : (
-          ""
-        )}
-      </section>
+      {isInteracted ? (
+        <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
+          <h2>Результаты поиска</h2>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {auctionPositions && auctionPositions.length
+              ? auctionPositions.map((card) => (
+                  //TODO: where to get photo?
+                  <CarInfo
+                    isLink={true}
+                    key={card.id}
+                    id={card.id}
+                    auctionTitle={card.auction?.title ?? "Неизвестно"}
+                    bodyType={card.bodyModel}
+                    engineCapacity={convertCCtoLitres(
+                      card.engineCapacity + "cc"
+                    )}
+                    grade={card.auctionValuation}
+                    lotIndex={card.lotNumber}
+                    mileage={card.mileageInKm}
+                    price={`${prettifyNumber(card.startPrice)} / ${
+                      Number(card.finalPrice) === 0
+                        ? "-"
+                        : prettifyNumber(card.finalPrice) ?? "-"
+                    }`}
+                    releaseDate={card.registrationYear}
+                    soldDate={card.auctionDate}
+                    title={card.mark + " " + card.model}
+                    imageSrc={card.photos[1].replace(
+                      "google.com",
+                      "p3.aleado.com"
+                    )}
+                  />
+                ))
+              : "Ничего не нашлось"}
+          </div>
+          {Math.ceil(count / limit) ? (
+            <Pagination
+              page={page}
+              pages={Math.ceil(count / limit)}
+              onClick={(page) => setPage(page)}
+            />
+          ) : (
+            ""
+          )}
+        </section>
+      ) : (
+        <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
+          <h2>
+            Для поиска нажмите{" "}
+            <span className="text-brand-dark/80">применить</span>
+          </h2>
+        </section>
+      )}
     </div>
   );
 }
