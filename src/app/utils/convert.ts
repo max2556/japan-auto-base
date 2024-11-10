@@ -5,3 +5,6 @@ export function convertCCtoLitres(value: string) {
   
   return parseInt(value);
 }
+
+export const prettifyNumber = (price: string | number) =>
+  typeof price === "number" ? price.toLocaleString() : Number(price).toLocaleString();

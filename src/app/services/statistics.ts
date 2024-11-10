@@ -5,7 +5,14 @@ import { AuctionPosition } from "./auctions";
 
 export interface Statistic extends AuctionPosition {}
 
-export const getStatistics = async (params?: PaginationsParams<Statistic>) => {
+export interface StatisticParams extends PaginationsParams<Statistic> {
+  startMileageInKm?: number
+  endMileageInKm?: number
+  startRegistrationYear?: number
+  endRegistrationYear?: number
+}
+
+export const getStatistics = async (params?: StatisticParams) => {
   try {
     const { data } = await api.get<{ positions: Statistic[]; count: number }>(
       "/auctions/positions",

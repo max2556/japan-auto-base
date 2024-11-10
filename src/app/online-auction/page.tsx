@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CarInfo from "../components/shared/CarInfo";
 import FiltersCotainer, { Filters } from "../components/shared/FiltersCotainer";
 import Pagination from "../components/shared/Pagination";
@@ -10,11 +10,8 @@ import {
   getAuctionPositions,
 } from "../services/auctions";
 import { parseFilters } from "../utils/filters";
-import _, { debounce } from "lodash";
-import { convertCCtoLitres } from "../utils/convert";
-
-const prettifyNumber = (price: string | number) =>
-  typeof price === "number" ? price.toLocaleString() : price;
+import { debounce, omit } from "lodash";
+import { convertCCtoLitres, prettifyNumber } from "../utils/convert";
 
 export default function Page() {
   const limit = 8;
@@ -25,7 +22,6 @@ export default function Page() {
   const [auctionPositions, setAuctionPositions] = useState<
     AuctionPosition[] | null
   >(null);
-  const [isInteracted, setInteracted] = useState(false);
 
   const getAuctionsPositions = async (params?: AuctionPositionsParams) => {
     const { count, positions } = await getAuctionPositions(params);
@@ -53,7 +49,7 @@ export default function Page() {
         ? parseInt(filters.endRegistrationYear)
         : undefined,
       ...parseFilters(
-        _.omit(filters, [
+        omit(filters, [
           "startMileageInKm",
           "endMileageInKm",
           "startRegistrationYear",
@@ -61,6 +57,63 @@ export default function Page() {
         ])
       ),
     });
+
+  useEffect(()=>{
+    getPositions()
+  }, [])
+
+  function NotFound() {
+    return (
+      <div className="max-w-4xl mx-auto py-12 px-4 lg:px-6">
+        <div className="max-w-96 lg:pr-6 py-1">
+          <h2 className="text-center">Ничего не найдено</h2>
+        </div>
+      </div>
+    );
+  }
+
+  function ItemsSection() {
+    return (
+      <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
+        <h2>Результаты поиска</h2>
+        <div className="grid sm:grid-cols-2 gap-2">
+          {auctionPositions && auctionPositions.length ? (
+            auctionPositions.map((card) => (
+              <CarInfo
+                href={`/online-auction/${card.id}`}
+                key={card.id}
+                id={card.id}
+                auctionTitle={card.auction?.title ?? "Неизвестно"}
+                bodyType={card.bodyModel}
+                engineCapacity={convertCCtoLitres(card.engineCapacity + "cc")}
+                grade={card.auctionValuation}
+                lotIndex={card.lotNumber}
+                mileage={card.mileageInKm}
+                price={`${prettifyNumber(card.startPrice)} / ${
+                  Number(card.finalPrice) === 0
+                    ? "-"
+                    : prettifyNumber(card.finalPrice) ?? "-"
+                }`}
+                releaseDate={card.registrationYear}
+                soldDate={card.auctionDate}
+                title={card.mark + " " + card.model}
+                imageSrc={card.photos[1].replace("google.com", "p3.aleado.com")}
+              />
+            ))
+          ) : (
+            <NotFound />
+          )}
+        </div>
+        {Math.ceil(count / limit) != 0 && (
+          <Pagination
+            page={page}
+            pages={Math.ceil(count / limit)}
+            onClick={(page) => setPage(page)}
+          />
+        )}
+      </section>
+    );
+  }
 
   return (
     <div className=" -my-24 py-20">
@@ -83,68 +136,13 @@ export default function Page() {
               onChange={debounce((e) => setFilters(e), 400)}
               onApply={() => {
                 getPositions();
-                setInteracted(true);
               }}
             />
-
-            {/* {JSON.stringify(filters)} */}
           </div>
         </div>
       </section>
       <div className="h-[0.1875rem] bg-brand-red"></div>
-      {isInteracted ? (
-        <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-          <h2>Результаты поиска</h2>
-          <div className="grid sm:grid-cols-2 gap-2">
-            {auctionPositions && auctionPositions.length
-              ? auctionPositions.map((card) => (
-                  //TODO: where to get photo?
-                  <CarInfo
-                    isLink={true}
-                    key={card.id}
-                    id={card.id}
-                    auctionTitle={card.auction?.title ?? "Неизвестно"}
-                    bodyType={card.bodyModel}
-                    engineCapacity={convertCCtoLitres(
-                      card.engineCapacity + "cc"
-                    )}
-                    grade={card.auctionValuation}
-                    lotIndex={card.lotNumber}
-                    mileage={card.mileageInKm}
-                    price={`${prettifyNumber(card.startPrice)} / ${
-                      Number(card.finalPrice) === 0
-                        ? "-"
-                        : prettifyNumber(card.finalPrice) ?? "-"
-                    }`}
-                    releaseDate={card.registrationYear}
-                    soldDate={card.auctionDate}
-                    title={card.mark + " " + card.model}
-                    imageSrc={card.photos[1].replace(
-                      "google.com",
-                      "p3.aleado.com"
-                    )}
-                  />
-                ))
-              : "Ничего не нашлось"}
-          </div>
-          {Math.ceil(count / limit) ? (
-            <Pagination
-              page={page}
-              pages={Math.ceil(count / limit)}
-              onClick={(page) => setPage(page)}
-            />
-          ) : (
-            ""
-          )}
-        </section>
-      ) : (
-        <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-6">
-          <h2>
-            Для поиска нажмите{" "}
-            <span className="text-brand-dark/80">применить</span>
-          </h2>
-        </section>
-      )}
+      <ItemsSection />
     </div>
   );
 }

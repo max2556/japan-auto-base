@@ -20,7 +20,7 @@ export interface CarProps {
   mileage: string | number | null;
   bodyType: string | null;
   imageSrc: string;
-  isLink?: boolean;
+  href?: string;
 }
 
 export default function CarInfo({
@@ -37,7 +37,7 @@ export default function CarInfo({
   mileage,
   bodyType,
   imageSrc,
-  isLink = false,
+  href,
 }: CarProps) {
   const convertDate = (date: string) => {
     const splitted = date?.split("T")[0];
@@ -50,13 +50,13 @@ export default function CarInfo({
     return date;
   };
 
-  const ElComp = (isLink ? Link : "div") as typeof Link;
+  const ElComp = (href ? Link : "div") as typeof Link;
 
   return (
     <ElComp
-      href={isLink ? `/online-auction/${id}` : ""}
+      href={href ?? ""}
       className={`min-h-36 grid xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-3 bg-white rounded-10 p-3 ${
-        isLink ? "cursor-pointer" : "cursor-default"
+        href ? "cursor-pointer" : "cursor-default"
       }`}
     >
       {/* Car Image & Name */}

@@ -16,6 +16,7 @@ import { BaseEntity } from "@/app/services/base";
 import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 import ImageOrError from "@/app/components/shared/ImageOrError";
 import { prettifyNumber } from "@/app/utils/convert";
+import { StatisticParams } from "@/app/services/statistics";
 
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
@@ -77,6 +78,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
           limit: 1,
           expanded: true,
           "filters[id]": params.id,
+          needStatisticPositions: true
         },
       });
 
