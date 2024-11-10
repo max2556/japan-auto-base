@@ -9,7 +9,8 @@ import Link from "next/link";
 import { convertCCtoLitres } from "@/app/utils/convert";
 import { omit } from "lodash";
 
-const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+const prettifyNumber = (price: string | number) =>
+  typeof price === "number" ? price.toLocaleString() : price;
 
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<Filters>({});
@@ -23,11 +24,26 @@ export default function OnlieAuction() {
       page: 1,
       limit: 8,
       expanded: true,
-      startMileageInKm: filters.startMileageInKm ? parseInt(filters.startMileageInKm) : undefined,
-      endMileageInKm: filters.endMileageInKm ? parseInt(filters.endMileageInKm) : undefined,
-      startRegistrationYear: filters.startRegistrationYear ? parseInt(filters.startRegistrationYear) : undefined,
-      endRegistrationYear: filters.endRegistrationYear ? parseInt(filters.endRegistrationYear) : undefined,
-      ...parseFilters(omit(filters, ["startMileageInKm", "endMileageInKm", "startRegistrationYear", "endRegistrationYear"])),
+      startMileageInKm: filters.startMileageInKm
+        ? parseInt(filters.startMileageInKm)
+        : undefined,
+      endMileageInKm: filters.endMileageInKm
+        ? parseInt(filters.endMileageInKm)
+        : undefined,
+      startRegistrationYear: filters.startRegistrationYear
+        ? parseInt(filters.startRegistrationYear)
+        : undefined,
+      endRegistrationYear: filters.endRegistrationYear
+        ? parseInt(filters.endRegistrationYear)
+        : undefined,
+      ...parseFilters(
+        omit(filters, [
+          "startMileageInKm",
+          "endMileageInKm",
+          "startRegistrationYear",
+          "endRegistrationYear",
+        ])
+      ),
     });
 
     setAuctionPositions(positions);
@@ -64,7 +80,7 @@ export default function OnlieAuction() {
           <div className="grid sm:grid-cols-2 gap-2">
             {auctionPositions.map((card) => (
               <CarInfo
-                isLink={true}
+                href={`/online-auction/${card.id}`}
                 key={card.id}
                 id={card.id}
                 auctionTitle={card.auction?.title ?? "Неизвестно"}
@@ -73,7 +89,11 @@ export default function OnlieAuction() {
                 grade={card.auctionValuation}
                 lotIndex={card.lotNumber}
                 mileage={card.mileageInKm}
-                price={`${prettifyNumber(card.startPrice)} / ${Number(card.finalPrice) === 0 ? '-' : (prettifyNumber(card.finalPrice) ?? '-')}`}
+                price={`${prettifyNumber(card.startPrice)} / ${
+                  Number(card.finalPrice) === 0
+                    ? "-"
+                    : prettifyNumber(card.finalPrice) ?? "-"
+                }`}
                 releaseDate={card.registrationYear}
                 soldDate={card.auctionDate}
                 title={card.mark + " " + card.model}
