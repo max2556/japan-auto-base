@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterBrand from "./FilterBrand";
 import FilterModel from "./FilterModel";
 import FilterColor from "./FilterColor";
