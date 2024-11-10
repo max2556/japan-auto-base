@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { Modal } from "./Modal";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 interface Props {
   src: string;
   width: number;
@@ -35,16 +35,19 @@ export default function ImageOrError(props: Props) {
         className={props.className}
       />
       {props.canExpand && (
-        <Modal open={isModalOpen} setOpen={setIsModalOpen}>
-          <Image
-            src={props.src}
-            alt={props.alt}
-            width={props.width}
-            height={props.height}
-            onError={() => setIsError(true)}
-            onClick={() => setIsModalOpen(false)}
-          />
-        </Modal>
+        <Dialog open={isModalOpen}>
+          <DialogContent onClick={() => setIsModalOpen(false)} className="p-0">
+            <Image
+              className="rounded-10"
+              src={props.src}
+              alt={props.alt}
+              width={props.width}
+              height={props.height}
+              onError={() => setIsError(true)}
+              onClick={() => setIsModalOpen(false)}
+            />
+          </DialogContent>
+        </Dialog>
       )}
     </>
   );
