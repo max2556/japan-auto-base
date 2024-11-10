@@ -58,9 +58,9 @@ export default function Page() {
       ),
     });
 
-  useEffect(()=>{
-    getPositions()
-  }, [])
+  useEffect(() => {
+    getPositions();
+  }, []);
 
   function NotFound() {
     return (
@@ -125,9 +125,9 @@ export default function Page() {
             <div className="max-w-96 lg:pr-6 space-y-1">
               <h2>Online Аукцион</h2>
               <p className="text-sm leading-4">
-                Здесь вы можете найти нужный вам автомобили которые сейчас
-                находятся на аукционе, после вы можете связаться с нами для
-                покупки.
+                Здесь вы можете найти нужный вам автомобили, которые сейчас
+                находятся на аукционах в Японии, на ближайшие 3 дня, после вы
+                можете связаться с нами для покупки авто.
               </p>
             </div>
             {/* Filters Container */}

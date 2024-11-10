@@ -15,18 +15,18 @@ export default function Page() {
       setPhoneNumber(data.value);
     }
   };
-  
+
   useEffect(() => {
     fetchPhone();
   }, []);
-  
+
   return (
     <div className="bg-brand-gray">
       <section className="max-w-5xl mx-auto space-y-4 -mt-10 px-4 lg:px-11">
         <div className="lg:pr-6 space-y-1">
           <h2>Договор</h2>
           <p className="text-sm leading-4 mt-1">
-            Здесь вы можете узнать информацию о правовых аспектах сотрудничества
+            Здесь вы можете узнать информации о правовых аспектах сотрудничества
             между компанией и клиентами. Вы можете просмотреть договор или
             связаться с нами!
           </p>
@@ -42,18 +42,30 @@ export default function Page() {
               Менеджер запросит все необходимые данные для заключения договора
               (фото паспорта и пожелания по авто).
             </li>
-            <li>Распечатываете договор, подписываете и присылаете на фото.</li>
+            <li>Договор Вам будет выслан на WhatsApp или по эл.почте.</li>
+            <li>
+              Далее вы распечатываете договор, подписываете и присылаете нам его
+              скан или фото.
+            </li>
             <li>
               Договор будет заключен и можно переходить к подбору автомобиля.
             </li>
-            <li>Предоплата вносится путем перевода через онлайн банк.</li>
+            <li>
+              Предоплата, вносится путем перевода через онлайн банк. Сумма
+              предоплаты полностью возвратная по первому требованию, в случае
+              если мы долго не можем купить Вам авто или у Вас изменились планы.
+            </li>
           </ul>
         </div>
         {/* Docs & Tel */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-2">
           {/* Doc */}
           <div className="w-full lg:w-fit bg-white rounded-10 p-4">
-            <Button blue className="w-full" link={process.env.NEXT_PUBLIC_CONTRACT_URL ?? "#"}>
+            <Button
+              blue
+              className="w-full"
+              link={process.env.NEXT_PUBLIC_CONTRACT_URL ?? "#"}
+            >
               Открыть договор
             </Button>
           </div>

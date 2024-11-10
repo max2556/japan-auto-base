@@ -39,7 +39,7 @@ export default function Delivery() {
               авто из Японии
             </h2>
             <ul className="flex flex-col justify-center text-sm">
-              <li className="">Работаем с 2008 года</li>
+              <li className="">Работаем с 2016 года</li>
               <li className="">Продали более 1000 авто</li>
               <li className="">Самые выгодные сделки</li>
             </ul>

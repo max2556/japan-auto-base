@@ -1,8 +1,9 @@
-'use client'
+"use client";
 import { useState } from "react";
 import Calculator from "../components/pages/calculator/Calculator";
 
-const prettifyNumber = (price: string | number) => typeof price === 'number' ? price.toLocaleString() : price 
+const prettifyNumber = (price: string | number) =>
+  typeof price === "number" ? price.toLocaleString() : price;
 
 export default function Page() {
   const [resultPrice, setResultPrice] = useState(0);
@@ -22,15 +23,15 @@ export default function Page() {
         <div className="lg:pr-6 space-y-1">
           <h2>Калькулятор</h2>
           <p className="text-sm leading-4">
-            Здесь вы можете рассчитать стоимости распила или конструкторов с
-            аукциона. Для расчета необходимо:
+            Здесь вы можете рассчитать стоимость автомобиля с аукциона. Чтобы
+            посчитать стоимость:
           </p>
         </div>
         <ul className="list-decimal text-sm leading-5 mt-5 pl-5">
-          <li>Укажите стоимость автомобиля в йенах</li>
-          <li>Выберите тип ввоза: распил или конструктор</li>
+          <li>Выберите автомобиль.</li>
+          <li>Укажите стоимость автомобиля в японских йенах.</li>
+          <li>Выберите тип ввоза: целая, распил или конструктор.</li>
           <li>Выберите тип автомобиля: легковой, автобус или джип.</li>
-          <li>Укажите нужна ли Вам сборка</li>
         </ul>
         <Calculator
           onClick={(prices) => {
@@ -77,7 +78,8 @@ export default function Page() {
                   />
                 </svg>
                 <h2 className="text-brand-red leading-5">
-                  Итоговая стоимость: {prettifyNumber(Math.round(resultPrice))} ₽
+                  Итоговая стоимость: {prettifyNumber(Math.round(resultPrice))}{" "}
+                  ₽
                 </h2>
               </div>
               <p className="text-sm leading-4">
@@ -104,13 +106,7 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
-                Расходы в России: {prettifyNumber(russiaExpenses)} ₽
-              </h2>
-              <p className="text-sm leading-4">Пошлина на физическое лицо.</p>
-            </li>
-            <li className="space-y-1">
-              <h2 className="text-base lg:text-xl leading-4">
-                Разбор авто и Фрахт: {prettifyNumber(disassemblyPrice)} ₽
+                Фрахт: {prettifyNumber(disassemblyPrice)} ₽
               </h2>
               <p className="text-sm leading-4">
                 Плата за перевозку груза морским путем.
@@ -118,13 +114,21 @@ export default function Page() {
             </li>
             <li className="space-y-1">
               <h2 className="text-base lg:text-xl leading-4">
+                Расходы в России: {prettifyNumber(russiaExpenses)} ₽
+              </h2>
+              <p className="text-sm leading-4">
+                Оплата Пошлины и утиль.сбора на физическое лицо.
+              </p>
+            </li>
+            <li className="space-y-1">
+              <h2 className="text-base lg:text-xl leading-4">
                 Услуги растаможивания: {prettifyNumber(customsExpenses)} ₽
               </h2>
               <p className="text-sm leading-4">
-                Складывается из цен на растаможивание авто, выгрузку авто,
-                хранение на складе временного хранения, услуги брокера,
+                Складывается из цен на услуги по растаможиванию авто, выгрузку
+                авто, хранение на складе временного хранения, услуги брокера,
                 получение свидетельства о безопасности конструкции транспортного
-                средства, фото опись и приемки авто, транспортировку на стоянку
+                средства, фото-опись и приемка авто, транспортировку на стоянку
                 компании.
               </p>
             </li>
@@ -134,22 +138,6 @@ export default function Page() {
               </h2>
               <p className="text-sm leading-4">
                 Комиссия нашей компании за выполненную работу.
-              </p>
-            </li>
-            <li className="space-y-1">
-              <h2 className="text-base lg:text-xl leading-4">
-                Эвакуатор с таможни: {prettifyNumber(evacuationPrice)} ₽
-              </h2>
-              <p className="text-sm leading-4">
-                Забирает автомобиль с таможни.
-              </p>
-            </li>
-            <li className="space-y-1">
-              <h2 className="text-base lg:text-xl leading-4">
-                Сборка: {prettifyNumber(assemblyPrice)} ₽
-              </h2>
-              <p className="text-sm leading-4">
-                Расходы необходимые для сборки автомобиля.
               </p>
             </li>
             <li className="space-y-1">
