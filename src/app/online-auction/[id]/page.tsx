@@ -116,6 +116,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
                       width={648}
                       height={292}
                       className="max-w-4/5 max-h-40 md:max-h-60 w-auto mx-auto mt-4 md:mt-12 lg:mt-7 rounded-10"
+                      canExpand={true}
                     />
                   </SwiperSlide>
                 ))}
