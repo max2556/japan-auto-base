@@ -114,11 +114,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 modules={[Navigation]}
                 className="mySwiper w-full h-full"
               >
-                {car.photos.map((photo) => (
+                {car.photos.map((photo, idx) => (
                   <SwiperSlide key={photo}>
                     <Dialog>
                       <div className="w-full h-full flex justify-center items-center">
-                        <DialogTrigger >
+                        <DialogTrigger>
                           <ImageOrError
                             src={photo.replace("google.com", "p3.aleado.com")}
                             alt={car.mark + " " + car.model}
@@ -129,14 +129,31 @@ export default function Page({ params }: { params: { id: string | number } }) {
                         </DialogTrigger>
                       </div>
                       <DialogTitle className="hidden"></DialogTitle>
-                      <DialogContent className="max-w-none flex justify-center items-center w-auto p-2 sm:p-6 rounded-10">
-                        <ImageOrError
-                          src={photo.replace("google.com", "p3.aleado.com")}
-                          alt={car.mark + " " + car.model}
-                          width={648}
-                          height={292}
-                          className="min-w-[300px] xs:min-w-[450px] md:max-h-[600px] w-full rounded-10"
-                        />
+                      <DialogContent className="min-w-[300px] xs:min-w-[450px] flex justify-center items-center w-full p-2 rounded-10 [&_button]:hidden">
+                        <Swiper
+                          modules={[Navigation]}
+                          className="mySwiper w-full h-full"
+                          wrapperClass="items-center"
+                          initialSlide={idx}
+                        >
+                          {car.photos.map((dialogPhoto) => (
+                            <SwiperSlide
+                              key={dialogPhoto + "_dialog"}
+                              className="!flex justify-center p-2"
+                            >
+                              <ImageOrError
+                                src={dialogPhoto.replace(
+                                  "google.com",
+                                  "p3.aleado.com"
+                                )}
+                                alt={car.mark + " " + car.model}
+                                width={648}
+                                height={292}
+                                className="rounded-10 max-h-[480px] w-auto"
+                              />
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
                       </DialogContent>
                     </Dialog>
                   </SwiperSlide>
