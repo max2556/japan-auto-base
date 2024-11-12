@@ -16,6 +16,7 @@ import { BaseEntity } from "@/app/services/base";
 import { SubmitDialog } from "@/app/components/shared/SubmitDialog";
 import ImageOrError from "@/app/components/shared/ImageOrError";
 import { prettifyNumber } from "@/app/utils/convert";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export default function Page({ params }: { params: { id: string | number } }) {
   const [rate, setRate] = useState(1);
@@ -107,14 +108,29 @@ export default function Page({ params }: { params: { id: string | number } }) {
               >
                 {car.photos.map((photo) => (
                   <SwiperSlide key={photo}>
-                    <ImageOrError
-                      src={photo.replace("google.com", "p3.aleado.com")}
-                      alt={car.mark + " " + car.model}
-                      width={648}
-                      height={292}
-                      className="max-w-4/5 max-h-40 md:max-h-60 w-auto mx-auto mt-4 md:mt-12 lg:mt-7 rounded-10"
-                      canExpand={true}
-                    />
+                    <Dialog>
+                      <div className="w-full h-full flex justify-center items-center">
+                        <DialogTrigger>
+                          <ImageOrError
+                            src={photo.replace("google.com", "p3.aleado.com")}
+                            alt={car.mark + " " + car.model}
+                            width={648}
+                            height={292}
+                            className="max-h-40 md:max-h-60 w-auto mx-auto rounded-10"
+                          />
+                        </DialogTrigger>
+                      </div>
+                      <DialogTitle className="hidden"></DialogTitle>
+                      <DialogContent className="max-w-none flex justify-center items-center w-auto p-2 sm:p-6 rounded-10">
+                        <ImageOrError
+                          src={photo.replace("google.com", "p3.aleado.com")}
+                          alt={car.mark + " " + car.model}
+                          width={648}
+                          height={292}
+                          className="min-w-[300px] xs:min-w-[450px] md:max-h-[600px] w-full rounded-10"
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </SwiperSlide>
                 ))}
               </Swiper>
