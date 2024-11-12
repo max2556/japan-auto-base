@@ -33,7 +33,7 @@ export default function ImageOrError(props: Props) {
             width={props.width}
             height={props.height}
             onError={() => setIsError(true)}
-            className={props.className}
+            className={props.className + " "}
           />
         </ImageWrapper>
       </div>

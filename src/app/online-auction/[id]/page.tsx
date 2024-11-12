@@ -119,9 +119,9 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 ))}
               </Swiper>
               {/* Custom Navigating Buttons */}
-              <div className="w-full absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-between pr-7">
+              <div className="w-full absolute top-1/2 -translate-y-1/2 flex items-center justify-between pr-7">
                 {/* Left */}
-                <button className="prev-btn w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
+                <button className="prev-btn relative z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
                   <svg
                     width="8"
                     height="14"
@@ -136,7 +136,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
                   </svg>
                 </button>
                 {/* Right */}
-                <button className="next-btn w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
+                <button className="next-btn relative z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
                   <svg
                     width="8"
                     height="14"
