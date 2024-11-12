@@ -119,38 +119,36 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 ))}
               </Swiper>
               {/* Custom Navigating Buttons */}
-              <div className="w-full absolute top-1/2 -translate-y-1/2 flex items-center justify-between pr-7">
-                {/* Left */}
-                <button className="prev-btn relative z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
-                  <svg
-                    width="8"
-                    height="14"
-                    viewBox="0 0 8 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.74378 1.1381C6.1396 0.710364 6.81586 0.710364 7.21169 1.1381L7.37216 1.31151C7.7266 1.69453 7.72693 2.28571 7.3729 2.66911L3.68175 6.66657C3.32801 7.04967 3.32801 7.64027 3.68175 8.02337L7.3729 12.0208C7.72692 12.4042 7.7266 12.9954 7.37216 13.3784L7.21169 13.5518C6.81586 13.9796 6.1396 13.9796 5.74378 13.5518L0.628521 8.02417C0.273797 7.64084 0.273797 7.0491 0.628522 6.66577L5.74378 1.1381Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-                {/* Right */}
-                <button className="next-btn relative z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
-                  <svg
-                    width="8"
-                    height="14"
-                    viewBox="0 0 8 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2.25622 1.1381C1.8604 0.710364 1.18414 0.710364 0.788311 1.1381L0.627837 1.31151C0.273397 1.69453 0.273075 2.28571 0.627099 2.66911L4.31825 6.66657C4.67199 7.04967 4.67199 7.64027 4.31825 8.02337L0.627099 12.0208C0.273075 12.4042 0.273396 12.9954 0.627837 13.3784L0.788311 13.5518C1.18414 13.9796 1.8604 13.9796 2.25622 13.5518L7.37148 8.02417C7.7262 7.64084 7.7262 7.0491 7.37148 6.66577L2.25622 1.1381Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              </div>
+              {/* Left */}
+              <button className="prev-btn absolute top-1/2 -translate-y-1/2 z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
+                <svg
+                  width="8"
+                  height="14"
+                  viewBox="0 0 8 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.74378 1.1381C6.1396 0.710364 6.81586 0.710364 7.21169 1.1381L7.37216 1.31151C7.7266 1.69453 7.72693 2.28571 7.3729 2.66911L3.68175 6.66657C3.32801 7.04967 3.32801 7.64027 3.68175 8.02337L7.3729 12.0208C7.72692 12.4042 7.7266 12.9954 7.37216 13.3784L7.21169 13.5518C6.81586 13.9796 6.1396 13.9796 5.74378 13.5518L0.628521 8.02417C0.273797 7.64084 0.273797 7.0491 0.628522 6.66577L5.74378 1.1381Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+              {/* Right */}
+              <button className="next-btn absolute top-1/2 -translate-y-1/2 -translate-x-1/2 right-0 z-10 w-8 h-8 shrink-0 grid place-content-center bg-brand-dark rounded-5">
+                <svg
+                  width="8"
+                  height="14"
+                  viewBox="0 0 8 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.25622 1.1381C1.8604 0.710364 1.18414 0.710364 0.788311 1.1381L0.627837 1.31151C0.273397 1.69453 0.273075 2.28571 0.627099 2.66911L4.31825 6.66657C4.67199 7.04967 4.67199 7.64027 4.31825 8.02337L0.627099 12.0208C0.273075 12.4042 0.273396 12.9954 0.627837 13.3784L0.788311 13.5518C1.18414 13.9796 1.8604 13.9796 2.25622 13.5518L7.37148 8.02417C7.7262 7.64084 7.7262 7.0491 7.37148 6.66577L2.25622 1.1381Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
             </div>
             {/* Data Auction */}
             <div className="grid sm:grid-cols-2 gap-2">
