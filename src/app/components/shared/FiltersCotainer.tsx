@@ -106,19 +106,6 @@ export default function FiltersCotainer({
         options={autoBodys?.map((body) => ({ label: body.title })) ?? []}
       />
       <FilterColor onChange={(e) => setFilter("color", e)} />
-      {/* 
-      //TODO: fix 
-      Using same components == using same inputs with same id
-      Id collision -> error
-      */}
-
-      {/* 
-      <div className="sm:hidden">
-        <FilterGrade onChange={(e) => setFilter("grade", e)} />
-      </div>
-      <div className="sm:hidden">
-        <FilterEngineCapacity onChange={(e) => setFilter("engineCapacity", e)} />
-      </div> */}
       <FilterMilageYearManifacture onChange={setFilter} />
       <div className="sm:block h-140 sm:h-220 space-y-2">
         <FilterEngineCapacity
