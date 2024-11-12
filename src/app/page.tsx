@@ -13,9 +13,6 @@ export default function Home() {
       <Hero />
       <OnlieAuction />
       <Statistics />
-      {/*
-        <Catalog /> 
-      */}
       <VKWidget />
       <Delivery />
     </div>

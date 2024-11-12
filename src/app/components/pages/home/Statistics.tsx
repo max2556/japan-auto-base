@@ -39,8 +39,8 @@ export default function Statistics() {
           {/* Cars */}
           <div className="grid sm:grid-cols-2 gap-2">
             {autos?.map((card) => (
-              //TODO: where to get photo?
               <CarInfo
+                href={`/statistics/${card.id}`}
                 key={card.id}
                 id={card.id}
                 grade={card.auctionValuation}
