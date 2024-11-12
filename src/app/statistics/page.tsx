@@ -63,6 +63,9 @@ export default function Page() {
   useEffect(() => {
     getPositions();
   }, []);
+  useEffect(() => {
+    getPositions();
+  }, [page]);
 
   function NotFound() {
     return (
@@ -106,7 +109,7 @@ export default function Page() {
             <NotFound />
           )}
         </div>
-        {Math.ceil(count / limit) != 0 && (
+        {Math.ceil(count / limit) > 1 && (
           <Pagination
             page={page}
             pages={Math.ceil(count / limit)}
@@ -135,6 +138,7 @@ export default function Page() {
               filters={filters}
               onChange={debounce((e) => setFilters(e), 400)}
               onApply={() => {
+                setPage(0);
                 getPositions();
               }}
             />
