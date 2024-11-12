@@ -7,164 +7,40 @@ const options: {
   value: CityType;
 }[] = [
   {
-    label: "Владивосток",
-    value: "vladivostok",
-  },
-  {
-    label: "Ачинск",
-    value: "acinsk",
-  },
-  {
-    label: "Барнаул",
-    value: "barnaul",
-  },
-  {
-    label: "Благовещенск",
-    value: "blagoveshchensk",
-  },
-  {
-    label: "Воронеж",
-    value: "voronezh",
-  },
-  {
-    label: "Екатеринбург",
-    value: "ekaterinburg",
-  },
-  {
-    label: "Ижевск",
-    value: "izhevsk",
-  },
-  {
-    label: "Иркутск",
-    value: "irkutsk",
-  },
-  {
-    label: "Казань",
-    value: "kazan",
-  },
-  {
-    label: "Канск",
-    value: "kansk",
-  },
-  {
-    label: "Кемерово",
-    value: "kemerovo",
-  },
-  {
-    label: "Киров",
-    value: "kirov",
-  },
-  {
-    label: "Краснодар",
-    value: "krasnodar",
-  },
-  {
-    label: "Красноярск",
-    value: "krasnoyarsk",
-  },
-  {
-    label: "Курган",
-    value: "kurgan",
+    label: "Санкт-Петербург",
+    value: "Saint-Petersburg",
   },
   {
     label: "Москва",
-    value: "moscow",
+    value: "Moscow",
   },
   {
-    label: "Набережные Челны",
-    value: "naberezniechelni",
+    label: "Краснодар",
+    value: "Krasnodar",
   },
   {
-    label: "Нижний Новгород",
-    value: "nizhny",
+    label: "Екатеринбург",
+    value: "Ekaterinburg",
   },
   {
     label: "Новосибирск",
-    value: "novosibirsk",
+    value: "Novosibirsk",
   },
   {
-    label: "Омск",
-    value: "omsk",
+    label: "Красноярск",
+    value: "Krasnoyarsk",
   },
   {
-    label: "Пенза",
-    value: "penza",
-  },
-  {
-    label: "Пермь",
-    value: "perm",
-  },
-  {
-    label: "Ростов-на-Дону",
-    value: "rostov",
-  },
-  {
-    label: "Рязань",
-    value: "ryazan",
-  },
-  {
-    label: "Самара",
-    value: "samara",
-  },
-  {
-    label: "Санкт-Петербург",
-    value: "saintpetersburg",
-  },
-  {
-    label: "Саратов",
-    value: "saratov",
-  },
-  {
-    label: "Свободный",
-    value: "svobodniy",
-  },
-  {
-    label: "Сковоровино",
-    value: "skovorodino",
-  },
-  {
-    label: "Тайшет",
-    value: "tayshet",
-  },
-  {
-    label: "Томск",
-    value: "tomsk",
-  },
-  {
-    label: "Тулун",
-    value: "tulun",
-  },
-  {
-    label: "Тюмень",
-    value: "tyumen",
-  },
-  {
-    label: "Улан-Уде",
-    value: "ulanud",
-  },
-  {
-    label: "Уфа",
-    value: "ufa",
-  },
-  {
-    label: "Хабаровск",
-    value: "habarovsk",
-  },
-  {
-    label: "Чебоксары",
-    value: "cheboksari",
-  },
-  {
-    label: "Челябинск",
-    value: "chelyabinsk",
+    label: "Иркутск",
+    value: "Irkutsk",
   },
   {
     label: "Чита",
-    value: "chita",
+    value: "Chita",
   },
   {
-    label: "Юрга",
-    value: "yurga",
+    label: "Якутск",
+    value: "Yakutsk",
   },
 ] as const;
 
@@ -180,7 +56,7 @@ export default function City({ onClick }: Props) {
         name="city"
         options={options}
         onChange={onClick}
-        defaultChecked="saintpetersburg"
+        defaultChecked="Saint-Petersburg"
       ></Radio>
     </div>
   );

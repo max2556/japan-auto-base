@@ -13,210 +13,50 @@ import EngineVolumeField from "./EngineVolumeField";
 import { Radio } from "../../shared/Radio";
 
 export const cityTaxesMap = {
-  vladivostok: {
-    light: 0,
-    jeep: 0,
-    bus: 0,
+  "Saint-Petersburg": {
+    light: 165_000,
+    jeep: 165_000,
+    bus: 165_000,
   },
-  acinsk: {
-    light: 68000,
-    jeep: 90000,
-    bus: 90000,
+  Moscow: {
+    light: 155_000,
+    jeep: 155_000,
+    bus: 155_000,
   },
-  barnaul: {
-    light: 95000,
-    jeep: 105000,
-    bus: 105000,
+  Krasnodar: {
+    light: 145_000,
+    jeep: 145_000,
+    bus: 145_000,
   },
-  blagoveshchensk: {
-    light: 28000,
-    jeep: 33000,
-    bus: 33000,
+  Ekaterinburg: {
+    light: 125_000,
+    jeep: 125_000,
+    bus: 125_000,
   },
-  volgograd: {
-    light: 98000,
-    jeep: 108000,
-    bus: 108000,
+  Novosibirsk: {
+    light: 95_000,
+    jeep: 95_000,
+    bus: 95_000,
   },
-  voronezh: {
-    light: 98000,
-    jeep: 108000,
-    bus: 108000,
+  Krasnoyarsk: {
+    light: 80_000,
+    jeep: 80_000,
+    bus: 80_000,
   },
-  ekaterinburg: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
+  Irkutsk: {
+    light: 70_000,
+    jeep: 70_000,
+    bus: 70_000,
   },
-  izhevsk: {
-    light: 90000,
-    jeep: 100000,
-    bus: 100000,
+  Chita: {
+    light: 60_000,
+    jeep: 60_000,
+    bus: 60_000,
   },
-  irkutsk: {
-    light: 50000,
-    jeep: 50000,
-    bus: 58000,
-  },
-  kazan: {
-    light: 90000,
-    jeep: 90000,
-    bus: 98000,
-  },
-  kansk: {
-    light: 60000,
-    jeep: 60000,
-    bus: 70000,
-  },
-  kemerovo: {
-    light: 68000,
-    jeep: 68000,
-    bus: 90000,
-  },
-  kirov: {
-    light: 60000,
-    jeep: 60000,
-    bus: 70000,
-  },
-  krasnodar: {
-    light: 98000,
-    jeep: 98000,
-    bus: 108000,
-  },
-  krasnoyarsk: {
-    light: 60000,
-    jeep: 70000,
-    bus: 70000,
-  },
-  kurgan: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
-  },
-  moscow: {
-    light: 90000,
-    jeep: 100000,
-    bus: 100000,
-  },
-  naberezniechelni: {
-    light: 90000,
-    jeep: 98000,
-    bus: 98000,
-  },
-  nizhny: {
-    light: 90000,
-    jeep: 100000,
-    bus: 100000,
-  },
-  novosibirsk: {
-    light: 68000,
-    jeep: 90000,
-    bus: 90000,
-  },
-  omsk: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
-  },
-  penza: {
-    light: 90000,
-    jeep: 100000,
-    bus: 100000,
-  },
-  perm: {
-    light: 85000,
-    jeep: 98000,
-    bus: 98000,
-  },
-  rostov: {
-    light: 98000,
-    jeep: 108000,
-    bus: 108000,
-  },
-  ryazan: {
-    light: 90000,
-    jeep: 100000,
-    bus: 100000,
-  },
-  samara: {
-    light: 85000,
-    jeep: 98000,
-    bus: 98000,
-  },
-  saintpetersburg: {
-    light: 98000,
-    jeep: 98000,
-    bus: 108000,
-  },
-  saratov: {
-    light: 98000,
-    jeep: 108000,
-    bus: 108000,
-  },
-  svobodniy: {
-    light: 50000,
-    jeep: 58000,
-    bus: 58000,
-  },
-  skovorodino: {
-    light: 50000,
-    jeep: 58000,
-    bus: 58000,
-  },
-  tayshet: {
-    light: 60000,
-    jeep: 70000,
-    bus: 70000,
-  },
-  tomsk: {
-    light: 68000,
-    jeep: 90000,
-    bus: 90000,
-  },
-  tulun: {
-    light: 50000,
-    jeep: 58000,
-    bus: 58000,
-  },
-  tyumen: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
-  },
-  ulanud: {
-    light: 50000,
-    jeep: 58000,
-    bus: 58000,
-  },
-  ufa: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
-  },
-  habarovsk: {
-    light: 18000,
-    jeep: 23000,
-    bus: 23000,
-  },
-  cheboksari: {
-    light: 90000,
-    jeep: 98000,
-    bus: 98000,
-  },
-  chelyabinsk: {
-    light: 80000,
-    jeep: 95000,
-    bus: 95000,
-  },
-  chita: {
-    light: 50000,
-    jeep: 58000,
-    bus: 58000,
-  },
-  yurga: {
-    light: 68000,
-    jeep: 90000,
-    bus: 90000,
+  Yakutsk: {
+    light: 65_000,
+    jeep: 65_000,
+    bus: 65_000,
   },
 } as const;
 
@@ -400,7 +240,6 @@ enum Years {
   LessThanThree,
   ThreeToFive,
   MoreThanFive,
-  // MoreThanSeven,
 }
 const yearsOptions = [
   {
@@ -415,10 +254,6 @@ const yearsOptions = [
     label: "Больше 5 лет",
     value: Years.MoreThanFive,
   },
-  // {
-  //   label: "более 7 лет",
-  //   value: Years.MoreThanSeven,
-  // },
 ] as const;
 
 export default function Calculator({ onClick }: CalculatorProps) {
@@ -428,7 +263,7 @@ export default function Calculator({ onClick }: CalculatorProps) {
   const [importType, setImportType] = useState<ImportType>("raspil");
   const [vehicleType, setVehicleType] = useState<BodyType>("light");
   const [needAssembly, setNeedAssembly] = useState<boolean>(true);
-  const [city, setCity] = useState<CityType>("saintpetersburg");
+  const [city, setCity] = useState<CityType>("Saint-Petersburg");
   const [yenToRubCurs, setYenToRubCurs] = useState(0.61);
   const [euroToRubCurs, setEuroToRubCurs] = useState(99.56);
 
@@ -470,11 +305,11 @@ export default function Calculator({ onClick }: CalculatorProps) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 xs:grid-cols-3 lg:grid-cols-6 gap-2">
+    <div className="grid grid-cols-1 xs:grid-cols-3 md:grid-cols-6 gap-2">
       <TypeOfImport onClick={(val) => setImportType(val ?? "constructor")} />
       <VehicleType onClick={(val) => setVehicleType(val ?? "light")} />
       <Assembly onClick={(val) => setNeedAssembly(val ?? true)} />
-      <City onClick={(val) => setCity(val ?? "saintpetersburg")} />
+      <City onClick={(val) => setCity(val ?? "Saint-Petersburg")} />
       <div className="gap-2 bg-white rounded-10 p-4">
         <h3>Возраст</h3>
         <Radio
@@ -484,7 +319,7 @@ export default function Calculator({ onClick }: CalculatorProps) {
           defaultChecked={Years.ThreeToFive}
         ></Radio>
       </div>
-      <div className="col-span-1 xs:col-span-2 md:col-span-2 space-y-2">
+      <div className="col-span-1 xs:col-span-2 md:col-span-3 space-y-2">
         <CostOfVehicleInAuction onChange={(val) => setPrice(val)} />
         <EngineVolumeField onChange={(val) => setEngineVolume(val || 1600)} />
 
