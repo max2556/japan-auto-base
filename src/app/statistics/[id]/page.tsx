@@ -77,7 +77,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
           limit: 1,
           expanded: true,
           "filters[id]": params.id,
-          needStatisticPositions: true
+          needStatisticPositions: true,
         },
       });
 
@@ -288,11 +288,10 @@ export default function Page({ params }: { params: { id: string | number } }) {
                       />
                     </svg>
                     <h2 className="text-brand-red">
-                      Стоимость от: {prettifyNumber(car.startPrice)} ₽
+                      Авто продано за:{" "}
+                      <span className="text-brand-dark">{prettifyNumber(car.finalPrice)}</span> ₽
                     </h2>
                   </div>
-                  {/* TODO: нужно ли отображать статус автомобиля? "доступен" / "продано" */}
-                  <p className="text-sm leading-4">Авто доступно!</p>
                 </div>
                 {/* Currency */}
                 <div className="h-full space-y-1 bg-white rounded-10 p-3">
