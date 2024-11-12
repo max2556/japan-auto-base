@@ -1,11 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 interface Props {
   src: string;
   width: number;
@@ -25,11 +21,12 @@ export default function ImageOrError(props: Props) {
       </div>
     );
   }
+  const ImageWrapper = props.canExpand ? DialogTrigger : "div";
 
   return (
     <Dialog>
       <div className="w-full flex justify-center items-center">
-        <DialogTrigger>
+        <ImageWrapper>
           <Image
             src={props.src}
             alt={props.alt}
@@ -38,7 +35,7 @@ export default function ImageOrError(props: Props) {
             onError={() => setIsError(true)}
             className={props.className}
           />
-        </DialogTrigger>
+        </ImageWrapper>
       </div>
       <DialogContent className="p-0">
         <Image
