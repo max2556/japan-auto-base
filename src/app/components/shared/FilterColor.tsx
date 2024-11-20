@@ -45,15 +45,16 @@ const options = [
 ];
 
 export interface FilterBrandProps {
-  value?: string;
+  value: string;
   onChange: (value?: string) => void;
 }
 
-export default function FilterColor({ onChange }: FilterBrandProps) {
+export default function FilterColor({ value, onChange }: FilterBrandProps) {
   return (
     <div className="no-scroll h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-4 pr-2">
       <h4>Цвет кузова</h4>
       <Radio
+        value={value}
         options={options}
         onChange={onChange}
         name="color"

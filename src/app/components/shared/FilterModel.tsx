@@ -2,14 +2,15 @@ import React from "react";
 import { Radio } from "./Radio";
 
 export interface FilterBrandProps {
-  value?: string;
+  value: string;
   onChange: (value?: string) => void;
   // mark: keyof typeof options | undefined;
-  options: Array<{ label: string }>;
+  options: Array<{ label: string; value: string }>;
   isLoading: boolean;
 }
 
 export default function FilterModel({
+  value,
   onChange,
   options,
   isLoading,
@@ -19,6 +20,7 @@ export default function FilterModel({
       <h4>Модель</h4>
       {isLoading ? (
         <Radio
+          value={value}
           options={options}
           onChange={onChange}
           name="model"

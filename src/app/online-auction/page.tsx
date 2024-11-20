@@ -10,7 +10,7 @@ import {
   getAuctionPositions,
 } from "../services/auctions";
 import { parseFilters } from "../utils/filters";
-import { debounce, omit } from "lodash";
+import { omit } from "lodash";
 import { convertCCtoLitres, prettifyNumber } from "../utils/convert";
 
 export default function Page() {

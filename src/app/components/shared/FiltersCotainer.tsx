@@ -12,6 +12,7 @@ import {
   AuctionFiltersOptions,
   getAuctionFiltersOptions,
 } from "@/app/services/auto";
+import { anyOptionValue } from "./Radio";
 
 export interface Filters {
   mark?: string;
@@ -87,8 +88,10 @@ export default function FiltersCotainer({
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
       <FilterBrand
-        value={filters.mark}
-        options={marks?.map((mark) => ({ label: mark.title })) ?? []}
+        value={filters.mark ?? anyOptionValue}
+        options={
+          marks?.map((mark) => ({ label: mark.title, value: mark.title })) ?? []
+        }
         isLoading={!!filterOptions}
         onChange={(newMark) => {
           onChange({
@@ -100,27 +103,34 @@ export default function FiltersCotainer({
         }}
       />
       <FilterModel
+        value={filters.model ?? anyOptionValue}
         isLoading={!!filterOptions}
         onChange={(newModel) => {
           onChange({ ...filters, model: newModel, bodyModel: undefined });
         }}
-        options={memo_models.map((model) => ({ label: model.title }))}
+        options={memo_models.map((model) => ({
+          label: model.title,
+          value: model.title,
+        }))}
       />
       <FilterBodyType
+        value={filters.bodyModel ?? anyOptionValue}
         isLoading={!!filterOptions}
         onChange={(e) => setFilter("bodyModel", e)}
-        options={memo_bodyModels.map((body) => ({ label: body.title }))}
+        options={memo_bodyModels.map((body) => ({
+          label: body.title,
+          value: body.title,
+        }))}
       />
-      <FilterColor onChange={(e) => setFilter("color", e)} />
+      <FilterColor
+        value={filters.color ?? anyOptionValue}
+        onChange={(e) => setFilter("color", e)}
+      />
       <FilterMilageYearManifacture onChange={setFilter} />
       <div className="sm:block h-140 sm:h-220 space-y-2">
         <FilterEngineCapacity
-          onChange={(e) =>
-            setFilter(
-              "engineCapacity",
-              e ? convertLitresToCC(e) + "cc" : undefined
-            )
-          }
+          value={filters.engineCapacity ?? anyOptionValue}
+          onChange={(e) => setFilter("engineCapacity", e)}
         />
         <div className="w-full hidden sm:flex gap-2 bg-white rounded-10 p-4">
           <input
@@ -134,7 +144,10 @@ export default function FiltersCotainer({
         </div>
       </div>
       <div className="sm:block h-140 sm:h-220 space-y-2">
-        <FilterGrade onChange={(e) => setFilter("auctionValuation", e)} />
+        <FilterGrade
+          value={filters.auctionValuation ?? anyOptionValue}
+          onChange={(e) => setFilter("auctionValuation", e)}
+        />
         <div className="w-full grid place-content-center bg-white rounded-10 py-4">
           <Button
             blue
