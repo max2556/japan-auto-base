@@ -97,7 +97,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
 
   return (
     <>
-      {car && (
+      {car ? (
         <section>
           <div className="max-w-4xl mx-auto space-y-2 px-5">
             {/* Slider */}
@@ -419,6 +419,10 @@ export default function Page({ params }: { params: { id: string | number } }) {
 
           <SubmitDialog open={showModal} setOpen={setShowModal} />
         </section>
+      ) : (
+        <div className="h-[40rem] w-full flex items-center justify-center">
+          <p>Загрузка...</p>
+        </div>
       )}
     </>
   );
