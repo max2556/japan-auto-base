@@ -6,11 +6,8 @@ import { AuctionPosition, getAuctionPositions } from "@/app/services/auctions";
 import CarInfo from "./CarInfo";
 import { parseFilters } from "@/app/utils/filters";
 import Link from "next/link";
-import { convertCCtoLitres } from "@/app/utils/convert";
+import { convertCCtoLitres, prettifyNumber } from "@/app/utils/convert";
 import { omit } from "lodash";
-
-const prettifyNumber = (price: string | number) =>
-  typeof price === "number" ? price.toLocaleString() : price;
 
 export default function OnlieAuction() {
   const [filters, setFilters] = useState<Filters>({});

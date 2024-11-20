@@ -52,11 +52,6 @@ export default function FiltersCotainer({
     [filters, onChange]
   );
 
-  const convertLitresToCC = (capInLitres: string | number) => {
-    let val = Number(capInLitres);
-    return val * 1000;
-  };
-
   const getFilterOptions = async () => {
     const res = await getAuctionFiltersOptions();
     setFilterOptions(res);

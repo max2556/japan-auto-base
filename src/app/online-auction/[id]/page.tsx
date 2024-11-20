@@ -18,7 +18,6 @@ import ImageOrError from "@/app/components/shared/ImageOrError";
 import { prettifyNumber } from "@/app/utils/convert";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogTitle,
   DialogTrigger,

@@ -95,8 +95,6 @@ export default function Page({ params }: { params: { id: string | number } }) {
     getCar();
   }, [params.id]);
 
-  // useEffect(() => console.log(swiperIndex), [swiperIndex]);
-
   return (
     <>
       {car && (

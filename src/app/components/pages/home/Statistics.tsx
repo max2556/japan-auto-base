@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CarInfo from "../../shared/CarInfo";
 import Link from "next/link";
 import { Statistic, getStatistics } from "@/app/services/statistics";
