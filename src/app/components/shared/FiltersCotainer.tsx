@@ -81,7 +81,7 @@ export default function FiltersCotainer({
   }, [filterOptions]);
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
       <FilterBrand
         value={filters.mark ?? anyOptionValue}
         options={
@@ -163,7 +163,7 @@ export default function FiltersCotainer({
           onChange={(e) => setFilter("auctionDate", e.currentTarget.value)}
         />
       </div>
-      <div className="col-span-3 grid place-content-center sm:hidden pt-4">
+      <div className="grid col-span-2 xs:col-span-3 place-content-center sm:hidden pt-4">
         <Button blue onClick={() => onApply?.(filters)}>
           Применить
         </Button>
