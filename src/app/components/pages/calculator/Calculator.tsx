@@ -200,7 +200,7 @@ function calcSum({
   yenToRubCurs: number;
   euroToRubCurs: number;
   engineVolume: number;
-  years: number;
+  years: Years;
 }) {
   const cityTaxRub = cityTaxesMap[city][bodyType];
   const importTypeRub = importTypeMap[importType][bodyType] * euroToRubCurs;
@@ -237,10 +237,16 @@ interface CalculatorProps {
 }
 
 enum Years {
-  LessThanThree,
-  ThreeToFive,
-  MoreThanFive,
+  LessThanThree = "LessThanThree",
+  ThreeToFive = "ThreeToFive",
+  MoreThanFive = "MoreThanFive",
 }
+const stringToYearsMap = {
+  LessThanThree: Years.LessThanThree,
+  ThreeToFive: Years.ThreeToFive,
+  MoreThanFive: Years.MoreThanFive,
+};
+
 const yearsOptions = [
   {
     label: "до 3х лет",
@@ -306,16 +312,34 @@ export default function Calculator({ onClick }: CalculatorProps) {
 
   return (
     <div className="grid grid-cols-1 xs:grid-cols-3 md:grid-cols-6 gap-2">
-      <TypeOfImport onClick={(val) => setImportType(val ?? "constructor")} />
-      <VehicleType onClick={(val) => setVehicleType(val ?? "light")} />
-      <Assembly onClick={(val) => setNeedAssembly(val ?? true)} />
-      <City onClick={(val) => setCity(val ?? "Saint-Petersburg")} />
+      <TypeOfImport
+        value={importType}
+        onClick={(val) => setImportType(val ?? "constructor")}
+      />
+      <VehicleType
+        value={vehicleType}
+        onClick={(val) => setVehicleType(val ?? "light")}
+      />
+      <Assembly
+        value={needAssembly}
+        onClick={(val) => setNeedAssembly(val ?? true)}
+      />
+      <City
+        value={city}
+        onClick={(val) => setCity(val ?? "Saint-Petersburg")}
+      />
       <div className="gap-2 bg-white rounded-10 p-4">
         <h3>Возраст</h3>
         <Radio
           name="years"
+          value={years}
           options={yearsOptions}
-          onChange={(val) => setYears(val ?? Years.ThreeToFive)}
+          onChange={(val) =>
+            setYears(
+              stringToYearsMap[val as keyof typeof stringToYearsMap] ??
+                Years.ThreeToFive
+            )
+          }
           defaultChecked={Years.ThreeToFive}
         ></Radio>
       </div>

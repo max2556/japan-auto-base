@@ -45,17 +45,19 @@ const options: {
 ] as const;
 
 interface Props {
-  onClick: (val?: CityType) => void;
+  value: string,
+  onClick: (val: CityType) => void;
 }
 
-export default function City({ onClick }: Props) {
+export default function City({ value, onClick }: Props) {
   return (
     <div className="no-scroll col-span-1 sm:col-span-1 h-140 sm:h-220 space-y-3 bg-white overflow-auto rounded-10 py-4 pl-3 pr-1">
       <h4>Город</h4>
       <Radio
         name="city"
+        value={value}
         options={options}
-        onChange={onClick}
+        onChange={(v) => onClick(v as (typeof options)[number]["value"])}
         defaultChecked="Saint-Petersburg"
       ></Radio>
     </div>

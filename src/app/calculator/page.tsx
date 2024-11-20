@@ -18,7 +18,7 @@ export default function Page() {
   const [deliveryPrice, setDeliveryPrice] = useState(0);
 
   return (
-    <div className="bg-brand-gray">
+    <div className="bg-brand-gray py-4">
       <section className="max-w-4xl mx-auto space-y-4 -mt-10 px-4 lg:px-7">
         <div className="lg:pr-6 space-y-1">
           <h2>Калькулятор</h2>
