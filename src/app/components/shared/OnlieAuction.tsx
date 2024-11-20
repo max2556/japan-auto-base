@@ -66,7 +66,7 @@ export default function OnlieAuction() {
           {/* Filters Container */}
           <FiltersCotainer
             filters={filters}
-            onChange={(e) => setFilters(e)}
+            onChange={setFilters}
             onApply={(filters) => {
               setIsClicked(true);
               fetchFirstPage(filters);

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import FilterBrand from "./FilterBrand";
 import FilterModel from "./FilterModel";
 import FilterColor from "./FilterColor";
@@ -34,6 +34,8 @@ export interface FiltersCotainerProps {
   onApply?: (filters: Filters) => void;
 }
 
+export const labelAny = "any";
+
 export default function FiltersCotainer({
   filters,
   onChange,
@@ -41,16 +43,13 @@ export default function FiltersCotainer({
 }: FiltersCotainerProps) {
   const [filterOptions, setFilterOptions] = useState<AuctionFiltersOptions>();
   const [marks, setMarks] = useState<AuctionFiltersOptions["marks"]>();
-  const [models, setModels] =
-    useState<AuctionFiltersOptions["marks"][number]["models"]>();
-  const [autoBodys, setAutoBodys] =
-    useState<
-      AuctionFiltersOptions["marks"][number]["models"][number]["bodies"]
-    >();
 
-  const setFilter = (field: keyof Filters, value: string | undefined) => {
-    onChange({ ...filters, [field]: value });
-  };
+  const setFilter = useCallback(
+    (field: keyof Filters, value: string | undefined) => {
+      onChange({ ...filters, [field]: value });
+    },
+    [filters, onChange]
+  );
 
   const convertLitresToCC = (capInLitres: string | number) => {
     let val = Number(capInLitres);
@@ -62,6 +61,21 @@ export default function FiltersCotainer({
     setFilterOptions(res);
   };
 
+  const findModels = useCallback(
+    () =>
+      filterOptions?.marks.find((mark) => mark.title == filters.mark)?.models ??
+      [],
+    [filterOptions?.marks, filters.mark]
+  );
+  const memo_models = useMemo(findModels, [findModels]);
+
+  const findBodyModels = useCallback(
+    () =>
+      memo_models?.find((model) => model.title == filters.model)?.bodies ?? [],
+    [filters.model, memo_models]
+  );
+  const memo_bodyModels = useMemo(findBodyModels, [findBodyModels]);
+
   // Should be ran once
   useEffect(() => {
     getFilterOptions();
@@ -69,19 +83,6 @@ export default function FiltersCotainer({
   useEffect(() => {
     setMarks(filterOptions?.marks ?? []);
   }, [filterOptions]);
-  useEffect(() => {
-    setModels(
-      filterOptions?.marks.find((mark) => mark.title == filters.mark)?.models ??
-        []
-    );
-  }, [filters.mark, filterOptions?.marks]);
-  useEffect(() => {
-    setAutoBodys(
-      filterOptions?.marks
-        .find((mark) => mark.title == filters.mark)
-        ?.models.find((model) => model.title == filters.model)?.bodies ?? []
-    );
-  }, [filters.model, filterOptions?.marks, filters.mark]);
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2">
@@ -90,20 +91,25 @@ export default function FiltersCotainer({
         options={marks?.map((mark) => ({ label: mark.title })) ?? []}
         isLoading={!!filterOptions}
         onChange={(newMark) => {
-          setFilter("mark", newMark);
+          onChange({
+            ...filters,
+            mark: newMark,
+            model: undefined,
+            bodyModel: undefined,
+          });
         }}
       />
       <FilterModel
         isLoading={!!filterOptions}
         onChange={(newModel) => {
-          setFilter("model", newModel);
+          onChange({ ...filters, model: newModel, bodyModel: undefined });
         }}
-        options={models?.map((model) => ({ label: model.title })) ?? []}
+        options={memo_models.map((model) => ({ label: model.title }))}
       />
       <FilterBodyType
         isLoading={!!filterOptions}
         onChange={(e) => setFilter("bodyModel", e)}
-        options={autoBodys?.map((body) => ({ label: body.title })) ?? []}
+        options={memo_bodyModels.map((body) => ({ label: body.title }))}
       />
       <FilterColor onChange={(e) => setFilter("color", e)} />
       <FilterMilageYearManifacture onChange={setFilter} />

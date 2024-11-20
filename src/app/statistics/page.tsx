@@ -9,7 +9,7 @@ import {
 } from "../services/statistics";
 import FiltersCotainer, { Filters } from "../components/shared/FiltersCotainer";
 import { parseFilters } from "../utils/filters";
-import { debounce, omit } from "lodash";
+import { omit } from "lodash";
 import { convertCCtoLitres, prettifyNumber } from "../utils/convert";
 
 export default function Page() {
@@ -136,7 +136,7 @@ export default function Page() {
             {/* Filters Container */}
             <FiltersCotainer
               filters={filters}
-              onChange={debounce((e) => setFilters(e), 400)}
+              onChange={setFilters}
               onApply={() => {
                 setPage(0);
                 getPositions();

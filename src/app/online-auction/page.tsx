@@ -139,7 +139,7 @@ export default function Page() {
             {/* Filters Container */}
             <FiltersCotainer
               filters={filters}
-              onChange={debounce((e) => setFilters(e), 400)}
+              onChange={setFilters}
               onApply={() => {
                 setPage(0);
                 getPositions();
